@@ -33,8 +33,8 @@ Supabase-ის უფასო გეგმა ამ საიტს ბოლ
 
 ## 4. საიტის მისამართი
 **Authentication → URL Configuration**:
-- **Site URL**: `https://lazarepataraia910-jpg.github.io/laerninglish/`
-- **Redirect URLs** → Add: `https://lazarepataraia910-jpg.github.io/laerninglish/**`
+- **Site URL**: `https://laerninglish.vercel.app/`
+- **Redirect URLs** → Add: `https://laerninglish.vercel.app/**`
 
 ეს საჭიროა, რომ რეგისტრაციის დადასტურების და პაროლის აღდგენის ბმულები საიტზე დაბრუნდეს.
 
