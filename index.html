@@ -18,7 +18,7 @@
     --serif: "Noto Serif Georgian", Georgia, serif;
   }
   @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
+    :root:not([data-theme]) {
       --bg:#1d1813; --card:#2a231c; --ink:#f0e4cc; --muted:#b3a386; --line:#0b0806; --soft:#3a3027;
       --ghost:#5a4d3f; --ok:#9bd18b; --bad:#ff8a70; --scan:rgba(0,0,0,.22); color-scheme: dark;
     }
@@ -27,7 +27,39 @@
     --bg:#1d1813; --card:#2a231c; --ink:#f0e4cc; --muted:#b3a386; --line:#0b0806; --soft:#3a3027;
     --ghost:#5a4d3f; --ok:#9bd18b; --bad:#ff8a70; --scan:rgba(0,0,0,.22); color-scheme: dark;
   }
+  /* დამატებითი სტილები: ყველა მშვიდი, ერთი აქცენტით */
+  :root[data-theme="terminal"] {
+    --bg:#0a110a; --card:#0f1a0f; --ink:#8cf58c; --muted:#5fae5f; --line:#000; --soft:#183018;
+    --yellow:#5cc45c; --pink:#a6ff7a; --mint:#5cc45c; --blue:#3f9a3f; --purple:#3f9a3f; --red:#e0a845;
+    --ghost:#2e5a2e; --ok:#a6ff7a; --bad:#ff7a5a; --scan:rgba(0,0,0,.35); color-scheme: dark;
+  }
+  :root[data-theme="ocean"] {
+    --bg:#e3ecee; --card:#f5f9fa; --ink:#14303a; --muted:#4b6b75; --line:#14303a; --soft:#d1e0e4;
+    --yellow:#c9dde2; --pink:#5a9fb0; --mint:#9cc5a8; --blue:#b5ced4; --purple:#b5ced4; --red:#d98b7a;
+    --ghost:#a9c1c7; --ok:#2f7a3d; --bad:#b03a2e;
+  }
+  :root[data-theme="forest"] {
+    --bg:#e7eadc; --card:#f6f7ef; --ink:#22301c; --muted:#57664c; --line:#22301c; --soft:#d9dfc8;
+    --yellow:#d5ddbb; --pink:#8aa85a; --mint:#a8c08a; --blue:#c6d1ab; --purple:#c6d1ab; --red:#c47d5a;
+    --ghost:#b9c3a2; --ok:#2f6b2a; --bad:#a83a2e;
+  }
+  :root[data-theme="rose"] {
+    --bg:#f5e8e8; --card:#fdf6f6; --ink:#3a1f26; --muted:#7a5560; --line:#3a1f26; --soft:#ebd5d8;
+    --yellow:#eed3d7; --pink:#d27f91; --mint:#b9c9a6; --blue:#e0c1c7; --purple:#e0c1c7; --red:#c9775f;
+    --ghost:#d7b8bd; --ok:#2f7a3d; --bad:#b03a2e;
+  }
+  :root[data-theme="paper"] {
+    --bg:#efefea; --card:#fff; --ink:#111; --muted:#555; --line:#111; --soft:#e2e2dc;
+    --yellow:#e6e6df; --pink:#e0574f; --mint:#c9d6c0; --blue:#dcdcd4; --purple:#dcdcd4; --red:#e0574f;
+    --ghost:#c4c4bc; --ok:#1f6b2a; --bad:#c0261d;
+  }
   * { box-sizing: border-box; }
+  /* გასული მომხმარებლისთვის მენიუ და ქულები დამალულია */
+  .out #nav, .out .chips { display: none; }
+  .prof { display: inline-flex; align-items: center; gap: 10px; font-size: 18px; }
+  .av { display: inline-grid; place-items: center; width: 34px; height: 34px; border: 3px solid var(--line); border-radius: 4px;
+        background: var(--pink); color: #2b1d14; font-family: var(--serif); font-weight: 900; }
+  .chips { align-items: center; }
   body { margin: 0; min-height: 100vh; font-family: "Noto Sans Georgian", system-ui, sans-serif; color: var(--ink);
          background: var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.09'/%3E%3C/svg%3E"); }
   body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
@@ -192,7 +224,8 @@
 <div class="app">
   <header class="top">
     <div class="logo"><span class="px">★ LEARN ENGLISH ★</span><b>🦉 ისწავლე ინგლისური</b></div>
-    <div class="chips"><span class="chip" id="cStreak"></span><span class="chip" id="cXp"></span><span class="chip" id="cLvl"></span></div>
+    <div class="chips"><span class="chip" id="cStreak"></span><span class="chip" id="cXp"></span><span class="chip" id="cLvl"></span>
+      <span class="chip" id="cUser"></span><button class="btn white sm" onclick="logout()">გასვლა</button></div>
   </header>
   <nav class="nav" id="nav">
     <button class="btn" data-v="lessons" onclick="viewLessons()"><span>📚</span> გაკვეთილები</button>
@@ -205,7 +238,10 @@
 <input type="file" id="importFile" accept=".json,application/json" hidden>
 
 <script>
-const KEY = 'english-app-v2', OLD_KEY = 'english-lessons';
+let KEY = null; // შესული პროფილის მონაცემების გასაღები
+const OLD_KEY = 'english-lessons';
+const THEMES = [['auto', '🌗 ავტო'], ['light', '☀️ დღე'], ['dark', '🌙 ღამე'], ['terminal', '📟 ტერმინალი'],
+                ['ocean', '🌊 ზღვა'], ['forest', '🌲 ტყე'], ['rose', '🌸 ვარდი'], ['paper', '📰 გაზეთი']];
 const $ = id => document.getElementById(id);
 const M = $('main');
 const norm = s => String(s).trim().toLowerCase().replace(/\s+/g, ' ');
@@ -265,7 +301,7 @@ function clean(d) {
     .map(h => ({ d: str(h.d), name: str(h.name), ok: num(h.ok), total: num(h.total), secs: num(h.secs) })).slice(-50);
   const st = d.settings && typeof d.settings === 'object' ? d.settings : {};
   f.settings = {
-    theme: ['auto', 'light', 'dark'].includes(st.theme) ? st.theme : 'auto',
+    theme: THEMES.some(t => t[0] === st.theme) ? st.theme : 'auto',
     rate: Math.min(1.5, Math.max(0.4, num(st.rate, 0.85))),
     autoSpeak: st.autoSpeak !== false,
     goal: [10, 30, 50, 100].includes(st.goal) ? st.goal : 30
@@ -274,8 +310,102 @@ function clean(d) {
 }
 
 let S = fresh();
-try { S = clean(JSON.parse(localStorage.getItem(KEY)) ?? JSON.parse(localStorage.getItem(OLD_KEY))); } catch (e) {}
-const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+const lsGet = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+const lsSet = (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} };
+const save = () => { if (KEY) lsSet(KEY, JSON.stringify(S)); };
+
+// ---------- 👤 პროფილები: თითოეულს თავისი მონაცემები აქვს (ამ ბრაუზერში) ----------
+const PROFILES_KEY = 'english-profiles', CURRENT_KEY = 'english-current';
+let profiles = [], me = null;
+try { profiles = (JSON.parse(lsGet(PROFILES_KEY)) || []).filter(p => p && str(p.id) && str(p.name)); } catch (e) {}
+const saveProfiles = () => lsSet(PROFILES_KEY, JSON.stringify(profiles));
+// PIN-ს ვინახავთ მხოლოდ ჰეშად. ეს არ არის ნამდვილი დაცვა: მონაცემები ბრაუზერშია და იქიდან იკითხება
+async function hashPin(id, pin) {
+  if (!window.crypto?.subtle) { // დაუცველ გვერდზე (http) SHA-256 არ გვაქვს: მარტივი ჰეში
+    let h = 2166136261;
+    for (const c of id + ':' + pin) h = Math.imul(h ^ c.charCodeAt(0), 16777619) >>> 0;
+    return 'f' + h.toString(16);
+  }
+  const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(id + ':' + pin));
+  return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join('');
+}
+
+function enter(p) {
+  me = p; KEY = 'english-app-v2:' + p.id; lsSet(CURRENT_KEY, p.id);
+  try { S = clean(JSON.parse(lsGet(KEY))); } catch (e) { S = fresh(); }
+  document.body.classList.remove('out');
+  applyTheme(); viewLessons(); toast(`👋 გამარჯობა, ${p.name}!`);
+}
+
+function logout() {
+  persist(); snapshot = null; clearInterval(timer);
+  me = null; KEY = null; lsSet(CURRENT_KEY, null);
+  S = fresh(); applyTheme(); viewLogin();
+}
+
+function viewLogin() {
+  document.body.classList.add('out');
+  window.scrollTo(0, 0);
+  M.innerHTML = `
+    ${profiles.length ? `
+    <section class="box">
+      <h2>👤 ვინ სწავლობს?</h2>
+      <div class="packs">${profiles.map((p, k) => `
+        <button class="btn white prof" onclick="pickProfile(${k})"><span class="av">${esc([...p.name][0].toUpperCase())}</span>${esc(p.name)}${p.pin ? ' 🔒' : ''}</button>`).join('')}
+      </div>
+      <div id="pinBox" class="hidden" style="margin-top:16px">
+        <label for="pinIn" class="sm"><b id="pinFor"></b> — შეიყვანე PIN</label>
+        <div class="seg" style="margin-top:6px"><input id="pinIn" type="password" inputmode="numeric" maxlength="8" style="max-width:180px"><button class="btn" id="pinGo">შესვლა</button></div>
+        <p id="pinMsg" class="bad sm"></p>
+      </div>
+    </section>` : ''}
+    <section class="box">
+      <h2>＋ ახალი პროფილი</h2>
+      <input id="newName" maxlength="30" placeholder="შენი სახელი">
+      <input id="newPin" type="password" inputmode="numeric" maxlength="8" placeholder="PIN, 4-8 ციფრი (არასავალდებულო)" style="margin-top:10px">
+      <p class="muted sm">PIN მხოლოდ იმისთვისაა, რომ ამ კომპიუტერზე სხვამ შემთხვევით არ გახსნას შენი პროფილი. მონაცემები მხოლოდ ამ ბრაუზერში ინახება.</p>
+      <button class="btn pink" onclick="createProfile()">შექმნა და შესვლა</button>
+    </section>`;
+  $('newName').onkeydown = e => { if (e.key === 'Enter') createProfile(); };
+  (profiles.length ? null : $('newName'))?.focus();
+}
+
+function pickProfile(k) {
+  const p = profiles[k];
+  if (!p.pin) return enter(p);
+  $('pinBox').classList.remove('hidden');
+  $('pinFor').textContent = p.name;
+  $('pinMsg').textContent = '';
+  const inp = $('pinIn');
+  inp.value = ''; inp.focus();
+  const go = async () => {
+    if (await hashPin(p.id, inp.value.trim()) === p.pin) return enter(p);
+    $('pinMsg').textContent = '✘ არასწორი PIN';
+    shake(inp); inp.select();
+  };
+  $('pinGo').onclick = go;
+  inp.onkeydown = e => { if (e.key === 'Enter') go(); };
+}
+
+async function createProfile() {
+  const name = $('newName').value.trim(), pin = $('newPin').value.trim();
+  if (!name) return toast('✍️ ჩაწერე სახელი');
+  if (profiles.some(p => norm(p.name) === norm(name))) return toast('ასეთი პროფილი უკვე არსებობს');
+  if (pin && !/^\d{4,8}$/.test(pin)) return toast('PIN უნდა იყოს 4-8 ციფრი');
+  const p = { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), name };
+  if (pin) p.pin = await hashPin(p.id, pin);
+  // პირველი პროფილი იღებს ძველ (პროფილებამდელ) გაკვეთილებს, რომ არაფერი დაიკარგოს
+  if (!profiles.length) { const old = lsGet('english-app-v2') ?? lsGet(OLD_KEY); if (old) lsSet('english-app-v2:' + p.id, old); }
+  profiles.push(p); saveProfiles();
+  enter(p);
+}
+
+function deleteProfile() {
+  if (!confirm(`წავშალო პროფილი „${me.name}“ და მისი ყველა გაკვეთილი?`)) return;
+  lsSet(KEY, null);
+  profiles = profiles.filter(p => p.id !== me.id); saveProfiles();
+  snapshot = null; KEY = null; logout(); toast('🗑️ პროფილი წაიშალა');
+}
 
 // ---------- XP, სერია, სიტყვების სტატისტიკა ----------
 const dayStr = (d = new Date()) => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
@@ -309,6 +439,7 @@ function record(w, ok) {
 const hardWords = () => Object.values(S.words).filter(r => r.wrong > r.right).sort((a, b) => b.wrong - a.wrong).slice(0, 30);
 
 function renderTop() {
+  $('cUser').textContent = `👤 ${me?.name ?? ''}`;
   $('cStreak').textContent = `🔥 ${streakNow()}`;
   $('cXp').textContent = `⭐ ${S.stats.xp} XP`;
   $('cLvl').textContent = `🏅 დონე ${level(S.stats.xp)}`;
@@ -934,7 +1065,7 @@ function viewSettings() {
   M.innerHTML = `
     <section class="box">
       <h2>⚙️ პარამეტრები</h2>
-      <div class="set"><b>🎨 თემა</b>${seg('theme', [['auto', '🌗 ავტო'], ['light', '☀️ ღია'], ['dark', '🌙 მუქი']])}</div>
+      <div class="set"><b>🎨 სტილი</b>${seg('theme', THEMES)}</div>
       <div class="set"><b>🎯 დღის მიზანი</b>${seg('goal', [[10, '10 XP'], [30, '30 XP'], [50, '50 XP'], [100, '100 XP']])}</div>
       <div class="set">
         <label for="rate"><b>🐢 ხმის სიჩქარე</b> <span class="mono" id="rateVal">${s.rate.toFixed(2)}×</span></label>
@@ -960,8 +1091,11 @@ function viewSettings() {
 
     <section class="box">
       <h2>⚠️ ყველაფრის წაშლა</h2>
-      <p class="muted sm">წაიშლება გაკვეთილები, XP და სტატისტიკა.</p>
-      <button class="btn red" onclick="resetAll()">🗑️ ყველაფრის წაშლა</button>
+      <p class="muted sm">წაიშლება ამ პროფილის გაკვეთილები, XP და სტატისტიკა.</p>
+      <div class="btns" style="justify-content:flex-start">
+        <button class="btn red" onclick="resetAll()">🗑️ ყველაფრის წაშლა</button>
+        <button class="btn white" onclick="deleteProfile()">👤 პროფილის წაშლა</button>
+      </div>
     </section>`;
   $('rate').oninput = e => { S.settings.rate = +e.target.value; $('rateVal').textContent = S.settings.rate.toFixed(2) + '×'; save(); };
   $('auto').onchange = e => { S.settings.autoSpeak = e.target.checked; save(); };
@@ -994,8 +1128,8 @@ function resetAll() {
   S = fresh(); save(); applyTheme(); viewSettings(); toast('🗑️ წაიშალა');
 }
 
-applyTheme();
-viewLessons();
+const last = profiles.find(p => p.id === lsGet(CURRENT_KEY));
+last ? enter(last) : (applyTheme(), viewLogin());
 </script>
 </body>
 </html>
