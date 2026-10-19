@@ -60,6 +60,7 @@
   .av { display: inline-grid; place-items: center; width: 34px; height: 34px; border: 3px solid var(--line); border-radius: 4px;
         background: var(--pink); color: #2b1d14; font-family: var(--serif); font-weight: 900; }
   .chips { align-items: center; }
+  .foot { margin-top: 30px; text-align: center; font-family: var(--px); font-size: 10px; letter-spacing: .12em; color: var(--muted); }
   body { margin: 0; min-height: 100vh; font-family: "Noto Sans Georgian", system-ui, sans-serif; color: var(--ink);
          background: var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.09'/%3E%3C/svg%3E"); }
   body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
@@ -233,6 +234,7 @@
     <button class="btn" data-v="settings" onclick="viewSettings()"><span>⚙️</span> პარამეტრები</button>
   </nav>
   <main id="main"></main>
+  <footer class="foot">Powered by my site</footer>
 </div>
 <div id="toasts" aria-live="polite"></div>
 <input type="file" id="importFile" accept=".json,application/json" hidden>
