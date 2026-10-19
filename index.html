@@ -96,6 +96,7 @@
   .preview { font-family: var(--vt); font-size: 20px; line-height: 1.1; color: var(--muted); flex: 1; }
   .lact { display: flex; gap: 8px; flex-wrap: wrap; }
   .search { max-width: 260px; }
+  .paused { font-weight: 800; color: var(--pink); }
   .hard { background: var(--soft); }
 
   /* ---- სწავლა ---- */
@@ -230,6 +231,7 @@ const PACKS = {
 };
 
 // ---------- მონაცემები ----------
+const MODE_KEYS = ['cards', 'copy', 'write', 'test', 'quiz', 'dict'];
 function fresh() {
   return {
     lessons: [], words: {},
@@ -243,10 +245,14 @@ function clean(d) {
   const f = fresh();
   if (Array.isArray(d)) d = { lessons: d }; // ძველი ვერსიის ფორმატი
   if (!d || typeof d !== 'object') return f;
+  const cleanWords = a => a.filter(w => w && str(w.en).trim()).map(w => ({ en: str(w.en).trim(), ka: str(w.ka).trim() }));
   f.lessons = (Array.isArray(d.lessons) ? d.lessons : []).filter(l => l && Array.isArray(l.words)).map(l => {
-    const out = { name: str(l.name).trim() || 'გაკვეთილი',
-      words: l.words.filter(w => w && str(w.en).trim()).map(w => ({ en: str(w.en).trim(), ka: str(w.ka).trim() })) };
+    const out = { name: str(l.name).trim() || 'გაკვეთილი', words: cleanWords(l.words) };
     if (typeof l.best === 'number') out.best = l.best;
+    const p = l.progress;
+    if (p && typeof p === 'object' && MODE_KEYS.includes(p.mode) && Array.isArray(p.words) && cleanWords(p.words).length)
+      out.progress = { mode: p.mode, retry: p.retry === true, words: cleanWords(p.words),
+        st: p.st && typeof p.st === 'object' ? p.st : null, pct: num(p.pct) };
     return out;
   }).filter(l => l.words.length);
   const w = d.words && typeof d.words === 'object' ? d.words : {};
@@ -346,6 +352,8 @@ function applyTheme() {
 // ---------- ნავიგაცია ----------
 let timer = null, keyHandler = null;
 function setNav(v) {
+  if (persist() && v) toast('💾 პროგრესი შენახულია');
+  snapshot = null;
   clearInterval(timer); keyHandler = null;
   try { speechSynthesis.cancel(); } catch (e) {}
   document.querySelectorAll('#nav button').forEach(b => b.className = 'btn ' + (b.dataset.v === v ? 'dark' : 'white'));
@@ -435,8 +443,11 @@ function renderGrid() {
       <div class="lname">${esc(l.name)}</div>
       <div class="muted sm">${l.words.length} სიტყვა${l.best != null ? ` · 🏆 ${l.best}/${l.words.length}` : ''}</div>
       <div class="preview">${l.words.slice(0, 4).map(w => esc(w.en)).join(' · ')}${l.words.length > 4 ? ' …' : ''}</div>
+      ${l.progress ? `<div class="paused sm">⏸ ${MODES.find(m => m[0] === l.progress.mode)[1]} · ${l.progress.pct}%${l.progress.retry ? ' · შეცდომები' : ''}</div>` : ''}
       <div class="lact">
-        <button class="btn sm" onclick="start(${n})">▶ დაწყება</button>
+        ${l.progress ? `<button class="btn pink sm" onclick="start(${n})">▶ გაგრძელება</button>
+        <button class="btn white sm" onclick="restart(${n})" title="თავიდან დაწყება">↺</button>`
+        : `<button class="btn sm" onclick="start(${n})">▶ დაწყება</button>`}
         <button class="btn white sm" onclick="start(${n}, 'test')" title="ტესტი">📝</button>
         <button class="btn white sm" onclick="openForm(${n})" title="რედაქტირება">✏️</button>
         <button class="btn white sm" onclick="removeLesson(${n})" title="წაშლა">🗑️</button>
@@ -481,13 +492,35 @@ const MODES = [['cards', '🃏 ბარათები'], ['copy', '✍️ 1. �
                ['test', '📝 3. ჩაბარება'], ['quiz', '🎯 ვიქტორინა'], ['dict', '🎧 კარნახი']];
 let cur = null, words = [], retry = false;
 
-function start(n, mode = 'copy') { cur = S.lessons[n]; words = cur.words.slice(); retry = false; go(mode); }
+// პროგრესის შენახვა: ყოველი რეჟიმი snapshot-ში აბრუნებს [რეჟიმი, მდგომარეობა, 0..1].
+// ვინახავთ ყოველ ნაბიჯზე, გასვლისას და ჩანართის დახურვისას
+let snapshot = null;
+function persist() {
+  if (!snapshot || !cur || cur.virtual) return false;
+  const [mode, st, frac] = snapshot();
+  cur.progress = { mode, retry, words, st, pct: Math.round(frac * 100) };
+  save();
+  return true;
+}
+function clearProgress() { snapshot = null; if (cur && !cur.virtual) { delete cur.progress; save(); } }
+addEventListener('pagehide', persist);
+document.addEventListener('visibilitychange', () => { if (document.hidden) persist(); });
+// შენახული ინდექსები მხოლოდ მაშინ გამოგვადგება, თუ ახლანდელ სიტყვებს ემთხვევა
+const okIdx = a => Array.isArray(a) && a.length > 0 && a.every(k => Number.isInteger(k) && k >= 0 && k < words.length);
+
+function start(n, mode) {
+  cur = S.lessons[n];
+  const p = cur.progress;
+  if (!mode && p) { words = p.words; retry = p.retry; return go(p.mode, p.st); }
+  words = cur.words.slice(); retry = false; go(mode || 'copy');
+}
+function restart(n) { delete S.lessons[n].progress; save(); start(n, 'copy'); }
 function startHard() {
   cur = { name: '💪 რთული სიტყვები', words: hardWords().map(r => ({ en: r.en, ka: r.ka })), virtual: true };
   words = cur.words.slice(); retry = false; go('write');
 }
 
-function go(mode) {
+function go(mode, st) {
   setNav(null);
   M.innerHTML = `
     <section class="box">
@@ -500,7 +533,7 @@ function go(mode) {
       <div class="bar"><div id="barFill"></div></div>
       <div class="stage" id="stage"></div>
     </section>`;
-  ({ cards, copy, write, test, quiz, dict })[mode]();
+  ({ cards, copy, write, test, quiz, dict })[mode](st);
 }
 
 function setBody(html, p) {
@@ -517,15 +550,21 @@ function done(title, sub, next) {
     <div class="btns"><button class="btn mint" id="next">${MODES.find(m => m[0] === next)[1]} →</button></div></div>`, 1);
   $('next').onclick = () => go(next);
   $('next').focus();
+  snapshot = () => [next, null, 0]; // დაბრუნებისას შემდეგი ნაბიჯიდან გაგრძელდება
+  persist();
 }
 
 // 🃏 ბარათები: გადააბრუნე, თქვი ვიცი თუ არა. „არ ვიცი“ ბოლოს ისევ მოვა
-function cards() {
-  const q = shuffle(words.slice()), total = q.length, missed = new Set();
-  let i = 0, known = 0;
+function cards(st) {
+  const ok = st && okIdx(st.q);
+  const q = ok ? st.q : shuffle(words.map((_, n) => n)), total = words.length;
+  const missed = new Set(ok && Array.isArray(st.missed) ? st.missed : []);
+  let i = ok ? Math.min(num(st.i), q.length) : 0, known = ok ? num(st.known) : 0;
+  snapshot = () => ['cards', { q, i, known, missed: [...missed] }, known / total];
   const next = () => {
     if (i >= q.length) return done('🃏 ბარათები დასრულდა!', `${total} სიტყვა გაიარე. ახლა გადაწერე.`, 'copy');
-    const w = q[i];
+    persist();
+    const w = words[q[i]];
     setBody(`
       <p class="muted center">დააჭირე ბარათს, რომ გადააბრუნო · ${Math.min(known + 1, total)} / ${total}</p>
       <div class="flip" id="flip"><div class="in">
@@ -540,7 +579,7 @@ function cards() {
       <p class="muted sm center">⌨️ Space — გადაბრუნება · ← არ ვიცი · → ვიცი</p>`, known / total);
     const answer = ok => {
       if (ok) { known++; addXP(1, true); }
-      else { q.push(w); if (!missed.has(w)) { missed.add(w); record(w, false); } }
+      else { q.push(q[i]); if (!missed.has(q[i])) { missed.add(q[i]); record(w, false); } }
       i++; next();
     };
     $('flip').onclick = () => $('flip').classList.toggle('on');
@@ -558,8 +597,11 @@ function cards() {
 }
 
 // ✍️ 1. გადაწერა: სიტყვა ღიად ჩანს და ზემოდან გადაწერ
-function copy(i = 0) {
+function copy(st) {
+  const i = Math.min(Math.max(0, Math.floor(num(st?.i))), words.length);
   if (i >= words.length) return done('🎉 გადაწერა დასრულდა!', 'ახლა სცადე შენით დაწერა.', 'write');
+  snapshot = () => ['copy', { i }, i / words.length];
+  persist();
   const t = words[i].en;
   setBody(`
     <p class="muted center">გადაწერე სიტყვა ზემოდან · ${i + 1} / ${words.length}</p>
@@ -588,7 +630,8 @@ function copy(i = 0) {
     finished = true;
     $('letters').classList.add('done');
     speak(t); addXP(1, true);
-    setTimeout(() => copy(i + 1), 800);
+    snapshot = () => ['copy', { i: i + 1 }, (i + 1) / words.length]; // თუ ახლა გავა, ეს სიტყვა უკვე ჩაითვალა
+    setTimeout(() => copy({ i: i + 1 }), 800);
   };
   $('say').onclick = () => { speak(t); inp.focus(); };
   draw();
@@ -596,13 +639,16 @@ function copy(i = 0) {
 }
 
 // 🧠 2. შენით: სიტყვა დამალულია. შეცდომა წითლად ამოვარდება და სიტყვა ბოლოს ისევ მოვა
-function write() {
+function write(st) {
   if (!words.length) return setBody('<p class="center muted">სიტყვები არ არის 🙂</p>', 0);
-  const queue = shuffle(words.map((_, n) => n));
-  let pos = 0, mistakes = 0;
+  const ok = st && okIdx(st.queue);
+  const queue = ok ? st.queue : shuffle(words.map((_, n) => n));
+  let pos = ok ? Math.min(num(st.pos), queue.length) : 0, mistakes = ok ? num(st.mistakes) : 0;
+  snapshot = () => ['write', { queue, pos, mistakes }, pos / queue.length];
   const next = () => {
     if (pos >= queue.length) return done('💪 ყოჩაღ!',
       mistakes ? `შეცდომები: ${mistakes}. ახლა ჩააბარე.` : 'ერთი შეცდომაც არ დაგიშვია! ახლა ჩააბარე.', 'test');
+    persist();
     const w = words[queue[pos]];
     let wrong = false, hint = 0, locked = false;
     setBody(`
@@ -632,7 +678,7 @@ function write() {
         setTimeout(next, 800);
         return;
       }
-      if (!wrong) { wrong = true; mistakes++; record(w, false); queue.push(queue[pos]); }
+      if (!wrong) { wrong = true; mistakes++; record(w, false); queue.push(queue[pos]); persist(); }
       inp.className = 'answer bad';
       shake(inp);
       msg.innerHTML = `<b class="bad">✘ არასწორია. სწორია: ${esc(w.en)}</b><br><span class="muted sm">დაწერე სწორად და გააგრძელე</span>` +
@@ -653,11 +699,12 @@ function write() {
 }
 
 // 📝 3. ჩაბარება: ყველა სიტყვა ერთად, არეული რიგით, წამზომით
-function test() {
-  const order = shuffle(words.map((_, n) => n));
-  let secs = 0;
+function test(st) {
+  const ok = st && okIdx(st.order) && st.order.length === words.length;
+  const order = ok ? st.order : shuffle(words.map((_, n) => n));
+  let secs = ok ? Math.floor(num(st.secs)) : 0;
   setBody(`
-    <div class="row-between"><p class="muted">დაწერე ყველა სიტყვა ინგლისურად და დააჭირე „ჩაბარებას“</p><span class="timer" id="timer">⏱ 0:00</span></div>
+    <div class="row-between"><p class="muted">დაწერე ყველა სიტყვა ინგლისურად და დააჭირე „ჩაბარებას“</p><span class="timer" id="timer">⏱ ${fmt(secs)}</span></div>
     <div class="test">${order.map((n, k) => `
       <div class="row">
         <span class="mono muted">${k + 1}.</span>
@@ -670,8 +717,12 @@ function test() {
     <div id="result"></div>`, 0);
   timer = setInterval(() => { secs++; $('timer') && ($('timer').textContent = '⏱ ' + fmt(secs)); }, 1000);
   const inputs = [...document.querySelectorAll('.test input')];
+  const filled = () => inputs.filter(x => x.value.trim()).length / inputs.length;
+  if (ok && Array.isArray(st.vals)) inputs.forEach((inp, k) => { inp.value = str(st.vals[k]); });
+  setBar(filled());
+  snapshot = () => ['test', { order, secs, vals: inputs.map(x => x.value) }, filled()];
   inputs.forEach((inp, k) => {
-    inp.oninput = () => setBar(inputs.filter(x => x.value.trim()).length / inputs.length);
+    inp.oninput = () => { setBar(filled()); persist(); };
     inp.onkeydown = e => { if (e.key === 'Enter') (inputs[k + 1] || $('submit')).focus(); };
   });
   document.querySelectorAll('[data-say]').forEach(b => b.onclick = () => speak(words[b.dataset.say].en));
@@ -680,6 +731,7 @@ function test() {
     const empty = inputs.filter(i => !i.value.trim()).length;
     if (empty && !confirm(`${empty} სიტყვა ცარიელია. მაინც ჩავაბარო?`)) return;
     clearInterval(timer);
+    clearProgress(); // გაკვეთილი ჩაბარდა, შესანახი აღარაფერია
     const wrongs = [];
     inputs.forEach(inp => {
       const w = words[inp.dataset.n], right = norm(inp.value) === norm(w.en);
@@ -712,15 +764,18 @@ function test() {
 }
 
 // 🎯 ვიქტორინა: ინგლისური სიტყვა, აირჩიე სწორი თარგმანი (1-4 კლავიშებითაც)
-function quiz() {
+function quiz(st) {
   const pool = words.filter(w => w.ka);
   if (new Set(pool.map(w => w.ka)).size < 2)
     return setBody('<p class="center muted">🎯 ვიქტორინას სჭირდება მინიმუმ 2 სიტყვა ქართული თარგმანით.</p>', 0);
-  const qs = shuffle(pool);
-  let i = 0, score = 0;
+  const ok = st && okIdx(st.qs) && st.qs.every(k => words[k].ka);
+  const qs = ok ? st.qs : shuffle(words.map((_, n) => n).filter(n => words[n].ka));
+  let i = ok ? Math.min(num(st.i), qs.length) : 0, score = ok ? num(st.score) : 0;
+  snapshot = () => ['quiz', { qs, i, score }, i / qs.length];
   const next = () => {
     if (i >= qs.length) return done(`🎯 ${score} / ${qs.length}`, score === qs.length ? 'იდეალურია! 🏆' : 'კარგია! ახლა სცადე კარნახი.', 'dict');
-    const w = qs[i], seen = new Set([w.ka]);
+    persist();
+    const w = words[qs[i]], seen = new Set([w.ka]);
     const opts = shuffle([w, ...shuffle(pool).filter(x => !seen.has(x.ka) && seen.add(x.ka)).slice(0, 3)]);
     setBody(`
       <p class="muted center">რას ნიშნავს? · ${i + 1} / ${qs.length}</p>
@@ -748,13 +803,16 @@ function quiz() {
 }
 
 // 🎧 კარნახი: მხოლოდ ისმენ და წერ
-function dict() {
+function dict(st) {
   if (!('speechSynthesis' in window)) return setBody('<p class="center muted">🎧 ეს ბრაუზერი ხმას არ უჭერს მხარს.</p>', 0);
-  const q = shuffle(words.slice());
-  let i = 0, score = 0;
+  const ok = st && okIdx(st.q);
+  const q = ok ? st.q : shuffle(words.map((_, n) => n));
+  let i = ok ? Math.min(num(st.i), q.length) : 0, score = ok ? num(st.score) : 0;
+  snapshot = () => ['dict', { q, i, score }, i / q.length];
   const next = () => {
     if (i >= q.length) return done(`🎧 ${score} / ${q.length}`, 'კარნახი დასრულდა! ახლა ჩააბარე.', 'test');
-    const w = q[i];
+    persist();
+    const w = words[q[i]];
     let tried = false, locked = false;
     setBody(`
       <p class="muted center">მოუსმინე და დაწერე · ${i + 1} / ${q.length}</p>
