@@ -60,6 +60,11 @@
   .av { display: inline-grid; place-items: center; width: 34px; height: 34px; border: 3px solid var(--line); border-radius: 4px;
         background: var(--pink); color: #2b1d14; font-family: var(--serif); font-weight: 900; }
   .chips { align-items: center; }
+  .pw { position: relative; }
+  .pw input { padding-right: 52px; }
+  .eye { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); padding: 4px 8px; font-size: 20px;
+         background: none; border: none; cursor: pointer; line-height: 1; }
+  .eye:focus-visible { outline: 3px dashed var(--pink); border-radius: 4px; }
   .foot { margin-top: 30px; text-align: center; font-family: var(--px); font-size: 10px; letter-spacing: .12em; color: var(--muted); }
   body { margin: 0; min-height: 100vh; font-family: "Noto Sans Georgian", system-ui, sans-serif; color: var(--ink);
          background: var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.09'/%3E%3C/svg%3E"); }
@@ -451,6 +456,7 @@ function viewCloudLogin() {
     const { error } = await cloud.auth.resetPasswordForEmail(email, { redirectTo: here() });
     error ? msg(authError(error)) : toast('📧 პაროლის აღდგენის ბმული გამოგზავნილია');
   };
+  addEyes();
   $(signup ? 'aName' : 'aEmail').focus();
 }
 
@@ -513,7 +519,30 @@ function viewLogin() {
         პაროლი მხოლოდ იმისთვისაა, რომ ამ კომპიუტერზე სხვამ შემთხვევით არ გახსნას შენი გაკვეთილები.</p>
     </section>`;
   $('loginForm').onsubmit = e => { e.preventDefault(); (signup ? createProfile : login)(); };
+  addEyes();
   $('lName').focus();
+}
+
+// 👁 პაროლის ჩვენება/დამალვა: ყველა პაროლის ველს გვერდით ღილაკი ემატება
+function addEyes() {
+  M.querySelectorAll('input[type="password"]').forEach(inp => {
+    const wrap = document.createElement('div');
+    wrap.className = 'pw';
+    wrap.style.marginTop = inp.style.marginTop; inp.style.marginTop = '';
+    inp.replaceWith(wrap);
+    const eye = document.createElement('button');
+    eye.type = 'button'; eye.className = 'eye'; eye.textContent = '👁';
+    eye.setAttribute('aria-label', 'პაროლის ჩვენება'); eye.setAttribute('aria-pressed', 'false');
+    eye.onclick = () => {
+      const show = inp.type === 'password';
+      inp.type = show ? 'text' : 'password';
+      eye.textContent = show ? '🙈' : '👁';
+      eye.setAttribute('aria-pressed', show);
+      eye.setAttribute('aria-label', show ? 'პაროლის დამალვა' : 'პაროლის ჩვენება');
+      inp.focus();
+    };
+    wrap.append(inp, eye);
+  });
 }
 
 const loginMsg = t => { $('lMsg').textContent = t; if (t) shake($('loginForm')); };
