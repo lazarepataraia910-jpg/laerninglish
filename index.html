@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="ka">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ისწავლე ინგლისური</title>
+<style>
+  :root { --bg:#eef2fb; --card:#fff; --text:#1d2433; --muted:#6b7385; --accent:#4f6bed; --accent2:#7c4dff;
+          --ok:#18a058; --bad:#e5484d; --line:#e3e7f0; --ghost:#c3c9d6; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#12151d; --card:#1c212c; --text:#e8ebf2; --muted:#9aa3b5; --line:#2c3342; --ghost:#4a5263; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); }
+  header { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; padding: 28px 16px 40px; text-align: center; }
+  header h1 { margin: 0; font-size: 28px; }
+  header p { margin: 6px 0 0; opacity: .85; }
+  .wrap { max-width: 680px; margin: -24px auto 0; padding: 0 16px 40px; }
+  .card { background: var(--card); border-radius: 16px; padding: 20px; margin-bottom: 16px; box-shadow: 0 4px 16px #0000000f; }
+  h2 { margin: 0 0 12px; font-size: 20px; }
+  input, textarea { font: inherit; font-size: 17px; padding: 10px 12px; border-radius: 10px; border: 1.5px solid var(--line);
+                    background: var(--card); color: var(--text); width: 100%; }
+  input:focus, textarea:focus { outline: none; border-color: var(--accent); }
+  textarea { min-height: 150px; resize: vertical; margin-top: 8px; }
+  button { font: inherit; font-size: 16px; padding: 10px 18px; border-radius: 10px; border: none; background: var(--accent);
+           color: #fff; cursor: pointer; margin: 10px 6px 0 0; }
+  button:hover { filter: brightness(1.08); }
+  button.ghost { background: transparent; color: var(--accent); border: 1.5px solid var(--line); }
+  button.small { padding: 6px 12px; font-size: 14px; margin: 0; }
+  .muted { color: var(--muted); } .center { text-align: center; } .sm { font-size: 14px; }
+  .ok { color: var(--ok); } .bad { color: var(--bad); }
+  .hidden { display: none !important; }
+  .big { font-size: 34px; font-weight: 700; margin: 8px 0; }
+
+  .lesson { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .lesson:last-child { border-bottom: none; }
+  .actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .topbar { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .steps { display: flex; gap: 6px; margin-bottom: 10px; }
+  .steps button { flex: 1; margin: 0; background: var(--bg); color: var(--text); font-size: 14px; padding: 8px 4px; }
+  .steps button.active { background: var(--accent); color: #fff; }
+  .bar { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; margin-bottom: 18px; }
+  .bar div { height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: width .3s; }
+
+  .ka { font-size: 26px; font-weight: 600; margin: 6px 0 14px; }
+  /* ნაბიჯი 1: input გამჭვირვალეა და ზუსტად ასოებს ზემოდან ადევს */
+  .trace { position: relative; display: inline-block; max-width: 100%; overflow: hidden; margin-bottom: 12px;
+           font-family: ui-monospace, Consolas, "Courier New", monospace; font-size: clamp(26px, 9vw, 48px);
+           border-bottom: 3px dashed var(--line); }
+  .letters, .trace input { font: inherit; line-height: 1.3; padding: 6px 10px; letter-spacing: .08em; white-space: pre; }
+  .trace input { position: absolute; inset: 0; width: 100%; border: none; border-radius: 0; background: transparent;
+                 color: transparent; caret-color: var(--accent); }
+  .letters .g { color: var(--ghost); }
+  .letters .bad { text-decoration: underline; }
+  .letters.done span { color: var(--ok); }
+  .letters.done { animation: pop .4s; }
+
+  .answer { font-size: 24px; text-align: center; max-width: 420px; }
+  input.good { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 10%, var(--card)); }
+  input.bad { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 10%, var(--card)); }
+  .shake { animation: shake .35s; }
+  .mono { font-family: ui-monospace, Consolas, monospace; font-size: 22px; letter-spacing: .1em; min-height: 1.2em; }
+
+  .test .row { display: grid; grid-template-columns: 28px minmax(90px, 1fr) 2fr; gap: 8px; align-items: center; padding: 6px 0; }
+  .test .fix { grid-column: 3; font-size: 14px; }
+  .test .fix:empty { display: none; }
+  .score { text-align: center; padding: 16px; border-radius: 14px; background: var(--bg); margin: 16px 0 6px; }
+
+  @keyframes shake { 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+  @keyframes pop { 50% { transform: scale(1.08); } }
+</style>
+</head>
+<body>
+<header>
+  <h1>📘 ისწავლე ინგლისური</h1>
+  <p>გადაწერე → დაწერე შენით → ჩააბარე</p>
+</header>
+<div class="wrap">
+
+  <div id="home">
+    <div class="card">
+      <h2 id="formTitle">ახალი გაკვეთილი</h2>
+      <input id="lessonName" placeholder="გაკვეთილის სახელი (მაგ. ცხოველები)">
+      <textarea id="lessonWords" oninput="updateCount()" placeholder="თითო ხაზზე ერთი სიტყვა:&#10;apple - ვაშლი&#10;dog - ძაღლი&#10;house - სახლი"></textarea>
+      <div class="muted sm" id="wordCount">თითო ხაზზე: <b>ინგლისური - ქართული</b> (თარგმანი არასავალდებულოა)</div>
+      <button id="saveBtn" onclick="saveLesson()">შექმნა</button>
+      <button id="cancelBtn" class="ghost hidden" onclick="cancelEdit()">გაუქმება</button>
+    </div>
+    <div class="card">
+      <h2>ჩემი გაკვეთილები</h2>
+      <div id="lessons"></div>
+    </div>
+  </div>
+
+  <div id="study" class="card hidden">
+    <div class="topbar">
+      <button class="ghost small" onclick="goHome()">← უკან</button>
+      <b id="lessonTitle"></b>
+    </div>
+    <div class="steps">
+      <button data-s="1" onclick="go(1)">1. გადაწერა</button>
+      <button data-s="2" onclick="go(2)">2. შენით</button>
+      <button data-s="3" onclick="go(3)">3. ჩაბარება</button>
+    </div>
+    <div class="bar"><div id="barFill"></div></div>
+    <div id="stepBody"></div>
+  </div>
+</div>
+
+<script>
+const KEY = 'english-lessons';
+let lessons = [];
+try { lessons = JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(lessons)); } catch (e) {} };
+const $ = id => document.getElementById(id);
+const norm = s => s.trim().toLowerCase().replace(/\s+/g, ' ');
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const shuffle = a => a.map(v => [Math.random(), v]).sort((x, y) => x[0] - y[0]).map(v => v[1]);
+const isGeo = s => /[Ⴀ-ჿ]/.test(s);
+const KBD = '⌨️ კლავიატურა ქართულზეა — გადართე ინგლისურზე (Alt+Shift ან Win+Space)';
+const NOFILL = 'autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"';
+// " - ", " – ", " = ", " : " ან "-" რომელსაც ქართული ასო მოსდევს (ice-cream - ნაყინი სწორად იყოფა)
+const SEP = /\s+[-–—=:]\s+|\s*[-–—=:]\s*(?=[Ⴀ-ჿ])/;
+
+function speak(text) {
+  try {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US'; u.rate = 0.85;
+    speechSynthesis.speak(u);
+  } catch (e) {}
+}
+
+// ---------- გაკვეთილები ----------
+let editing = null, cur = null, words = [], retry = false;
+
+function parseWords(text) {
+  return text.split('\n').map(l => l.trim()).filter(Boolean).map(l => {
+    const m = l.match(SEP);
+    let en = m ? l.slice(0, m.index).trim() : l, ka = m ? l.slice(m.index + m[0].length).trim() : '';
+    if (isGeo(en) && !isGeo(ka)) [en, ka] = [ka, en]; // "ვაშლი - apple" რიგითაც მუშაობს
+    return { en, ka };
+  }).filter(w => w.en);
+}
+
+function updateCount() {
+  const n = parseWords($('lessonWords').value).length;
+  $('wordCount').innerHTML = n ? `<b>${n}</b> სიტყვა` : 'თითო ხაზზე: <b>ინგლისური - ქართული</b> (თარგმანი არასავალდებულოა)';
+}
+
+function saveLesson() {
+  const list = parseWords($('lessonWords').value);
+  if (!list.length) return alert('ჩაწერე ერთი სიტყვა მაინც');
+  const name = $('lessonName').value.trim() || 'გაკვეთილი ' + (lessons.length + 1);
+  if (editing === null) lessons.push({ name, words: list });
+  else lessons[editing] = { name, words: list }; // სიტყვები შეიცვალა, ძველი რეკორდი აღარ ითვლება
+  save(); cancelEdit(); renderLessons();
+}
+
+function editLesson(n) {
+  editing = n;
+  $('lessonName').value = lessons[n].name;
+  $('lessonWords').value = lessons[n].words.map(w => w.ka ? `${w.en} - ${w.ka}` : w.en).join('\n');
+  $('formTitle').textContent = '✏️ გაკვეთილის რედაქტირება';
+  $('saveBtn').textContent = 'შენახვა';
+  $('cancelBtn').classList.remove('hidden');
+  updateCount();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function cancelEdit() {
+  editing = null;
+  $('lessonName').value = ''; $('lessonWords').value = '';
+  $('formTitle').textContent = 'ახალი გაკვეთილი';
+  $('saveBtn').textContent = 'შექმნა';
+  $('cancelBtn').classList.add('hidden');
+  updateCount();
+}
+
+function removeLesson(n) {
+  if (!confirm('წავშალო „' + lessons[n].name + '“?')) return;
+  lessons.splice(n, 1); save(); cancelEdit(); renderLessons();
+}
+
+function renderLessons() {
+  $('lessons').innerHTML = lessons.length ? lessons.map((l, n) => `
+    <div class="lesson">
+      <div><b>${esc(l.name)}</b>
+        <div class="muted sm">${l.words.length} სიტყვა${l.best != null ? ` · 🏆 რეკორდი: ${l.best}/${l.words.length}` : ''}</div></div>
+      <div class="actions">
+        <button class="small" onclick="start(${n}, 1)">▶ სწავლა</button>
+        <button class="small ghost" onclick="start(${n}, 3)">📝 ტესტი</button>
+        <button class="small ghost" onclick="editLesson(${n})" title="რედაქტირება">✏️</button>
+        <button class="small ghost" onclick="removeLesson(${n})" title="წაშლა">🗑️</button>
+      </div>
+    </div>`).join('') : '<p class="muted">ჯერ გაკვეთილი არ გაქვს — შექმენი ზემოთ 👆</p>';
+}
+
+// ---------- სწავლა ----------
+function show(id) {
+  $('home').classList.toggle('hidden', id !== 'home');
+  $('study').classList.toggle('hidden', id !== 'study');
+}
+function goHome() { speechSynthesis?.cancel(); show('home'); renderLessons(); }
+
+function start(n, step) { cur = n; words = lessons[n].words.slice(); retry = false; show('study'); go(step); }
+
+function go(step) {
+  $('lessonTitle').textContent = lessons[cur].name + (retry ? ' · მხოლოდ შეცდომები' : '');
+  document.querySelectorAll('.steps button').forEach(b => b.classList.toggle('active', +b.dataset.s === step));
+  [null, step1, step2, step3][step]();
+}
+
+function setBody(html, progress) {
+  $('stepBody').innerHTML = html;
+  $('barFill').style.width = Math.round(progress * 100) + '%';
+  $('stepBody').querySelector('input')?.focus();
+}
+
+function done(title, sub, next) {
+  setBody(`<div class="center"><div class="big">${title}</div><p class="muted">${sub}</p>
+    <button id="next">შემდეგი ნაბიჯი →</button></div>`, 1);
+  $('next').onclick = () => go(next);
+  $('next').focus();
+}
+
+function shake(el) { el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }
+
+// ნაბიჯი 1: სიტყვა ღიად ჩანს და ზემოდან გადაწერ
+function step1(i = 0) {
+  if (i >= words.length) return done('🎉 გადაწერა დასრულდა!', 'ახლა სცადე შენით დაწერა.', 2);
+  const t = words[i].en;
+  setBody(`
+    <p class="muted center">გადაწერე სიტყვა ზემოდან · ${i + 1} / ${words.length}</p>
+    <div class="center">
+      <div class="ka">${esc(words[i].ka)}</div>
+      <div class="trace"><div class="letters" id="letters"></div><input id="ans" ${NOFILL}></div>
+      <div><button class="ghost small" id="say">🔊 მოსმენა</button></div>
+      <p class="bad sm" id="kbd"></p>
+    </div>`, i / words.length);
+  const inp = $('ans');
+  let finished = false;
+  const draw = () => {
+    const v = inp.value;
+    let h = '';
+    for (let k = 0; k < Math.max(t.length, v.length); k++) {
+      if (k >= v.length) { h += `<span class="g">${esc(t[k])}</span>`; continue; }
+      const good = v[k].toLowerCase() === (t[k] || '').toLowerCase();
+      h += `<span class="${good ? 'ok' : 'bad'}">${esc(!good && v[k] === ' ' ? '_' : v[k])}</span>`;
+    }
+    $('letters').innerHTML = h + ' ';
+    $('kbd').textContent = isGeo(v) ? KBD : '';
+  };
+  inp.oninput = () => {
+    draw();
+    if (finished || norm(inp.value) !== norm(t)) return;
+    finished = true;
+    $('letters').classList.add('done');
+    speak(t);
+    setTimeout(() => step1(i + 1), 800);
+  };
+  $('say').onclick = () => { speak(t); inp.focus(); };
+  draw();
+  speak(t);
+}
+
+// ნაბიჯი 2: სიტყვა დამალულია, წერ შენით. შეცდომა წითლად ამოვარდება და სიტყვა ბოლოს ისევ მოვა
+function step2() {
+  const queue = shuffle(words.map((_, n) => n));
+  let pos = 0, mistakes = 0;
+  const next = () => {
+    if (pos >= queue.length) return done('💪 ყოჩაღ!',
+      mistakes ? `შეცდომები: ${mistakes}. ახლა ჩააბარე ტესტი.` : 'ერთი შეცდომაც არ დაგიშვია! ახლა ჩააბარე ტესტი.', 3);
+    const w = words[queue[pos]];
+    let wrong = false, hint = 0, locked = false;
+    setBody(`
+      <p class="muted center">დაწერე ინგლისურად · ${pos + 1} / ${queue.length}</p>
+      <div class="center">
+        <div class="ka">${w.ka ? esc(w.ka) : '🔊 მოუსმინე და დაწერე'}</div>
+        <input id="ans" class="answer" ${NOFILL} placeholder="დაწერე და დააჭირე Enter">
+        <p id="hint" class="mono muted"></p>
+        <p id="msg"></p>
+        <button id="check">შემოწმება</button><button class="ghost" id="hintBtn">💡 მინიშნება</button><button class="ghost" id="say">🔊</button>
+      </div>`, pos / queue.length);
+    const inp = $('ans'), msg = $('msg');
+    const check = () => {
+      if (locked) return;
+      if (!inp.value.trim()) return inp.focus();
+      if (norm(inp.value) === norm(w.en)) {
+        locked = true;
+        inp.className = 'answer good';
+        msg.innerHTML = '<span class="ok">✔ სწორია!</span>';
+        speak(w.en);
+        pos++;
+        setTimeout(next, 800);
+        return;
+      }
+      if (!wrong) { wrong = true; mistakes++; queue.push(queue[pos]); }
+      inp.className = 'answer bad';
+      shake(inp);
+      msg.innerHTML = `<span class="bad">✘ არასწორია. სწორია: <b>${esc(w.en)}</b> — დაწერე სწორად და გააგრძელე.</span>` +
+        (isGeo(inp.value) ? `<br><span class="bad sm">${KBD}</span>` : '');
+      inp.select();
+    };
+    $('check').onclick = check;
+    inp.onkeydown = e => { if (e.key === 'Enter') check(); };
+    $('hintBtn').onclick = () => {
+      hint = Math.min(hint + 1, w.en.length);
+      $('hint').textContent = [...w.en].map((c, k) => k < hint || c === ' ' ? c : '_').join(' ');
+      inp.focus();
+    };
+    $('say').onclick = () => { speak(w.en); inp.focus(); };
+    if (!w.ka) speak(w.en);
+  };
+  next();
+}
+
+// ნაბიჯი 3: ყველა სიტყვა ერთად, არეული რიგით, მერე ჩაბარება
+function step3() {
+  const order = shuffle(words.map((_, n) => n));
+  setBody(`
+    <p class="muted center">დაწერე ყველა სიტყვა ინგლისურად და დააჭირე „ჩაბარებას“</p>
+    <div class="test">${order.map((n, k) => `
+      <div class="row">
+        <span class="muted">${k + 1}.</span>
+        <span>${words[n].ka ? esc(words[n].ka) : `<button class="ghost small" data-say="${n}">🔊 მოსმენა</button>`}</span>
+        <input data-n="${n}" ${NOFILL}>
+        <span class="fix"></span>
+      </div>`).join('')}
+    </div>
+    <div class="center"><button id="submit">✅ ჩაბარება</button></div>
+    <div id="result"></div>`, 0);
+  const inputs = [...document.querySelectorAll('.test input')];
+  inputs.forEach((inp, k) => {
+    inp.oninput = () => $('barFill').style.width = Math.round(inputs.filter(x => x.value.trim()).length / inputs.length * 100) + '%';
+    inp.onkeydown = e => { if (e.key === 'Enter') (inputs[k + 1] || $('submit')).focus(); };
+  });
+  document.querySelectorAll('[data-say]').forEach(b => b.onclick = () => speak(words[b.dataset.say].en));
+
+  $('submit').onclick = () => {
+    const empty = inputs.filter(i => !i.value.trim()).length;
+    if (empty && !confirm(`${empty} სიტყვა ცარიელია. მაინც ჩავაბარო?`)) return;
+    const wrongs = [];
+    inputs.forEach(inp => {
+      const w = words[inp.dataset.n], right = norm(inp.value) === norm(w.en);
+      inp.className = right ? 'good' : 'bad';
+      inp.readOnly = true;
+      const fix = inp.nextElementSibling;
+      fix.className = 'fix ' + (right ? 'ok' : 'bad');
+      fix.innerHTML = right ? '✔ სწორია' : `✘ სწორია: <b>${esc(w.en)}</b>`;
+      if (!right) wrongs.push(w);
+    });
+    const ok = words.length - wrongs.length, pct = Math.round(ok / words.length * 100);
+    if (!retry && (lessons[cur].best == null || ok > lessons[cur].best)) { lessons[cur].best = ok; save(); }
+    const grade = pct === 100 ? '🏆 შესანიშნავია!' : pct >= 80 ? '👏 ძალიან კარგი!' : pct >= 50 ? '🙂 არაუშავს, გაიმეორე' : '📚 კიდევ ივარჯიშე';
+    $('submit').parentElement.remove();
+    $('result').innerHTML = `
+      <div class="score"><div class="big ${wrongs.length ? 'bad' : 'ok'}">${ok} / ${words.length}</div><div>${pct}% · ${grade}</div></div>
+      <div class="center">
+        ${wrongs.length ? '<button id="retryWrong">🔁 გაიმეორე შეცდომები</button>' : ''}
+        <button class="ghost" id="again">თავიდან</button>
+        <button class="ghost" onclick="goHome()">გაკვეთილები</button>
+      </div>`;
+    $('result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (wrongs.length) $('retryWrong').onclick = () => { words = wrongs; retry = true; go(1); };
+    $('again').onclick = () => { words = lessons[cur].words.slice(); retry = false; go(1); };
+  };
+}
+
+renderLessons();
+</script>
+</body>
+</html>
