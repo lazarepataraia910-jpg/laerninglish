@@ -241,9 +241,9 @@
 
 <script>
 let KEY = null; // შესული პროფილის მონაცემების გასაღები
-// ☁️ ჩასვი აქ შენი Firebase პროექტის config (იხ. SETUP-FIREBASE.md), მაგ. { apiKey: "...", authDomain: "...", projectId: "...", appId: "..." }.
+// ☁️ ჩასვი აქ შენი Supabase პროექტის მონაცემები (იხ. SETUP-SUPABASE.md), მაგ. { url: "https://xxxx.supabase.co", anonKey: "eyJ..." }.
 // სანამ null-ია, საიტი ლოკალურ პროფილებს იყენებს
-const FIREBASE_CONFIG = null;
+const SUPABASE_CONFIG = null;
 let cloud = null, cloudTimer = null;
 const OLD_KEY = 'english-lessons';
 const THEMES = [['auto', '🌗 ავტო'], ['light', '☀️ დღე'], ['dark', '🌙 ღამე'], ['terminal', '📟 ტერმინალი'],
@@ -349,33 +349,40 @@ function enter(p) {
 
 function logout() {
   persist(); snapshot = null; clearInterval(timer);
-  if (me?.cloud) { const c = cloud; pushCloud().finally(() => c.A.signOut(c.auth)); }
+  if (me?.cloud) { const c = cloud; pushCloud().finally(() => c.auth.signOut()); }
   me = null; KEY = null; lsSet(CURRENT_KEY, null);
   S = fresh(); applyTheme(); viewLogin();
 }
 
-// ---------- ☁️ Firebase: ნამდვილი ანგარიშები, მონაცემები ყველა მოწყობილობაზე ----------
-const FB = 'https://www.gstatic.com/firebasejs/10.12.2/';
+// ---------- ☁️ Supabase: ნამდვილი ანგარიშები, მონაცემები ყველა მოწყობილობაზე ----------
+const SB_URL = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm';
+const here = () => location.origin + location.pathname; // აქ დაბრუნდება ელფოსტის/Google-ის ბმული
 async function initCloud() {
-  const [{ initializeApp }, A, F] = await Promise.all(['firebase-app', 'firebase-auth', 'firebase-firestore'].map(m => import(FB + m + '.js')));
-  const app = initializeApp(FIREBASE_CONFIG);
-  cloud = { A, F, auth: A.getAuth(app), db: F.getFirestore(app) };
-  A.onAuthStateChanged(cloud.auth, u => u ? enterCloud(u) : viewLogin());
+  const { createClient } = await import(SB_URL);
+  cloud = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+  // Supabase გვირჩევს ამ callback-ში სხვა Supabase მოთხოვნა პირდაპირ არ გავუშვათ, ამიტომ setTimeout
+  cloud.auth.onAuthStateChange((event, session) => setTimeout(() => {
+    if (event === 'PASSWORD_RECOVERY') return newPassword();
+    const u = session?.user;
+    if (u && me?.id !== u.id) return enterCloud(u);
+    if (!u) {
+      if (me?.cloud) { me = null; KEY = null; S = fresh(); applyTheme(); }
+      viewLogin();
+    }
+  }));
 }
-const userDoc = () => cloud.F.doc(cloud.db, 'users', cloud.auth.currentUser.uid);
 // ამ ბრაუზერის ძველი მონაცემები: პირველი ლოკალური პროფილი ან პროფილებამდელი გაკვეთილები
 const guessLocalData = () => (profiles[0] && lsGet('english-app-v2:' + profiles[0].id)) || lsGet('english-app-v2') || lsGet(OLD_KEY);
 
 async function enterCloud(u) {
-  me = { id: u.uid, name: u.displayName || (u.email || '').split('@')[0], cloud: true };
-  KEY = 'english-app-v2:cloud:' + u.uid;
+  me = { id: u.id, name: u.user_metadata?.name || u.user_metadata?.full_name || (u.email || '').split('@')[0], cloud: true };
+  KEY = 'english-app-v2:cloud:' + u.id;
   const local = lsGet(KEY), localAt = +lsGet(KEY + ':at') || 0;
-  let remote = null;
-  try { const snap = await cloud.F.getDoc(userDoc()); if (snap.exists()) remote = snap.data(); }
-  catch (e) { toast('⚠️ ღრუბელთან კავშირი ვერ დამყარდა, ვიყენებ ამ მოწყობილობის ასლს'); }
+  const { data: remote, error } = await cloud.from('user_data').select('json, at').eq('user_id', u.id).maybeSingle();
+  if (error) toast('⚠️ ღრუბელთან კავშირი ვერ დამყარდა, ვიყენებ ამ მოწყობილობის ასლს');
   // რომელიც უფრო ახალია (ღრუბელი თუ ეს მოწყობილობა), ის ვიღებთ
   let json = remote && (!local || num(remote.at) >= localAt) ? str(remote.json) : local;
-  if (!json && !remote && guessLocalData() && confirm('ამ ბრაუზერში ძველი გაკვეთილები გაქვს. გადავიტანო შენს ანგარიშზე?')) json = guessLocalData();
+  if (!json && !remote && !error && guessLocalData() && confirm('ამ ბრაუზერში ძველი გაკვეთილები გაქვს. გადავიტანო შენს ანგარიშზე?')) json = guessLocalData();
   try { S = clean(JSON.parse(json)); } catch (e) { S = fresh(); }
   document.body.classList.remove('out');
   applyTheme(); viewLessons(); toast(`👋 გამარჯობა, ${me.name}!`);
@@ -384,9 +391,9 @@ async function enterCloud(u) {
 
 function pushCloud() {
   clearTimeout(cloudTimer);
-  if (!cloud?.auth.currentUser || !KEY) return Promise.resolve();
-  return cloud.F.setDoc(userDoc(), { json: JSON.stringify(S), at: Date.now() })
-    .catch(() => toast('⚠️ ღრუბელში შენახვა ვერ მოხერხდა'));
+  if (!me?.cloud || !KEY) return Promise.resolve();
+  return cloud.from('user_data').upsert({ user_id: me.id, json: JSON.stringify(S), at: Date.now() })
+    .then(({ error }) => { if (error) toast('⚠️ ღრუბელში შენახვა ვერ მოხერხდა'); });
 }
 addEventListener('pagehide', () => { if (me?.cloud) pushCloud(); });
 
@@ -415,60 +422,68 @@ function viewCloudLogin() {
       </div>
       <p class="muted sm center">☁️ გაკვეთილები შენს ანგარიშზე ინახება და ყველა მოწყობილობაზე გამოჩნდება.</p>
     </section>`;
-  const A = cloud.A, msg = t => { $('aMsg').textContent = t; };
+  const msg = t => { $('aMsg').textContent = t; };
   $('authForm').onsubmit = async e => {
     e.preventDefault();
     msg('');
-    const email = $('aEmail').value.trim(), pass = $('aPass').value;
-    try {
-      if (!signup) return await A.signInWithEmailAndPassword(cloud.auth, email, pass);
-      const name = $('aName').value.trim();
-      if (pass !== $('aPass2').value) return msg('✘ პაროლები არ ემთხვევა');
-      const { user } = await A.createUserWithEmailAndPassword(cloud.auth, email, pass);
-      await A.updateProfile(user, { displayName: name });
-      if (me?.id === user.uid) { me.name = name; renderTop(); }
-    } catch (err) { msg(authError(err)); }
+    const email = $('aEmail').value.trim(), password = $('aPass').value;
+    if (!signup) {
+      const { error } = await cloud.auth.signInWithPassword({ email, password });
+      return error && msg(authError(error));
+    }
+    if (password !== $('aPass2').value) return msg('✘ პაროლები არ ემთხვევა');
+    const { data, error } = await cloud.auth.signUp({ email, password,
+      options: { data: { name: $('aName').value.trim() }, emailRedirectTo: here() } });
+    if (error) return msg(authError(error));
+    // თუ Supabase-ში ელფოსტის დადასტურება ჩართულია, სესია მხოლოდ დადასტურების მერე გაჩნდება
+    if (!data.session) { signup = false; viewCloudLogin(); toast('📧 შეამოწმე ელფოსტა და დაადასტურე რეგისტრაცია'); }
   };
-  $('gBtn').onclick = () => A.signInWithPopup(cloud.auth, new A.GoogleAuthProvider()).catch(err => msg(authError(err)));
+  $('gBtn').onclick = async () => {
+    const { error } = await cloud.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: here() } });
+    if (error) msg(authError(error));
+  };
   if ($('resetBtn')) $('resetBtn').onclick = async () => {
     const email = $('aEmail').value.trim();
     if (!email) return msg('ჯერ ჩაწერე ელფოსტა');
-    try { await A.sendPasswordResetEmail(cloud.auth, email); toast('📧 პაროლის აღდგენის ბმული გამოგზავნილია'); }
-    catch (err) { msg(authError(err)); }
+    const { error } = await cloud.auth.resetPasswordForEmail(email, { redirectTo: here() });
+    error ? msg(authError(error)) : toast('📧 პაროლის აღდგენის ბმული გამოგზავნილია');
   };
   $(signup ? 'aName' : 'aEmail').focus();
 }
 
+// პაროლის აღდგენის ბმულიდან დაბრუნებისას
+async function newPassword() {
+  const password = prompt('ჩაწერე ახალი პაროლი (მინ. 6 სიმბოლო)');
+  if (!password) return;
+  const { error } = await cloud.auth.updateUser({ password });
+  toast(error ? authError(error) : '✅ პაროლი შეიცვალა');
+}
+
 function authError(e) {
-  const m = {
-    'auth/invalid-email': 'ელფოსტა არასწორია',
-    'auth/invalid-credential': 'ელფოსტა ან პაროლი არასწორია',
-    'auth/wrong-password': 'ელფოსტა ან პაროლი არასწორია',
-    'auth/user-not-found': 'ასეთი ანგარიში არ არსებობს',
-    'auth/email-already-in-use': 'ეს ელფოსტა უკვე დარეგისტრირებულია',
-    'auth/weak-password': 'პაროლი მინიმუმ 6 სიმბოლო უნდა იყოს',
-    'auth/too-many-requests': 'ძალიან ბევრი მცდელობა, სცადე მოგვიანებით',
-    'auth/popup-closed-by-user': 'Google-ის ფანჯარა დაიხურა',
-    'auth/network-request-failed': 'ინტერნეტთან კავშირი არ არის',
-    'auth/unauthorized-domain': 'ეს მისამართი Firebase-ში ნებადართული არ არის (Authorized domains)',
-    'auth/operation-not-allowed': 'შესვლის ეს ხერხი Firebase-ში ჩართული არ არის',
-    'auth/api-key-not-valid.-please-pass-a-valid-api-key.': 'FIREBASE_CONFIG არასწორია, შეამოწმე apiKey'
-  };
-  return '✘ ' + (m[e?.code] || 'შეცდომა: ' + (e?.code || e?.message || e));
+  const t = String(e?.message || e || '');
+  const m = [
+    [/invalid login credentials/i, 'ელფოსტა ან პაროლი არასწორია'],
+    [/already registered|already been registered/i, 'ეს ელფოსტა უკვე დარეგისტრირებულია'],
+    [/email not confirmed/i, 'ჯერ დაადასტურე ელფოსტა (შეამოწმე ფოსტა)'],
+    [/at least 6/i, 'პაროლი მინიმუმ 6 სიმბოლო უნდა იყოს'],
+    [/email.*invalid|invalid.*email/i, 'ელფოსტა არასწორია'],
+    [/rate limit|too many/i, 'ძალიან ბევრი მცდელობა, სცადე მოგვიანებით'],
+    [/provider is not enabled/i, 'შესვლის ეს ხერხი Supabase-ში ჩართული არ არის'],
+    [/invalid api key|no api key/i, 'SUPABASE_CONFIG არასწორია, შეამოწმე anonKey'],
+    [/failed to fetch|network/i, 'ინტერნეტთან კავშირი არ არის ან SUPABASE_CONFIG-ის url არასწორია']
+  ];
+  return '✘ ' + (m.find(([r]) => r.test(t))?.[1] || 'შეცდომა: ' + t);
 }
 
 async function deleteCloudAccount() {
   if (!confirm('წავშალო შენი ანგარიში და ყველა გაკვეთილი? ამას ვერ დააბრუნებ.')) return;
-  try {
-    await cloud.F.deleteDoc(userDoc());
-    await cloud.A.deleteUser(cloud.auth.currentUser);
-    lsSet(KEY, null); lsSet(KEY + ':at', null);
-    snapshot = null; me = null; KEY = null; S = fresh(); applyTheme();
-    toast('🗑️ ანგარიში წაიშალა');
-  } catch (e) {
-    pushCloud(); // ანგარიში ვერ წაიშალა: მონაცემები ღრუბელში დავაბრუნოთ
-    toast(e?.code === 'auth/requires-recent-login' ? 'უსაფრთხოებისთვის გამოდი, თავიდან შედი და მერე წაშალე' : authError(e));
-  }
+  clearTimeout(cloudTimer);
+  const { error } = await cloud.rpc('delete_user'); // ანგარიშს და მის მონაცემებს ერთად შლის (იხ. supabase.sql)
+  if (error) return toast(authError(error));
+  lsSet(KEY, null); lsSet(KEY + ':at', null);
+  snapshot = null; me = null; KEY = null; S = fresh(); applyTheme();
+  await cloud.auth.signOut();
+  viewLogin(); toast('🗑️ ანგარიში წაიშალა');
 }
 
 function viewLogin() {
@@ -1263,11 +1278,11 @@ function localStart() {
   const last = profiles.find(p => p.id === lsGet(CURRENT_KEY));
   last ? enter(last) : (applyTheme(), viewLogin());
 }
-if (FIREBASE_CONFIG) {
+if (SUPABASE_CONFIG) {
   applyTheme();
   document.body.classList.add('out');
   M.innerHTML = '<p class="center muted">☁️ იტვირთება...</p>';
-  initCloud().catch(() => { cloud = null; toast('⚠️ Firebase ვერ ჩაიტვირთა, ვიყენებ ლოკალურ პროფილებს'); localStart(); });
+  initCloud().catch(() => { cloud = null; toast('⚠️ Supabase ვერ ჩაიტვირთა, ვიყენებ ლოკალურ პროფილებს'); localStart(); });
 } else localStart();
 </script>
 </body>
