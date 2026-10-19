@@ -243,8 +243,8 @@
 let KEY = null; // შესული პროფილის მონაცემების გასაღები
 // ☁️ ჩასვი აქ შენი Supabase პროექტის მონაცემები (იხ. SETUP-SUPABASE.md), მაგ. { url: "https://xxxx.supabase.co", anonKey: "eyJ..." }.
 // სანამ null-ია, საიტი ლოკალურ პროფილებს იყენებს
-const SUPABASE_CONFIG = null;
-let cloud = null, cloudTimer = null;
+const SUPABASE_CONFIG = { url: 'https://eonfodcsszzptuwmldpd.supabase.co', anonKey: 'sb_publishable_ILYAA_cXUzE0ekRD6XUxNg_E_Dg2NEm' };
+let cloud = null, cloudTimer = null, googleOn = false;
 const OLD_KEY = 'english-lessons';
 const THEMES = [['auto', '🌗 ავტო'], ['light', '☀️ დღე'], ['dark', '🌙 ღამე'], ['terminal', '📟 ტერმინალი'],
                 ['ocean', '🌊 ზღვა'], ['forest', '🌲 ტყე'], ['rose', '🌸 ვარდი'], ['paper', '📰 გაზეთი']];
@@ -360,6 +360,9 @@ const here = () => location.origin + location.pathname; // აქ დაბრ�
 async function initCloud() {
   const { createClient } = await import(SB_URL);
   cloud = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+  // Google-ის ღილაკი მხოლოდ მაშინ ჩანს, თუ Supabase-ში Google ჩართულია
+  fetch(SUPABASE_CONFIG.url + '/auth/v1/settings', { headers: { apikey: SUPABASE_CONFIG.anonKey } })
+    .then(r => r.json()).then(s => { googleOn = !!s.external?.google; $('gBtn')?.classList.toggle('hidden', !googleOn); }).catch(() => {});
   // Supabase გვირჩევს ამ callback-ში სხვა Supabase მოთხოვნა პირდაპირ არ გავუშვათ, ამიტომ setTimeout
   cloud.auth.onAuthStateChange((event, session) => setTimeout(() => {
     if (event === 'PASSWORD_RECOVERY') return newPassword();
@@ -417,7 +420,7 @@ function viewCloudLogin() {
         <button class="btn pink" type="submit" style="width:100%">${signup ? 'რეგისტრაცია' : 'შესვლა'}</button>
       </form>
       <div class="btns">
-        <button class="btn white" id="gBtn">🌐 Google-ით შესვლა</button>
+        <button class="btn white ${googleOn ? '' : 'hidden'}" id="gBtn">🌐 Google-ით შესვლა</button>
         ${signup ? '' : '<button class="btn white sm" id="resetBtn">პაროლი დამავიწყდა?</button>'}
       </div>
       <p class="muted sm center">☁️ გაკვეთილები შენს ანგარიშზე ინახება და ყველა მოწყობილობაზე გამოჩნდება.</p>
