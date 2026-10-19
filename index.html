@@ -8,24 +8,24 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;600;800&family=Noto+Serif+Georgian:wght@900&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <style>
-  /* რეტრო: 70-80-იანების ფერები, ზოლები, პიქსელური შრიფტი ინგლისურისთვის, მუქში CRT ხაზები */
+  /* რეტრო, მშვიდი: სეპიის ფერები + ერთი აქცენტი (აგურისფერი), პიქსელური შრიფტი ინგლისურისთვის, მუქში CRT ხაზები */
   :root {
-    --bg:#f3e3c3; --card:#fdf6e3; --ink:#2b1d14; --muted:#6b5640; --line:#2b1d14; --soft:#ead6ae;
-    --yellow:#f4b942; --pink:#e76f51; --mint:#8ab17d; --blue:#2a9d8f; --purple:#b392ac; --red:#d64933;
-    --ghost:#cdb98f; --ok:#2f7a3d; --bad:#c0392b; --scan:transparent; color-scheme: light;
+    --bg:#f3e8d2; --card:#fbf5e8; --ink:#2b1d14; --muted:#6b5640; --line:#2b1d14; --soft:#eadcc0;
+    --yellow:#e8d5ad; --pink:#d9794f; --mint:#a3ad80; --blue:#d6c39c; --purple:#d6c39c; --red:#c9775f;
+    --ghost:#cdb98f; --ok:#2f7a3d; --bad:#b03a2e; --scan:transparent; color-scheme: light;
     --px: "Press Start 2P", "Noto Sans Georgian", monospace;
     --vt: "VT323", "Noto Sans Georgian", ui-monospace, monospace;
     --serif: "Noto Serif Georgian", Georgia, serif;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg:#1e1b2e; --card:#2a2540; --ink:#f3e3c3; --muted:#b8a98a; --line:#0d0b15; --soft:#383152;
-      --ghost:#5d5578; --ok:#9bd18b; --bad:#ff7b6b; --scan:rgba(0,0,0,.22); color-scheme: dark;
+      --bg:#1d1813; --card:#2a231c; --ink:#f0e4cc; --muted:#b3a386; --line:#0b0806; --soft:#3a3027;
+      --ghost:#5a4d3f; --ok:#9bd18b; --bad:#ff8a70; --scan:rgba(0,0,0,.22); color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
-    --bg:#1e1b2e; --card:#2a2540; --ink:#f3e3c3; --muted:#b8a98a; --line:#0d0b15; --soft:#383152;
-    --ghost:#5d5578; --ok:#9bd18b; --bad:#ff7b6b; --scan:rgba(0,0,0,.22); color-scheme: dark;
+    --bg:#1d1813; --card:#2a231c; --ink:#f0e4cc; --muted:#b3a386; --line:#0b0806; --soft:#3a3027;
+    --ghost:#5a4d3f; --ok:#9bd18b; --bad:#ff8a70; --scan:rgba(0,0,0,.22); color-scheme: dark;
   }
   * { box-sizing: border-box; }
   body { margin: 0; min-height: 100vh; font-family: "Noto Sans Georgian", system-ui, sans-serif; color: var(--ink);
@@ -44,8 +44,8 @@
   /* ---- ზედა ზოლი ---- */
   .top { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between; margin-bottom: 26px; }
   .logo { display: inline-block; padding: 8px 18px 10px; background: var(--yellow); color: #2b1d14; border: 3px solid var(--line);
-          border-radius: 6px; box-shadow: 4px 4px 0 var(--pink), 8px 8px 0 var(--blue), 11px 11px 0 var(--line); }
-  .logo .px { display: block; font-family: var(--px); font-size: 10px; letter-spacing: .15em; margin-bottom: 4px; }
+          border-radius: 6px; box-shadow: 5px 5px 0 var(--line); }
+  .logo .px { display: block; font-family: var(--px); font-size: 10px; letter-spacing: .15em; margin-bottom: 4px; color: #a5502c; }
   .logo b { font-family: var(--serif); font-weight: 900; font-size: 22px; }
   .chips { display: flex; gap: 8px; flex-wrap: wrap; }
   .chip { font-weight: 800; font-size: 14px; padding: 5px 12px; background: var(--card); border: 3px solid var(--line);
@@ -55,15 +55,16 @@
   /* ---- ფანჯრები და ღილაკები ---- */
   .box { position: relative; background: var(--card); border: 3px solid var(--line); border-radius: 8px;
          box-shadow: 6px 6px 0 var(--line); padding: 32px 20px 20px; margin-bottom: 24px; }
-  .box::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 14px; border-radius: 5px 5px 0 0;
+  /* ძველი Mac-ის ფანჯრის ზოლები, ერთფეროვანი */
+  .box::before, .lcard::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 14px; border-radius: 5px 5px 0 0;
                  border-bottom: 3px solid var(--line);
-                 background: linear-gradient(var(--pink) 0 33%, var(--yellow) 0 66%, var(--blue) 0); }
+                 background: repeating-linear-gradient(var(--line) 0 2px, var(--card) 2px 4px); }
   .btn { --d: 4px; font: inherit; font-weight: 800; font-size: 16px; padding: 10px 18px; background: var(--yellow); color: #2b1d14;
          border: 3px solid var(--line); border-radius: 4px; cursor: pointer; transition: transform .06s;
          box-shadow: inset -3px -3px 0 #0003, inset 3px 3px 0 #fff7, var(--d) var(--d) 0 var(--line); }
   .btn:hover { --d: 5px; transform: translate(-1px, -1px); }
   .btn:active { --d: 1px; transform: translate(3px, 3px); box-shadow: inset 3px 3px 0 #0003, 1px 1px 0 var(--line); }
-  .btn:focus-visible { outline: 3px dashed var(--blue); outline-offset: 4px; }
+  .btn:focus-visible { outline: 3px dashed var(--pink); outline-offset: 4px; }
   .btn:disabled { cursor: default; opacity: .6; }
   .btn.pink { background: var(--pink); } .btn.mint { background: var(--mint); } .btn.blue { background: var(--blue); }
   .btn.purple { background: var(--purple); } .btn.red { background: var(--red); }
@@ -73,7 +74,7 @@
 
   input, textarea, select { font: inherit; font-size: 17px; padding: 11px 14px; background: var(--card); color: var(--ink); width: 100%;
                             border: 3px solid var(--line); border-radius: 4px; box-shadow: inset 3px 3px 0 var(--soft); }
-  input:focus, textarea:focus, select:focus { outline: none; box-shadow: inset 3px 3px 0 var(--soft), 4px 4px 0 var(--blue); }
+  input:focus, textarea:focus, select:focus { outline: none; box-shadow: inset 3px 3px 0 var(--soft), 4px 4px 0 var(--pink); }
   textarea { min-height: 160px; resize: vertical; margin: 10px 0 4px; }
   input.good { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 15%, var(--card)); }
   input.bad { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 15%, var(--card)); }
@@ -83,20 +84,19 @@
   /* ძველი "loading" ზოლივით, ბლოკებად */
   .bar { height: 26px; padding: 3px; margin: 14px 0 6px; background: var(--soft); border: 3px solid var(--line); border-radius: 4px; }
   .bar div { height: 100%; width: 0; transition: width .35s;
-             background: repeating-linear-gradient(90deg, var(--blue) 0 14px, transparent 14px 18px); }
+             background: repeating-linear-gradient(90deg, var(--pink) 0 14px, transparent 14px 18px); }
 
   /* ---- გაკვეთილები ---- */
   .packs { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 22px; margin-top: 16px; }
-  .lcard { display: flex; flex-direction: column; gap: 8px; padding: 16px; background: var(--card); border: 3px solid var(--line);
-           border-top: 18px solid var(--c); border-radius: 6px; box-shadow: 6px 6px 0 var(--line); transition: transform .12s; }
+  .lcard { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 30px 16px 16px; background: var(--card); border: 3px solid var(--line);
+           border-radius: 6px; box-shadow: 6px 6px 0 var(--line); transition: transform .12s; }
   .lcard:hover { transform: translate(-2px, -2px) rotate(-.6deg); }
   .lname { font-family: var(--serif); font-weight: 900; font-size: 20px; word-break: break-word; }
   .preview { font-family: var(--vt); font-size: 20px; line-height: 1.1; color: var(--muted); flex: 1; }
   .lact { display: flex; gap: 8px; flex-wrap: wrap; }
   .search { max-width: 260px; }
-  .hard { background: var(--pink); color: #2b1d14; }
-  .hard .muted { color: #3b2a20; }
+  .hard { background: var(--soft); }
 
   /* ---- სწავლა ---- */
   .modes { display: flex; gap: 10px; overflow-x: auto; padding: 4px 8px 10px 2px; margin-top: 14px; }
@@ -105,15 +105,15 @@
   .word { font-family: var(--vt); font-size: clamp(36px, 9vw, 58px); line-height: 1.1; margin: 6px 0 12px; word-break: break-word; }
   .trace { position: relative; display: inline-block; max-width: 100%; overflow: hidden; margin: 4px 0 14px;
            font-family: "VT323", ui-monospace, Consolas, monospace; font-size: clamp(40px, 12vw, 68px);
-           background: #1e1b2e; border: 3px solid var(--line); border-radius: 6px; box-shadow: inset 0 0 18px #000a, 5px 5px 0 var(--line); }
+           background: #17120d; border: 3px solid var(--line); border-radius: 6px; box-shadow: inset 0 0 18px #000a, 5px 5px 0 var(--line); }
   /* input გამჭვირვალეა და ზუსტად ასოებს ზემოდან ადევს */
   .letters, .trace input { font: inherit; line-height: 1.2; padding: 6px 16px; letter-spacing: .08em; white-space: pre; }
   .trace input { position: absolute; inset: 0; width: 100%; border: none; border-radius: 0; background: transparent;
-                 color: transparent; caret-color: #f4b942; box-shadow: none; }
-  .letters .g { color: #5d5578; }
+                 color: transparent; caret-color: #e8b04a; box-shadow: none; }
+  .letters .g { color: #5a4d3f; }
   .letters .ok { color: #9bd18b; text-shadow: 0 0 8px #9bd18b88; }
   .letters .bad { color: #ff7b6b; text-decoration: underline wavy; text-shadow: 0 0 8px #ff7b6b88; }
-  .letters.done span { color: #f4b942; text-shadow: 0 0 10px #f4b942aa; }
+  .letters.done span { color: #e8b04a; text-shadow: 0 0 10px #e8b04aaa; }
   .letters.done { animation: pop .4s; }
   .answer { display: block; max-width: 440px; margin: 8px auto; font-size: 24px; text-align: center; }
   .hint { font-family: var(--vt); font-size: 30px; letter-spacing: .15em; min-height: 1.2em; color: var(--muted); }
@@ -126,8 +126,8 @@
   .face { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
           padding: 16px; text-align: center; color: #2b1d14; border: 3px solid var(--line); border-radius: 6px;
           box-shadow: 6px 6px 0 var(--line); backface-visibility: hidden; -webkit-backface-visibility: hidden;
-          background: linear-gradient(#d64933 0 0) 0 46px / 100% 2px no-repeat,
-                      repeating-linear-gradient(#fffaf0 0 29px, #9cc3d5 29px 31px); }
+          background: linear-gradient(#d9794f 0 0) 0 46px / 100% 2px no-repeat,
+                      repeating-linear-gradient(#fffaf0 0 29px, #e2d5bb 29px 31px); }
   .face.back { background: var(--yellow); transform: rotateY(180deg); }
   .face small { font-weight: 600; opacity: .7; }
 
@@ -142,16 +142,16 @@
                padding: 8px 0; border-bottom: 2px dashed var(--soft); }
   .test .fix { grid-column: 3; font-size: 14px; font-weight: 600; }
   .test .fix:empty { display: none; }
-  .timer { font-family: var(--px); font-size: 13px; padding: 8px 10px; background: #1e1b2e; color: #f4b942; border-radius: 4px; border: 3px solid var(--line); }
+  .timer { font-family: var(--px); font-size: 13px; padding: 8px 10px; background: #17120d; color: #e8b04a; border-radius: 4px; border: 3px solid var(--line); }
   .score { text-align: center; padding: 22px; margin: 24px 12px 22px 0; background: var(--yellow); color: #2b1d14; border: 3px solid var(--line);
-           border-radius: 6px; box-shadow: 4px 4px 0 var(--pink), 8px 8px 0 var(--blue), 11px 11px 0 var(--line); }
+           border-radius: 6px; box-shadow: 6px 6px 0 var(--line); }
   .score b { display: block; font-family: var(--px); font-size: clamp(24px, 7vw, 38px); margin-bottom: 10px; }
 
   /* ---- სტატისტიკა / პარამეტრები ---- */
   .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 14px; }
-  .tile { padding: 14px; background: var(--c); color: #2b1d14; border: 3px solid var(--line); border-radius: 4px;
+  .tile { padding: 14px; background: var(--soft); color: var(--ink); border: 3px solid var(--line); border-radius: 4px;
           box-shadow: inset -3px -3px 0 #0002, inset 3px 3px 0 #fff6, 4px 4px 0 var(--line); }
-  .tile b { display: block; font-family: var(--px); font-size: 18px; margin-bottom: 8px; }
+  .tile b { display: block; font-family: var(--px); font-size: 18px; margin-bottom: 8px; color: var(--pink); }
   .tile span { font-size: 14px; font-weight: 600; }
   .chart { display: flex; align-items: flex-end; gap: 10px; height: 170px; margin-top: 12px; }
   .chart .col { flex: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 4px; }
@@ -168,7 +168,7 @@
   #toasts { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); z-index: 50;
             display: flex; flex-direction: column; align-items: center; gap: 8px; pointer-events: none; }
   .toast { font-weight: 800; padding: 8px 18px; background: var(--yellow); color: #2b1d14; border: 3px solid var(--line);
-           border-radius: 4px; box-shadow: 3px 3px 0 var(--pink), 6px 6px 0 var(--line); animation: up .25s steps(4); }
+           border-radius: 4px; box-shadow: 4px 4px 0 var(--line); animation: up .25s steps(4); }
   .cf { position: fixed; top: -14px; width: 10px; height: 10px; z-index: 99; pointer-events: none; animation: fall linear forwards; }
 
   @keyframes shake { 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
@@ -328,7 +328,7 @@ function toast(text) {
 
 function confetti() {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const colors = ['#f4b942', '#e76f51', '#8ab17d', '#2a9d8f', '#b392ac'];
+  const colors = ['#d9794f', '#e8d5ad', '#a3ad80', '#6b5640', '#2b1d14'];
   for (let i = 0; i < 80; i++) {
     const c = document.createElement('i');
     c.className = 'cf';
