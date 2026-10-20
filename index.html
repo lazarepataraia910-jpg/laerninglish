@@ -255,19 +255,25 @@
 </style>
 </head>
 <body>
-<!-- ემოჯების ფილტრი: ჯერ ნაცრისფერი, მერე ბნელი → შავი, შუა → წითელი, ღია → თეთრი, და თხელი შავი კონტური,
-     რომ თეთრი ნაწილები თეთრ ფონზე არ გაქრეს -->
+<!-- ემოჯების ფილტრი: ნაცრისფერი → კონტრასტის გაზრდა → რბილი გრადიენტი
+     შავი → მუქი წითელი → წითელი → ღია წითელი → თეთრი (რბილი გადასვლები ინარჩუნებს დეტალებს პატარა ზომაზეც),
+     და ძალიან თხელი, ნახევრად გამჭვირვალე კონტური, რომ თეთრი ნაწილები თეთრ ფონზე არ გაქრეს -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <filter id="rbw" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
     <feColorMatrix in="SourceGraphic" type="matrix" result="gray"
       values="0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0 0 0 1 0"/>
-    <feComponentTransfer in="gray" result="tone">
-      <feFuncR type="discrete" tableValues="0.067 0.839 0.839 1"/>
-      <feFuncG type="discrete" tableValues="0.067 0.157 0.157 1"/>
-      <feFuncB type="discrete" tableValues="0.067 0.157 0.157 1"/>
+    <feComponentTransfer in="gray" result="gray">
+      <feFuncR type="linear" slope="1.3" intercept="-0.15"/>
+      <feFuncG type="linear" slope="1.3" intercept="-0.15"/>
+      <feFuncB type="linear" slope="1.3" intercept="-0.15"/>
     </feComponentTransfer>
-    <feMorphology in="SourceAlpha" operator="dilate" radius="0.7" result="fat"/>
-    <feFlood flood-color="#111"/>
+    <feComponentTransfer in="gray" result="tone">
+      <feFuncR type="table" tableValues="0.067 0.541 0.839 0.949 1"/>
+      <feFuncG type="table" tableValues="0.067 0.078 0.157 0.639 1"/>
+      <feFuncB type="table" tableValues="0.067 0.078 0.157 0.639 1"/>
+    </feComponentTransfer>
+    <feMorphology in="SourceAlpha" operator="dilate" radius="0.45" result="fat"/>
+    <feFlood flood-color="#111" flood-opacity=".45"/>
     <feComposite in2="fat" operator="in" result="outline"/>
     <feMerge><feMergeNode in="outline"/><feMergeNode in="tone"/></feMerge>
   </filter>
