@@ -112,7 +112,8 @@
   .logo .px { display: block; font-family: var(--px); font-size: 10px; letter-spacing: .15em; margin-bottom: 4px; color: #d62828; }
   .logo b { font-family: var(--serif); font-weight: 900; font-size: 22px; }
   /* ემოჯები საიტის წითელ ფერშია გადაყვანილი (დეტალები რჩება, იცვლება მხოლოდ ფერი) */
-  .emo { filter: grayscale(1) sepia(1) hue-rotate(-45deg) saturate(6) brightness(.85); }
+  /* brightness(.55) ჯერ ამუქებს ღია ემოჯებს (ღრუბელი, ვარსკვლავი), რომ ყვითლად კი არა, წითლად გამოვიდნენ */
+  .emo { filter: grayscale(1) brightness(.55) sepia(1) hue-rotate(-50deg) saturate(10); }
   .chips { display: flex; gap: 8px; flex-wrap: wrap; }
   .chip { font-weight: 800; font-size: 14px; padding: 5px 12px; background: var(--card); border: 3px solid var(--line);
           border-radius: 4px; box-shadow: 3px 3px 0 var(--line); }
