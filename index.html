@@ -111,10 +111,6 @@
   .logo-mark { width: 46px; height: 46px; flex: none; }
   .logo .px { display: block; font-family: var(--px); font-size: 10px; letter-spacing: .15em; margin-bottom: 4px; color: #d62828; }
   .logo b { font-family: var(--serif); font-weight: 900; font-size: 22px; }
-  /* ემოჯების ნაცვლად ხაზოვანი ხატულები (იხ. ICONS სკრიპტში) */
-  .i { width: 1.15em; height: 1.15em; vertical-align: -0.2em; flex: none; }
-  .i-flame { color: #d62828; }
-  .word .i { vertical-align: -0.12em; }
   .chips { display: flex; gap: 8px; flex-wrap: wrap; }
   .chip { font-weight: 800; font-size: 14px; padding: 5px 12px; background: var(--card); border: 3px solid var(--line);
           border-radius: 4px; box-shadow: 3px 3px 0 var(--line); }
@@ -286,105 +282,6 @@
 <input type="file" id="importFile" accept=".json,application/json" hidden>
 
 <script>
-// ---------- ხატულები: ემოჯები ავტომატურად იცვლება ერთნაირი ხაზოვანი ხატულებით ----------
-const ICONS = {
-  book: '<path d="M2 5h6a4 4 0 0 1 4 4v11a3 3 0 0 0-3-3H2z"/><path d="M22 5h-6a4 4 0 0 0-4 4v11a3 3 0 0 1 3-3h7z"/>',
-  chart: '<path d="M3 3v18h18"/><path d="M8 17v-6M13 17V7M18 17v-4"/>',
-  gear: '<circle cx="12" cy="12" r="3.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/>',
-  flame: '<path d="M12 22c4.4 0 7-3 7-7 0-4-3-6-4-9-1 2-2 3-4 3 0-2-1-4-3-6 0 4-4 7-4 12 0 4 3.3 7 8 7z"/>',
-  star: '<path d="m12 2.5 3 6.1 6.7 1-4.9 4.7 1.2 6.7-6-3.2-6 3.2 1.2-6.7-4.9-4.7 6.7-1z"/>',
-  medal: '<circle cx="12" cy="15" r="6"/><path d="M8.6 10.2 6 2h4l2 5 2-5h4l-2.6 8.2"/>',
-  trophy: '<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/>',
-  user: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
-  users: '<circle cx="9" cy="8" r="3.5"/><path d="M2 21a7 7 0 0 1 14 0M16 4.5a3.5 3.5 0 0 1 0 7M22 21a7 7 0 0 0-4-6.3"/>',
-  cloud: '<path d="M7 19h10a4.5 4.5 0 0 0 .7-9A6 6 0 0 0 6 10a4.5 4.5 0 0 0 1 9z"/>',
-  target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
-  sparkle: '<path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15v4M17 17h4"/>',
-  bolt: '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',
-  clipboard: '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2h6v2M9 10h6M9 14h6M9 18h3"/>',
-  save: '<path d="M5 3h11l3 3v15H5z"/><path d="M8 3v6h8V3M8 21v-7h8v7"/>',
-  alert: '<path d="M12 3 2 21h20z"/><path d="M12 10v5M12 18v.5"/>',
-  key: '<circle cx="7.5" cy="15.5" r="4.5"/><path d="m10.7 12.3 9.3-9.3M17 6l3 3M14 9l2 2"/>',
-  lock: '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
-  play: '<path d="M7 4v16l13-8z"/>',
-  pencil: '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>',
-  trash: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 14h10l1-14M9 7V4h6v3"/>',
-  sound: '<path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12"/>',
-  bulb: '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/>',
-  refresh: '<path d="M20 11a8 8 0 0 0-14.7-4.4L4 8M4 4v4h4M4 13a8 8 0 0 0 14.7 4.4L20 16M20 20v-4h-4"/>',
-  cards: '<rect x="3" y="7" width="13" height="14" rx="2"/><path d="M8 3h11a2 2 0 0 1 2 2v12"/>',
-  keyboard: '<rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/>',
-  headphones: '<path d="M3 18v-6a9 9 0 0 1 18 0v6"/><rect x="3" y="14" width="4" height="7" rx="1.5"/><rect x="17" y="14" width="4" height="7" rx="1.5"/>',
-  slow: '<path d="M3.5 18a9 9 0 1 1 17 0z"/><path d="m12 14-4-4"/>',
-  checkCircle: '<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>',
-  check: '<path d="m5 12 5 5 9-10"/>',
-  x: '<path d="M6 6l12 12M18 6 6 18"/>',
-  mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
-  logout: '<path d="M9 21H5V3h4M16 17l5-5-5-5M21 12H9"/>',
-  download: '<path d="M12 3v12M7 10l5 5 5-5M4 21h16"/>',
-  upload: '<path d="M12 21V9M7 14l5-5 5 5M4 3h16"/>',
-  timer: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/>',
-  smile: '<circle cx="12" cy="12" r="9"/><path d="M8.5 14a4 4 0 0 0 7 0M9 9.5h.01M15 9.5h.01"/>',
-  search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>',
-  up: '<path d="M12 19V5M5 12l7-7 7 7"/>',
-  palette: '<path d="M12 3a9 9 0 1 0 0 18c1 0 1.5-.7 1.5-1.5 0-1.2-1-1.5-1-2.5s.8-1.5 2-1.5h2a4.5 4.5 0 0 0 4.5-4.5C21 6.5 17 3 12 3z"/><path d="M7.5 11h.01M10 7.5h.01M14.5 7.5h.01"/>',
-  paw: '<circle cx="6.5" cy="10" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="17.5" cy="10" r="2"/><path d="M8 17.5c0-3 2-5.5 4-5.5s4 2.5 4 5.5c0 2-2 2.5-4 2.5s-4-.5-4-2.5z"/>',
-  hash: '<path d="M4 9h16M4 15h16M10 3 8 21M16 3l-2 18"/>',
-  apple: '<path d="M12 7c-2-2-7-1.5-7 4 0 4 3 9 5 9 1 0 1.3-.5 2-.5s1 .5 2 .5c2 0 5-5 5-9 0-5.5-5-6-7-4z"/><path d="M12 7c0-2 1-4 3-4"/>',
-  run: '<circle cx="14" cy="4.5" r="2"/><path d="M10 21l2-6 3 3v3M6 12l3-4 4 1 2 4 3 1"/>',
-  newspaper: '<path d="M4 4h14v16H6a2 2 0 0 1-2-2z"/><path d="M18 8h2v10a2 2 0 0 1-2 2M8 8h6M8 12h6M8 16h4"/>',
-  half: '<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/>',
-  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M5 19l1.5-1.5M17.5 6.5 19 5"/>',
-  moon: '<path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/>',
-  terminal: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 9 3 3-3 3M12 15h5"/>',
-  waves: '<path d="M2 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0M2 14c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/>',
-  tree: '<path d="M12 2 5 12h4l-3 5h12l-3-5h4z"/><path d="M12 17v5"/>',
-  flower: '<circle cx="12" cy="12" r="2.5"/><path d="M12 9.5C10 6 10.5 3 12 3s2 3 0 6.5M14.5 12c3.5-2 6.5-1.5 6.5 0s-3 2-6.5 0M12 14.5c2 3.5 1.5 6.5 0 6.5s-2-3 0-6.5M9.5 12C6 14 3 13.5 3 12s3-2 6.5 0"/>'
-};
-const EMOJI_ICON = {
-  '📚': 'book', '📊': 'chart', '📈': 'chart', '⚙': 'gear', '🔥': 'flame', '⭐': 'star', '★': 'star', '🏅': 'medal',
-  '🏆': 'trophy', '👤': 'user', '👨‍👩‍👧': 'users', '☁': 'cloud', '🎯': 'target', '✨': 'sparkle', '🎉': 'sparkle',
-  '💪': 'bolt', '📝': 'clipboard', '💾': 'save', '⚠': 'alert', '❌': 'x', '🔑': 'key', '🔐': 'lock', '🔒': 'lock',
-  '▶': 'play', '✏': 'pencil', '✍': 'pencil', '🗑': 'trash', '🔊': 'sound', '💡': 'bulb', '🔁': 'refresh', '🔄': 'refresh',
-  '↻': 'refresh', '↺': 'refresh', '🃏': 'cards', '🧠': 'keyboard', '⌨': 'keyboard', '🎧': 'headphones', '🐢': 'slow',
-  '✅': 'checkCircle', '✔': 'check', '✘': 'x', '📧': 'mail', '🚪': 'logout', '⬇': 'download', '⬆': 'upload', '⏱': 'timer',
-  '👋': 'smile', '🙂': 'smile', '👏': 'smile', '🤷': 'search', '🔍': 'search', '👆': 'up', '🎨': 'palette', '🐶': 'paw',
-  '🔢': 'hash', '🍎': 'apple', '🏃': 'run', '📰': 'newspaper', '🌗': 'half', '☀': 'sun', '🌙': 'moon', '📟': 'terminal',
-  '🌊': 'waves', '🌲': 'tree', '🌸': 'flower', '📚️': 'book'
-};
-document.body.insertAdjacentHTML('afterbegin', '<svg width="0" height="0" style="position:absolute" aria-hidden="true">' +
-  Object.entries(ICONS).map(([n, p]) => `<symbol id="i-${n}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</symbol>`).join('') + '</svg>');
-const EMOJI_RE = new RegExp('(' + Object.keys(EMOJI_ICON).sort((a, b) => b.length - a.length)
-  .map(e => e.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')️?', 'g');
-function iconEl(name) {
-  const ns = 'http://www.w3.org/2000/svg', svg = document.createElementNS(ns, 'svg'), use = document.createElementNS(ns, 'use');
-  svg.setAttribute('class', 'i i-' + name); svg.setAttribute('aria-hidden', 'true');
-  use.setAttribute('href', '#i-' + name); svg.append(use);
-  return svg;
-}
-function iconize(root) {
-  if (!root || root.nodeType !== 1 || /^(SCRIPT|STYLE|TEXTAREA|OPTION|TITLE)$/.test(root.nodeName)) return;
-  const walk = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), found = [];
-  while (walk.nextNode()) {
-    const n = walk.currentNode;
-    EMOJI_RE.lastIndex = 0;
-    if (EMOJI_RE.test(n.data) && !/^(SCRIPT|STYLE|TEXTAREA|OPTION|TITLE)$/.test(n.parentNode.nodeName)) found.push(n);
-  }
-  for (const n of found) {
-    const s = n.data, frag = document.createDocumentFragment();
-    let last = 0;
-    s.replace(EMOJI_RE, (m, e, i) => { frag.append(s.slice(last, i), iconEl(EMOJI_ICON[e])); last = i + m.length; return m; });
-    frag.append(s.slice(last));
-    n.replaceWith(frag);
-  }
-}
-// ყველა ახალი ტექსტი (გვერდები, შეტყობინებები, ღილაკები) ავტომატურად გადის ხატულებში
-new MutationObserver(list => list.forEach(m => {
-  if (m.type === 'characterData') return iconize(m.target.parentNode);
-  m.addedNodes.forEach(n => iconize(n.nodeType === 3 ? n.parentNode : n));
-})).observe(document.body, { childList: true, subtree: true, characterData: true });
-iconize(document.body);
-
 let KEY = null; // შესული პროფილის მონაცემების გასაღები
 // ☁️ ჩასვი აქ შენი Supabase პროექტის მონაცემები (იხ. SETUP-SUPABASE.md), მაგ. { url: "https://xxxx.supabase.co", anonKey: "eyJ..." }.
 // სანამ null-ია, საიტი ლოკალურ პროფილებს იყენებს
@@ -916,7 +813,7 @@ function viewLessons() {
 
     <div class="row-between">
       <h2>📚 ჩემი გაკვეთილები</h2>
-      <input class="search" id="search" placeholder="ძიება..." value="${esc(query)}">
+      <input class="search" id="search" placeholder="🔍 ძიება..." value="${esc(query)}">
     </div>
     <div class="grid" id="grid"></div>`;
 
