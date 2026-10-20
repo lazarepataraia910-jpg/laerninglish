@@ -111,9 +111,8 @@
   .logo-mark { width: 46px; height: 46px; flex: none; }
   .logo .px { display: block; font-family: var(--px); font-size: 10px; letter-spacing: .15em; margin-bottom: 4px; color: #d62828; }
   .logo b { font-family: var(--serif); font-weight: 900; font-size: 22px; }
-  /* ემოჯები საიტის წითელ ფერშია გადაყვანილი (დეტალები რჩება, იცვლება მხოლოდ ფერი) */
-  /* brightness(.55) ჯერ ამუქებს ღია ემოჯებს (ღრუბელი, ვარსკვლავი), რომ ყვითლად კი არა, წითლად გამოვიდნენ */
-  .emo { filter: grayscale(1) brightness(.55) sepia(1) hue-rotate(-50deg) saturate(10); }
+  /* ემოჯები მხოლოდ წითელ, შავ და თეთრ ფერებში (ფილტრი #rbw body-ს დასაწყისშია) */
+  .emo { filter: url(#rbw); }
   .chips { display: flex; gap: 8px; flex-wrap: wrap; }
   .chip { font-weight: 800; font-size: 14px; padding: 5px 12px; background: var(--card); border: 3px solid var(--line);
           border-radius: 4px; box-shadow: 3px 3px 0 var(--line); }
@@ -256,6 +255,23 @@
 </style>
 </head>
 <body>
+<!-- ემოჯების ფილტრი: ჯერ ნაცრისფერი, მერე ბნელი → შავი, შუა → წითელი, ღია → თეთრი, და თხელი შავი კონტური,
+     რომ თეთრი ნაწილები თეთრ ფონზე არ გაქრეს -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="rbw" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+    <feColorMatrix in="SourceGraphic" type="matrix" result="gray"
+      values="0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0 0 0 1 0"/>
+    <feComponentTransfer in="gray" result="tone">
+      <feFuncR type="discrete" tableValues="0.067 0.839 0.839 1"/>
+      <feFuncG type="discrete" tableValues="0.067 0.157 0.157 1"/>
+      <feFuncB type="discrete" tableValues="0.067 0.157 0.157 1"/>
+    </feComponentTransfer>
+    <feMorphology in="SourceAlpha" operator="dilate" radius="0.7" result="fat"/>
+    <feFlood flood-color="#111"/>
+    <feComposite in2="fat" operator="in" result="outline"/>
+    <feMerge><feMergeNode in="outline"/><feMergeNode in="tone"/></feMerge>
+  </filter>
+</svg>
 <div class="app">
   <header class="top">
     <div class="logo">
