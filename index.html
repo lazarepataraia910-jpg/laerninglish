@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ka">
+<html lang="ka" data-theme="paper">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -66,6 +66,8 @@
          background: none; border: none; cursor: pointer; color: var(--muted); }
   .eye:hover { color: var(--ink); }
   .eye:focus-visible { outline: 3px dashed var(--pink); border-radius: 4px; }
+  .gbtn { display: inline-flex; align-items: center; gap: 10px; background: #fff !important; color: #1f1f1f !important; }
+  .gbtn.hidden { display: none !important; }
   .foot { margin-top: 30px; text-align: center; font-family: var(--px); font-size: 10px; letter-spacing: .12em; color: var(--muted); }
   .foot .legal { margin-top: 10px; font-family: "Noto Sans Georgian", sans-serif; font-size: 13px; letter-spacing: 0; }
   .foot a { color: var(--muted); }
@@ -255,8 +257,8 @@ let KEY = null; // შესული პროფილის მონაც�
 const SUPABASE_CONFIG = { url: 'https://eonfodcsszzptuwmldpd.supabase.co', anonKey: 'sb_publishable_ILYAA_cXUzE0ekRD6XUxNg_E_Dg2NEm' };
 let cloud = null, cloudTimer = null, googleOn = false;
 const OLD_KEY = 'english-lessons';
-const THEMES = [['auto', '🌗 ავტო'], ['light', '☀️ დღე'], ['dark', '🌙 ღამე'], ['terminal', '📟 ტერმინალი'],
-                ['ocean', '🌊 ზღვა'], ['forest', '🌲 ტყე'], ['rose', '🌸 ვარდი'], ['paper', '📰 გაზეთი']];
+const THEMES = [['paper', '📰 გაზეთი'], ['auto', '🌗 ავტო'], ['light', '☀️ დღე'], ['dark', '🌙 ღამე'],
+                ['terminal', '📟 ტერმინალი'], ['ocean', '🌊 ზღვა'], ['forest', '🌲 ტყე'], ['rose', '🌸 ვარდი']];
 const $ = id => document.getElementById(id);
 const M = $('main');
 const norm = s => String(s).trim().toLowerCase().replace(/\s+/g, ' ');
@@ -287,7 +289,7 @@ function fresh() {
   return {
     lessons: [], words: {},
     stats: { xp: 0, streak: 0, bestStreak: 0, lastDay: '', today: '', todayXp: 0, daily: {}, history: [] },
-    settings: { theme: 'auto', rate: 0.85, autoSpeak: true, goal: 30 }
+    settings: { theme: 'paper', themeChosen: false, rate: 0.85, autoSpeak: true, goal: 30 }
   };
 }
 
@@ -316,7 +318,9 @@ function clean(d) {
     .map(h => ({ d: str(h.d), name: str(h.name), ok: num(h.ok), total: num(h.total), secs: num(h.secs) })).slice(-50);
   const st = d.settings && typeof d.settings === 'object' ? d.settings : {};
   f.settings = {
-    theme: THEMES.some(t => t[0] === st.theme) ? st.theme : 'auto',
+    // მთავარი სტილი „გაზეთია“; სხვა სტილი რჩება მხოლოდ მაშინ, თუ მომხმარებელმა თავად აირჩია
+    theme: st.themeChosen === true && THEMES.some(t => t[0] === st.theme) ? st.theme : 'paper',
+    themeChosen: st.themeChosen === true,
     rate: Math.min(1.5, Math.max(0.4, num(st.rate, 0.85))),
     autoSpeak: st.autoSpeak !== false,
     goal: [10, 30, 50, 100].includes(st.goal) ? st.goal : 30
@@ -416,6 +420,12 @@ function pushCloud() {
 addEventListener('pagehide', () => { if (me?.cloud) pushCloud(); });
 
 let signup = false;
+// Google-ის ოფიციალური ფერადი „G“
+const GOOGLE_G = '<svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true">' +
+  '<path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>' +
+  '<path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>' +
+  '<path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>' +
+  '<path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>';
 function viewCloudLogin() {
   document.body.classList.add('out');
   window.scrollTo(0, 0);
@@ -435,7 +445,7 @@ function viewCloudLogin() {
         <button class="btn pink" type="submit" style="width:100%">${signup ? 'რეგისტრაცია' : 'შესვლა'}</button>
       </form>
       <div class="btns">
-        <button class="btn white ${googleOn ? '' : 'hidden'}" id="gBtn">🌐 Google-ით შესვლა</button>
+        <button class="btn white gbtn ${googleOn ? '' : 'hidden'}" id="gBtn">${GOOGLE_G} Google-ით შესვლა</button>
         ${signup ? '' : '<button class="btn white sm" id="resetBtn">პაროლი დამავიწყდა?</button>'}
       </div>
       <p class="muted sm center">☁️ გაკვეთილები შენს ანგარიშზე ინახება და ყველა მოწყობილობაზე გამოჩნდება.</p>
@@ -1349,7 +1359,11 @@ function viewSettings() {
   }
 }
 
-function setSetting(key, v) { S.settings[key] = v; save(); applyTheme(); viewSettings(); }
+function setSetting(key, v) {
+  S.settings[key] = v;
+  if (key === 'theme') S.settings.themeChosen = true;
+  save(); applyTheme(); viewSettings();
+}
 
 function exportData() {
   const a = document.createElement('a');

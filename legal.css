@@ -1,8 +1,5 @@
-/* კონფიდენციალურობის და წესების გვერდები, მთავარი საიტის ფერებით */
-:root { --bg:#f3e8d2; --card:#fbf5e8; --ink:#2b1d14; --muted:#6b5640; --line:#2b1d14; --accent:#a5502c; color-scheme: light; }
-@media (prefers-color-scheme: dark) {
-  :root { --bg:#1d1813; --card:#2a231c; --ink:#f0e4cc; --muted:#b3a386; --line:#0b0806; --accent:#e89a76; color-scheme: dark; }
-}
+/* კონფიდენციალურობის და წესების გვერდები, მთავარი („გაზეთის“) სტილით */
+:root { --bg:#efefea; --card:#fff; --ink:#111; --muted:#555; --line:#111; --accent:#c0261d; color-scheme: light; }
 * { box-sizing: border-box; }
 body { margin: 0; padding: 24px 16px 60px; background: var(--bg); color: var(--ink);
        font-family: "Noto Sans Georgian", system-ui, sans-serif; line-height: 1.6; }
