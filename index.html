@@ -111,8 +111,8 @@
   .logo-mark { width: 46px; height: 46px; flex: none; }
   .logo .px { display: block; font-family: var(--px); font-size: 10px; letter-spacing: .15em; margin-bottom: 4px; color: #d62828; }
   .logo b { font-family: var(--serif); font-weight: 900; font-size: 22px; }
-  /* ემოჯები: ფერი რჩება, მაგრამ უფრო მშვიდი (საჭიროებისას შეცვალე 0.45) */
-  .emo { filter: saturate(.45); }
+  /* ემოჯები საიტის წითელ ფერშია გადაყვანილი (დეტალები რჩება, იცვლება მხოლოდ ფერი) */
+  .emo { filter: grayscale(1) sepia(1) hue-rotate(-45deg) saturate(6) brightness(.85); }
   .chips { display: flex; gap: 8px; flex-wrap: wrap; }
   .chip { font-weight: 800; font-size: 14px; padding: 5px 12px; background: var(--card); border: 3px solid var(--line);
           border-radius: 4px; box-shadow: 3px 3px 0 var(--line); }
