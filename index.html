@@ -114,6 +114,27 @@
   /* ემოჯები მხოლოდ წითელ, შავ და თეთრ ფერებში (ფილტრი #rbw body-ს დასაწყისშია) */
   .emo { filter: url(#rbw); }
   .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  button.chip { font: inherit; font-weight: 800; font-size: 14px; color: var(--ink); cursor: pointer; transition: transform .06s; }
+  button.chip:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--line); }
+  button.chip:focus-visible { outline: 3px dashed var(--pink); outline-offset: 3px; }
+  /* დონის არჩევა და პროფილი */
+  .levels { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 14px; margin-top: 14px; }
+  .lvl { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; text-align: left; padding: 14px; }
+  .lvl .code { font-family: var(--px); font-size: 22px; color: var(--pink); }
+  .lvl small { font-weight: 600; opacity: .8; }
+  .prof-head { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+  .prof-info { flex: 1; min-width: 200px; }
+  .prof-info h2 { font-size: 26px; }
+  .avatar-big { width: 88px; height: 88px; display: grid; place-items: center; font-size: 46px; cursor: pointer; padding: 0;
+                background: var(--soft); border: 3px solid var(--line); border-radius: 14px; box-shadow: 4px 4px 0 var(--line); }
+  .avatar-big:focus-visible { outline: 3px dashed var(--pink); outline-offset: 3px; }
+  .avatars { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .avatars .btn { font-size: 24px; padding: 6px 10px; }
+  .badges { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; margin-top: 12px; }
+  .badge { display: flex; flex-direction: column; gap: 4px; padding: 12px; background: var(--card); border: 3px solid var(--line);
+           border-radius: 8px; box-shadow: 3px 3px 0 var(--line); }
+  .badge .ic { font-size: 30px; }
+  .badge.locked { opacity: .4; box-shadow: none; }
   .chip { font-weight: 800; font-size: 14px; padding: 5px 12px; background: var(--card); border: 3px solid var(--line);
           border-radius: 4px; box-shadow: 3px 3px 0 var(--line); }
   .nav { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
@@ -291,8 +312,10 @@
       </svg>
       <div><span class="px">LEARN ENGLISH</span><b>ისწავლე ინგლისური</b></div>
     </div>
-    <div class="chips"><span class="chip" id="cStreak"></span><span class="chip" id="cXp"></span><span class="chip" id="cLvl"></span>
-      <span class="chip" id="cUser"></span><button class="btn white sm" onclick="logout()">გასვლა</button></div>
+    <div class="chips"><span class="chip" id="cStreak"></span><span class="chip" id="cXp"></span>
+      <button class="chip" id="cLvl" onclick="viewLevels()" title="ინგლისურის დონის არჩევა"></button>
+      <button class="chip" id="cUser" onclick="viewProfile()" title="პროფილი"></button>
+      <button class="btn white sm" onclick="logout()">გასვლა</button></div>
   </header>
   <nav class="nav" id="nav">
     <button class="btn" data-v="lessons" onclick="viewLessons()"><span>📚</span> გაკვეთილები</button>
@@ -369,13 +392,33 @@ const PACKS = {
   '🏃 ზმნები': 'go - წასვლა\ncome - მოსვლა\neat - ჭამა\ndrink - დალევა\nsleep - ძილი\nread - კითხვა\nwrite - წერა\nspeak - ლაპარაკი\nrun - სირბილი\nlearn - სწავლა'
 };
 
+// ინგლისურის დონეები (CEFR) და თითოეულისთვის 20 შესაბამისი სიტყვა
+const CEFR = [
+  ['A1', 'დამწყები', 'უმარტივესი სიტყვები და ფრაზები'],
+  ['A2', 'საბაზისო', 'ყოველდღიური სიტუაციები'],
+  ['B1', 'საშუალო', 'ნაცნობ თემებზე თავისუფალი საუბარი'],
+  ['B2', 'საშუალოზე მაღალი', 'რთული ტექსტები და დისკუსია'],
+  ['C1', 'მაღალი', 'თავისუფალი და ზუსტი ენა'],
+  ['C2', 'ფლობა', 'თითქმის მშობლიური ენასავით']
+];
+const LEVEL_WORDS = {
+  A1: 'hello - გამარჯობა\ngoodbye - ნახვამდის\nthank you - მადლობა\nplease - გთხოვთ\nyes - კი\nno - არა\nwater - წყალი\nhouse - სახლი\nbook - წიგნი\nfriend - მეგობარი\nschool - სკოლა\nday - დღე\nnight - ღამე\nbig - დიდი\nsmall - პატარა\ngood - კარგი\nbad - ცუდი\nmorning - დილა\nname - სახელი\ncity - ქალაქი',
+  A2: 'weather - ამინდი\nholiday - არდადეგები\nkitchen - სამზარეულო\nshop - მაღაზია\nticket - ბილეთი\nmoney - ფული\ncheap - იაფი\nexpensive - ძვირი\nearly - ადრე\nlate - გვიან\nalways - ყოველთვის\nnever - არასდროს\ntired - დაღლილი\nhungry - მშიერი\njourney - მოგზაურობა\nneighbour - მეზობელი\nanswer - პასუხი\nquestion - კითხვა\nforget - დავიწყება\nhealthy - ჯანმრთელი',
+  B1: 'experience - გამოცდილება\nopportunity - შესაძლებლობა\nadvice - რჩევა\ndecision - გადაწყვეტილება\nimprove - გაუმჯობესება\nenvironment - გარემო\ngovernment - მთავრობა\nknowledge - ცოდნა\nbehaviour - ქცევა\ncareer - კარიერა\ncompare - შედარება\ndescribe - აღწერა\nexplain - ახსნა\nsuggest - შეთავაზება\nachieve - მიღწევა\nsuccess - წარმატება\nrelationship - ურთიერთობა\npurpose - მიზანი\naverage - საშუალო\nreliable - საიმედო',
+  B2: 'consequence - შედეგი\napproach - მიდგომა\nsignificant - მნიშვნელოვანი\nevidence - მტკიცებულება\nassume - დაშვება\nmaintain - შენარჩუნება\nrequire - მოთხოვნა\nsufficient - საკმარისი\nchallenge - გამოწვევა\ninfluence - გავლენა\ncontribute - წვლილის შეტანა\nefficient - ეფექტიანი\nensure - უზრუნველყოფა\nobvious - აშკარა\npersuade - დარწმუნება\nreluctant - უხალისო\nprevious - წინა\nrecover - გამოჯანმრთელება\nthreat - საფრთხე\nwidespread - გავრცელებული',
+  C1: 'ambiguous - ორაზროვანი\ncomprehensive - ყოვლისმომცველი\ndiminish - შემცირება\ninevitable - გარდაუვალი\nmeticulous - ზედმიწევნით ზუსტი\nnotion - ცნება\nplausible - სარწმუნო\nscrutiny - გულდასმით შემოწმება\nsubtle - დახვეწილი\nundermine - შესუსტება\nversatile - მრავალმხრივი\nprofound - ღრმა\ncoherent - თანმიმდევრული\ndiscrepancy - შეუსაბამობა\nendeavour - მცდელობა\nfeasible - განხორციელებადი\nhinder - ხელის შეშლა\nimplicit - ნაგულისხმევი\nprevalent - გაბატონებული\nadvocate - მომხრე',
+  C2: 'ubiquitous - ყველგანმყოფი\nephemeral - წარმავალი\npragmatic - პრაგმატული\njuxtaposition - შეპირისპირება\nconundrum - დილემა\nmagnanimous - სულგრძელი\nobfuscate - გაბუნდოვანება\nperfunctory - ზერელე\nsanguine - ოპტიმისტური\nrecalcitrant - ჯიუტი\nineffable - გამოუთქმელი\nidiosyncratic - თავისებური\ncogent - დამაჯერებელი\nvicissitude - ცვალებადობა\nequivocal - ბუნდოვანი\npernicious - მავნე\nserendipity - ბედნიერი შემთხვევითობა\nameliorate - შემსუბუქება\nostensibly - ერთი შეხედვით\nlugubrious - პირქუში'
+};
+const AVATARS = ['🦊', '🐼', '🐯', '🦁', '🐸', '🐧', '🦉', '🐙', '🦄', '🐝', '🌟', '🚀'];
+
 // ---------- მონაცემები ----------
 const MODE_KEYS = ['cards', 'copy', 'write', 'test', 'quiz', 'dict'];
 function fresh() {
   return {
     lessons: [], words: {},
     stats: { xp: 0, streak: 0, bestStreak: 0, lastDay: '', today: '', todayXp: 0, daily: {}, history: [] },
-    settings: { theme: 'paper', themeChosen: false, rate: 0.85, autoSpeak: true, goal: 30 }
+    settings: { theme: 'paper', themeChosen: false, rate: 0.85, autoSpeak: true, goal: 30 },
+    profile: { cefr: '', avatar: '' }
   };
 }
 
@@ -411,6 +454,8 @@ function clean(d) {
     autoSpeak: st.autoSpeak !== false,
     goal: [10, 30, 50, 100].includes(st.goal) ? st.goal : 30
   };
+  const pr = d.profile && typeof d.profile === 'object' ? d.profile : {};
+  f.profile = { cefr: CEFR.some(c => c[0] === pr.cefr) ? pr.cefr : '', avatar: AVATARS.includes(pr.avatar) ? pr.avatar : '' };
   return f;
 }
 
@@ -481,7 +526,8 @@ async function initCloud() {
 const guessLocalData = () => (profiles[0] && lsGet('english-app-v2:' + profiles[0].id)) || lsGet('english-app-v2') || lsGet(OLD_KEY);
 
 async function enterCloud(u) {
-  me = { id: u.id, email: u.email || '', name: u.user_metadata?.name || u.user_metadata?.full_name || (u.email || '').split('@')[0], cloud: true };
+  me = { id: u.id, email: u.email || '', created: u.created_at || '', cloud: true,
+         name: u.user_metadata?.name || u.user_metadata?.full_name || (u.email || '').split('@')[0] };
   KEY = 'english-app-v2:cloud:' + u.id;
   const local = lsGet(KEY), localAt = +lsGet(KEY + ':at') || 0;
   const { data: remote, error } = await cloud.from('user_data').select('json, at').eq('user_id', u.id).maybeSingle();
@@ -593,10 +639,10 @@ async function resendConfirm(email) {
   toast(error ? authError(error) : '📧 ბმული ხელახლა გაიგზავნა');
 }
 
-// პაროლის აღდგენის ბმულიდან დაბრუნებისას: პარამეტრებში პაროლის შეცვლის ველი
+// პაროლის აღდგენის ბმულიდან დაბრუნებისას: პროფილში პაროლის შეცვლის ველი
 function openPasswordChange() {
   recovering = false;
-  viewSettings();
+  viewProfile();
   $('pwForm')?.scrollIntoView({ block: 'center' });
   $('newPw')?.focus({ preventScroll: true });
   toast('🔑 ჩაწერე ახალი პაროლი');
@@ -757,11 +803,12 @@ function record(w, ok) {
 const hardWords = () => Object.values(S.words).filter(r => r.wrong > r.right).sort((a, b) => b.wrong - a.wrong).slice(0, 30);
 
 function renderTop() {
-  $('cUser').textContent = `${me?.cloud ? '☁️' : '👤'} ${me?.name ?? ''}`;
+  $('cUser').textContent = `${S.profile.avatar || (me?.cloud ? '☁️' : '👤')} ${me?.name ?? ''}`;
   $('cStreak').textContent = `🔥 ${streakNow()}`;
   $('cXp').textContent = `⭐ ${S.stats.xp} XP`;
-  $('cLvl').textContent = `🏅 დონე ${level(S.stats.xp)}`;
+  $('cLvl').textContent = `🎓 ${S.profile.cefr || 'დონე'}`;
 }
+const masteredCount = () => Object.values(S.words).filter(r => r.right >= 3 && r.right > r.wrong * 2).length;
 
 // ---------- ხმა, შეტყობინებები, კონფეტი, თემა ----------
 function speak(text, rate) {
@@ -1308,6 +1355,162 @@ function dict(st) {
   next();
 }
 
+// ---------- 🎓 ინგლისურის დონე (A1–C2) ----------
+const levelLessonName = code => `🎓 ${code} სიტყვები`;
+function viewLevels() {
+  setNav(null);
+  const cur = S.profile.cefr;
+  M.innerHTML = `
+    <section class="box">
+      <h2>🎓 შენი ინგლისურის დონე</h2>
+      <p class="muted sm">აირჩიე დონე. თითო დონეს აქვს 20 შესაბამისი სიტყვა, რომელიც გაკვეთილად დაგემატება.</p>
+      <div class="levels">${CEFR.map(([c, n, d]) => `
+        <button class="btn ${cur === c ? 'dark' : 'white'} lvl" data-lvl="${c}" aria-pressed="${cur === c}">
+          <b class="code">${c}</b><b>${n}${cur === c ? ' ✔' : ''}</b><small>${d}</small>
+        </button>`).join('')}
+      </div>
+    </section>
+    ${cur ? `
+    <section class="box row-between">
+      <div><h2>📗 ${cur} სიტყვები</h2><p class="muted sm">20 სიტყვა შენი დონისთვის, ყველა სწავლის რეჟიმით</p></div>
+      <button class="btn pink" onclick="startLevelLesson()">▶ დაწყება</button>
+    </section>` : ''}`;
+  document.querySelectorAll('[data-lvl]').forEach(b => b.onclick = () => chooseLevel(b.dataset.lvl));
+}
+
+// დონის გაკვეთილს ვამატებთ, თუ ჯერ არ არის (ან წაშლილია)
+function levelLessonIndex(code) {
+  let n = S.lessons.findIndex(l => l.name === levelLessonName(code));
+  if (n < 0) { S.lessons.unshift({ name: levelLessonName(code), words: parseWords(LEVEL_WORDS[code]) }); n = 0; save(); }
+  return n;
+}
+
+function chooseLevel(code) {
+  S.profile.cefr = code;
+  levelLessonIndex(code);
+  save(); renderTop(); viewLevels();
+  toast(`🎓 შენი დონე: ${code}. სიტყვები დაემატა გაკვეთილებში`);
+}
+
+function startLevelLesson() { start(levelLessonIndex(S.profile.cefr)); }
+
+// ---------- 👤 პროფილი ----------
+const BADGES = [
+  ['🌱', 'პირველი ნაბიჯი', 'მოაგროვე პირველი XP', () => S.stats.xp > 0],
+  ['🎓', 'დონე არჩეულია', 'აირჩიე შენი ინგლისურის დონე', () => !!S.profile.cefr],
+  ['📚', 'კოლექციონერი', 'გქონდეს 5 გაკვეთილი', () => S.lessons.length >= 5],
+  ['🎯', 'იდეალური ტესტი', 'ჩააბარე ტესტი შეცდომის გარეშე', () => S.stats.history.some(h => h.total && h.ok === h.total)],
+  ['⭐', '100 XP', 'მოაგროვე 100 XP', () => S.stats.xp >= 100],
+  ['🔥', 'კვირის სერია', 'ისწავლე 7 დღე ზედიზედ', () => S.stats.bestStreak >= 7],
+  ['🧠', '50 სიტყვა', 'კარგად ისწავლე 50 სიტყვა', () => masteredCount() >= 50],
+  ['🏆', '1000 XP', 'მოაგროვე 1000 XP', () => S.stats.xp >= 1000]
+];
+
+function viewProfile() {
+  setNav(null);
+  const xpIn = S.stats.xp % 100, cefr = CEFR.find(c => c[0] === S.profile.cefr);
+  const got = BADGES.filter(b => b[3]()).length;
+  const since = me?.created ? new Date(me.created).toLocaleDateString('ka-GE') : '';
+  M.innerHTML = `
+    <section class="box">
+      <div class="prof-head">
+        <button class="avatar-big" id="avBtn" title="ავატარის შეცვლა" aria-label="ავატარის შეცვლა">${S.profile.avatar || (me?.cloud ? '☁️' : '👤')}</button>
+        <div class="prof-info">
+          <h2>${esc(me?.name ?? '')}</h2>
+          <p class="muted sm">${me?.cloud ? esc(me.email) : 'ამ ბრაუზერის ანგარიში'}${since ? ` · წევრი ${since}-დან` : ''}</p>
+          <div class="seg">
+            <button class="btn sm" onclick="viewLevels()">🎓 ${cefr ? `${cefr[0]} · ${cefr[1]}` : 'აირჩიე დონე'}</button>
+            <button class="btn white sm" id="nameBtn">✏️ სახელის შეცვლა</button>
+          </div>
+        </div>
+      </div>
+      <div id="avPick" class="avatars hidden">${AVATARS.map(a =>
+        `<button class="btn ${a === S.profile.avatar ? 'dark' : 'white'}" data-av="${a}" aria-label="ავატარი">${a}</button>`).join('')}</div>
+      <form id="nameForm" class="hidden" style="margin-top:14px">
+        <div class="seg"><input id="newName" maxlength="30" required style="max-width:260px" aria-label="ახალი სახელი">
+          <button class="btn" type="submit">შენახვა</button></div>
+        <p id="nameMsg" class="bad sm" role="alert"></p>
+      </form>
+    </section>
+
+    <section class="box">
+      <h2>📈 პროგრესი</h2>
+      <p class="muted sm">XP დონე ${level(S.stats.xp)} · შემდეგ დონემდე ${100 - xpIn} XP</p>
+      <div class="bar"><div style="width:${xpIn}%"></div></div>
+      <div class="tiles" style="margin-top:14px">
+        <div class="tile"><b>${S.stats.xp}</b><span>⭐ სულ XP</span></div>
+        <div class="tile"><b>${streakNow()}</b><span>🔥 სერია (დღე)</span></div>
+        <div class="tile"><b>${masteredCount()}</b><span>✅ ნასწავლი სიტყვა</span></div>
+        <div class="tile"><b>${S.lessons.length}</b><span>📚 გაკვეთილი</span></div>
+      </div>
+    </section>
+
+    <section class="box">
+      <h2>🏅 მიღწევები · ${got}/${BADGES.length}</h2>
+      <div class="badges">${BADGES.map(([ic, t, d, ok]) => `
+        <div class="badge ${ok() ? '' : 'locked'}"><span class="ic">${ic}</span><b>${t}</b><small class="muted">${d}</small></div>`).join('')}
+      </div>
+    </section>
+
+    <section class="box">
+      <h2>🔐 ანგარიში</h2>
+      <form id="pwForm" class="set" style="display:block">
+        <b>🔑 პაროლის შეცვლა</b>
+        <input id="newPw" type="password" autocomplete="new-password" minlength="6" required placeholder="ახალი პაროლი (მინ. 6 სიმბოლო)" style="margin-top:10px">
+        <input id="newPw2" type="password" autocomplete="new-password" required placeholder="გაიმეორე ახალი პაროლი" style="margin-top:10px">
+        <p id="pwMsg" class="bad sm" role="alert"></p>
+        <button class="btn" type="submit">შეცვლა</button>
+      </form>
+      <div class="btns" style="justify-content:flex-start">
+        <button class="btn white" onclick="logout()">🚪 გასვლა</button>
+        <button class="btn red" onclick="deleteProfile()">🗑️ ანგარიშის წაშლა</button>
+      </div>
+    </section>`;
+
+  $('avBtn').onclick = () => $('avPick').classList.toggle('hidden');
+  document.querySelectorAll('[data-av]').forEach(b => b.onclick = () => {
+    S.profile.avatar = b.dataset.av; save(); renderTop(); viewProfile(); toast('✅ ავატარი შეიცვალა');
+  });
+  $('nameBtn').onclick = () => { $('nameForm').classList.toggle('hidden'); $('newName').value = me?.name ?? ''; $('newName').focus(); };
+  $('nameForm').onsubmit = async e => {
+    e.preventDefault();
+    const err = await renameMe($('newName').value);
+    if (err) return $('nameMsg').textContent = err;
+    viewProfile(); toast('✅ სახელი შეიცვალა');
+  };
+  addEyes();
+  $('pwForm').onsubmit = async e => {
+    e.preventDefault();
+    const password = $('newPw').value, out = t => { $('pwMsg').textContent = t; };
+    if (password.length < 6) return out('✘ პაროლი მინიმუმ 6 სიმბოლო უნდა იყოს');
+    if (password !== $('newPw2').value) return out('✘ პაროლები არ ემთხვევა');
+    if (me.cloud) {
+      const { error } = await cloud.auth.updateUser({ password });
+      if (error) return out(authError(error));
+    } else {
+      const p = profiles.find(x => x.id === me.id);
+      p.pin = await hashPin(p.id, password); saveProfiles();
+    }
+    out(''); e.target.reset(); toast('✅ პაროლი შეიცვალა');
+  };
+}
+
+// სახელის შეცვლა: ღრუბლოვან ანგარიშზე Supabase-ში, ლოკალურზე პროფილების სიაში. აბრუნებს შეცდომის ტექსტს ან ''-ს
+async function renameMe(name) {
+  name = name.trim();
+  if (!name) return '✍️ ჩაწერე სახელი';
+  if (me.cloud) {
+    const { error } = await cloud.auth.updateUser({ data: { name } });
+    if (error) return authError(error);
+  } else {
+    if (profiles.some(p => p.id !== me.id && norm(p.name) === norm(name))) return '✘ ეს სახელი უკვე დაკავებულია';
+    const p = profiles.find(x => x.id === me.id);
+    if (p) { p.name = name; saveProfiles(); }
+  }
+  me.name = name; renderTop();
+  return '';
+}
+
 // ---------- 📊 სტატისტიკა ----------
 function viewStats() {
   setNav('stats'); rollDay();
@@ -1315,7 +1518,7 @@ function viewStats() {
   const right = all.reduce((a, r) => a + r.right, 0), wrong = all.reduce((a, r) => a + r.wrong, 0);
   const acc = right + wrong ? Math.round(right / (right + wrong) * 100) : 0;
   const lessonWords = new Set(S.lessons.flatMap(l => l.words.map(w => norm(w.en)))).size;
-  const mastered = all.filter(r => r.right >= 3 && r.right > r.wrong * 2).length;
+  const mastered = masteredCount();
   const toNext = 100 - st.xp % 100;
   const days = [6, 5, 4, 3, 2, 1, 0].map(n => daysAgo(n));
   const vals = days.map(d => st.daily[dayStr(d)] || 0), max = Math.max(...vals, 1);
@@ -1398,19 +1601,10 @@ function viewSettings() {
       </div>
     </section>
 
-    ${me?.cloud ? `
-    <section class="box">
-      <h2>👤 ანგარიში</h2>
-      <div class="set"><span>ელფოსტა</span><b>${esc(me.email)}</b></div>
-      <form id="pwForm" class="set" style="display:block">
-        <b>🔑 პაროლის შეცვლა</b>
-        <input id="newPw" type="password" autocomplete="new-password" minlength="6" required placeholder="ახალი პაროლი (მინ. 6 სიმბოლო)" style="margin-top:10px">
-        <input id="newPw2" type="password" autocomplete="new-password" required placeholder="გაიმეორე ახალი პაროლი" style="margin-top:10px">
-        <p id="pwMsg" class="bad sm" role="alert"></p>
-        <button class="btn" type="submit">შეცვლა</button>
-      </form>
-      <div class="btns" style="justify-content:flex-start"><button class="btn white" onclick="logout()">🚪 გასვლა</button></div>
-    </section>` : ''}
+    <section class="box row-between">
+      <div><h2>👤 ანგარიში</h2><p class="muted sm">ავატარი, სახელი, დონე, მიღწევები, პაროლი და ანგარიშის წაშლა</p></div>
+      <button class="btn white" onclick="viewProfile()">პროფილის გახსნა →</button>
+    </section>
 
     <section class="box">
       <h2>💾 სარეზერვო ასლი</h2>
@@ -1424,25 +1618,13 @@ function viewSettings() {
 
     <section class="box">
       <h2>⚠️ ყველაფრის წაშლა</h2>
-      <p class="muted sm">წაიშლება ამ პროფილის გაკვეთილები, XP და სტატისტიკა.</p>
+      <p class="muted sm">წაიშლება ამ პროფილის გაკვეთილები, XP და სტატისტიკა (ანგარიში დარჩება).</p>
       <div class="btns" style="justify-content:flex-start">
         <button class="btn red" onclick="resetAll()">🗑️ ყველაფრის წაშლა</button>
-        <button class="btn white" onclick="deleteProfile()">👤 პროფილის წაშლა</button>
       </div>
     </section>`;
   $('rate').oninput = e => { S.settings.rate = +e.target.value; $('rateVal').textContent = S.settings.rate.toFixed(2) + '×'; save(); };
   $('auto').onchange = e => { S.settings.autoSpeak = e.target.checked; save(); };
-  if ($('pwForm')) {
-    addEyes();
-    $('pwForm').onsubmit = async e => {
-      e.preventDefault();
-      const password = $('newPw').value, out = t => { $('pwMsg').textContent = t; };
-      if (password !== $('newPw2').value) return out('✘ პაროლები არ ემთხვევა');
-      const { error } = await cloud.auth.updateUser({ password });
-      if (error) return out(authError(error));
-      out(''); e.target.reset(); toast('✅ პაროლი შეიცვალა');
-    };
-  }
 }
 
 function setSetting(key, v) {
