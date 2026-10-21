@@ -1,0 +1,38 @@
+/* საჯარო გვერდები (კურსი, დონეები, სიტყვები, როგორ მუშაობს, კონფიდენციალურობა, წესები), მთავარი („გაზეთის“) სტილით */
+:root { --bg:#efefea; --card:#fff; --ink:#111; --muted:#555; --line:#111; --accent:#c0261d; color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin: 0; padding: 24px 16px 60px; background: var(--bg); color: var(--ink);
+       font-family: "Noto Sans Georgian", system-ui, sans-serif; line-height: 1.6; }
+main { max-width: 760px; margin: 0 auto; padding: 24px; background: var(--card);
+       border: 3px solid var(--line); border-radius: 8px; box-shadow: 6px 6px 0 var(--line); overflow-wrap: break-word; }
+h1 { font-size: 26px; margin: 16px 0 4px; }
+h2 { font-size: 19px; margin: 22px 0 6px; }
+a { color: var(--accent); }
+.muted { color: var(--muted); font-size: 14px; }
+hr { border: none; border-top: 2px dashed var(--muted); margin: 30px 0; }
+
+/* ზედა ზოლი, მენიუ და ღილაკები, როგორც აპში */
+.top, .nav { max-width: 760px; margin: 0 auto 18px; display: flex; flex-wrap: wrap; gap: 10px; }
+.top { align-items: center; justify-content: space-between; gap: 14px; }
+.logo { display: inline-flex; align-items: center; gap: 12px; padding: 8px 18px 8px 10px; background: #fff; color: #111;
+        text-decoration: none; border: 3px solid #111; border-radius: 6px; box-shadow: 5px 5px 0 #d62828; }
+.logo svg { width: 46px; height: 46px; flex: none; }
+.logo .px { display: block; font: 10px "Press Start 2P", monospace; letter-spacing: .15em; margin-bottom: 4px; color: #d62828; }
+.logo b { font-family: "Noto Serif Georgian", Georgia, serif; font-weight: 900; font-size: 22px; }
+.nav a, .btn { font-weight: 800; color: #111; text-decoration: none; padding: 6px 12px; background: #fff;
+               border: 3px solid #111; border-radius: 4px; box-shadow: 3px 3px 0 #111; }
+.nav a[aria-current] { background: #111; color: #fff; }
+.btn.red { display: inline-block; padding: 10px 18px; background: #d62828; color: #fff; }
+.lead { font-size: 17px; }
+.toc { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 14px; }
+h3 { font-size: 16px; margin: 18px 0 2px; }
+table { width: 100%; border-collapse: collapse; margin: 8px 0; }
+th, td { text-align: left; padding: 5px 10px; border-bottom: 1px solid #ddd; }
+th { border-bottom: 3px solid #111; }
+pre { padding: 12px 14px; background: #111; color: #f4f4f1; border-radius: 6px; overflow-x: auto;
+      font: 13px/1.55 ui-monospace, Consolas, "Courier New", monospace; }
+.foot { margin-top: 30px; text-align: center; color: var(--muted); font: 10px "Press Start 2P", monospace; letter-spacing: .12em; }
+.foot .legal { margin-top: 10px; font: 13px "Noto Sans Georgian", sans-serif; letter-spacing: 0; }
+.foot a { color: var(--muted); }
+/* ემოჯები წითელ-შავ-თეთრად, როგორც აპში (ფილტრი #rbw გვერდის დასაწყისშია) */
+.emo { filter: url(#rbw); }

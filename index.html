@@ -3,13 +3,41 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ისწავლე ინგლისური</title>
+<title>ისწავლე ინგლისური უფასოდ · English Quest</title>
+<meta name="description" content="უფასო საიტი ინგლისური სიტყვების სასწავლად ქართულად: შექმენი გაკვეთილი, გადაწერე, შენით დაწერე და ჩააბარე ტესტი. დონეები A1–C2, პროგრამირების ინგლისური და Windows აპი.">
+<link rel="canonical" href="https://www.englishquest.space/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="English Quest">
+<meta property="og:locale" content="ka_GE">
+<meta property="og:title" content="ისწავლე ინგლისური უფასოდ · English Quest">
+<meta property="og:description" content="უფასო საიტი ინგლისური სიტყვების სასწავლად ქართულად: გადაწერე, შენით დაწერე და ჩააბარე ტესტი.">
+<meta property="og:url" content="https://www.englishquest.space/">
+<meta property="og:image" content="https://www.englishquest.space/icon-512.png">
+<meta name="twitter:card" content="summary">
+<!-- Windows/ტელეფონის აპი: manifest + აპის ფანჯრის ზოლის ფერი (applyTheme სტილის მიხედვით ცვლის) -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#f4f4f1">
+<!-- Google-ისა და AI ასისტენტებისთვის: რა არის ეს საიტი -->
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@graph": [
+  {"@type": "WebSite", "@id": "https://www.englishquest.space/#site", "name": "English Quest",
+   "alternateName": ["ისწავლე ინგლისური", "englishquest.space"], "url": "https://www.englishquest.space/", "inLanguage": "ka",
+   "description": "უფასო საიტი ინგლისური სიტყვების სასწავლად ქართულად: გადაწერა, შენით დაწერა, ჩაბარება, ბარათები, დონეები A1–C2 და პროგრამირების ინგლისური.",
+   "publisher": {"@id": "https://www.englishquest.space/#org"}},
+  {"@type": "Organization", "@id": "https://www.englishquest.space/#org", "name": "codequest",
+   "url": "https://www.englishquest.space/", "logo": "https://www.englishquest.space/icon-512.png"},
+  {"@type": "WebApplication", "name": "English Quest", "url": "https://www.englishquest.space/",
+   "applicationCategory": "EducationalApplication", "operatingSystem": "Windows, Android, iOS, macOS", "inLanguage": "ka",
+   "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "GEL"}}
+]}
+</script>
 <!-- Vercel Web Analytics: ანონიმური ვიზიტების სტატისტიკა (cookie-ების გარეშე) -->
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect x='2' y='2' width='44' height='44' rx='7' fill='%23d62828' stroke='%23111' stroke-width='3'/%3E%3Cpath d='M24 15c-4-3-9-3.5-14-2v21c5-1.5 10-1 14 2z' fill='%23fff' stroke='%23111' stroke-width='2.6' stroke-linejoin='round'/%3E%3Cpath d='M24 15c4-3 9-3.5 14-2v21c-5-1.5-10-1-14 2z' fill='%23fff' stroke='%23111' stroke-width='2.6' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;600;800&family=Noto+Serif+Georgian:wght@900&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <style>
   /* რეტრო, მშვიდი: სეპიის ფერები + ერთი აქცენტი (აგურისფერი), პიქსელური შრიფტი ინგლისურისთვის, მუქში CRT ხაზები */
@@ -93,6 +121,14 @@
   .foot { margin-top: 30px; text-align: center; font-family: var(--px); font-size: 10px; letter-spacing: .12em; color: var(--muted); }
   .foot .legal { margin-top: 10px; font-family: "Noto Sans Georgian", sans-serif; font-size: 13px; letter-spacing: 0; }
   .foot a { color: var(--muted); }
+  .foot .install { font-family: "Noto Sans Georgian", sans-serif; letter-spacing: 0; margin-bottom: 16px; }
+  @media (display-mode: standalone) { .foot .install { display: none; } } /* უკვე აპში ვართ */
+  /* შესავალი მხოლოდ შესვლის გვერდზე ჩანს: სტუმრისთვის და Google-ისთვის */
+  #intro { display: none; }
+  .guest #intro { display: block; }
+  #intro h1 { margin: 0 0 6px; font-family: var(--serif); font-size: 26px; font-weight: 900; }
+  #intro ul { margin: 8px 0; padding-left: 22px; }
+  #intro a { color: var(--pink); font-weight: 800; }
   body { margin: 0; min-height: 100vh; font-family: "Noto Sans Georgian", system-ui, sans-serif; color: var(--ink);
          background: var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.09'/%3E%3C/svg%3E"); }
   body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
@@ -337,8 +373,24 @@
     <button class="btn" data-v="settings" onclick="viewSettings()"><span>⚙️</span> პარამეტრები</button>
   </nav>
   <main id="main"></main>
-  <footer class="foot">Powered by codequest
-    <div class="legal"><a href="privacy.html">კონფიდენციალურობა</a> · <a href="terms.html">წესები</a></div></footer>
+  <!-- სტუმრისთვის, Google-ისა და AI-სთვის: რა არის ეს საიტი (შესულ მომხმარებელს არ უჩანს, იხ. .guest) -->
+  <section class="box" id="intro">
+    <h1>ისწავლე ინგლისური უფასოდ</h1>
+    <p>English Quest უფასო საიტია ინგლისური სიტყვების სასწავლად ქართულად. ჩაწერე სიტყვები, რომლებიც გინდა ისწავლო,
+      და გაიარე სამი ნაბიჯი: ჯერ გადაწერე, მერე შენით დაწერე და ბოლოს ჩააბარე ტესტი.</p>
+    <ul>
+      <li>✍️ გადაწერა, 🧠 შენით დაწერა, 📝 ჩაბარება, 🃏 ბარათები, 🎯 ვიქტორინა და 🎧 კარნახი</li>
+      <li>🎓 დონეები A1-დან C2-მდე და 💻 პროგრამირების ინგლისურის სრული კურსი</li>
+      <li>⭐ XP, 🔥 დღეების სერია და სტატისტიკა; ☁️ პროგრესი ყველა მოწყობილობაზე</li>
+      <li>💻 მუშაობს ბრაუზერში, ტელეფონზე და Windows-ის აპად</li>
+    </ul>
+    <p><a href="course">💻 პროგრამირების ინგლისური</a> · <a href="levels">🎓 დონეები A1–C2</a> ·
+      <a href="words">📖 სიტყვები თემებით</a> · <a href="about">ℹ️ როგორ მუშაობს</a></p>
+  </section>
+  <footer class="foot">
+    <button class="btn white sm install" onclick="installApp()">💻 Windows აპის დაყენება</button>
+    <div>Powered by codequest</div>
+    <div class="legal"><a href="privacy">კონფიდენციალურობა</a> · <a href="terms">წესები</a></div></footer>
 </div>
 <div id="toasts" aria-live="polite"></div>
 <input type="file" id="importFile" accept=".json,application/json" hidden>
@@ -545,7 +597,7 @@ async function hashPin(id, pin) {
 function enter(p) {
   me = p; KEY = 'english-app-v2:' + p.id; lsSet(CURRENT_KEY, p.id);
   try { S = clean(JSON.parse(lsGet(KEY))); } catch (e) { S = fresh(); }
-  document.body.classList.remove('out');
+  document.body.classList.remove('out', 'guest');
   applyTheme(); viewLessons(); toast(`👋 გამარჯობა, ${p.name}!`);
   if (wantCourse) { wantCourse = false; viewCourse(); }
 }
@@ -593,7 +645,7 @@ async function enterCloud(u) {
   let json = remote && (!local || num(remote.at) >= localAt) ? str(remote.json) : local;
   if (!json && !remote && !error && guessLocalData() && confirm('ამ ბრაუზერში ძველი გაკვეთილები გაქვს. გადავიტანო შენს ანგარიშზე?')) json = guessLocalData();
   try { S = clean(JSON.parse(json)); } catch (e) { S = fresh(); }
-  document.body.classList.remove('out');
+  document.body.classList.remove('out', 'guest');
   applyTheme(); viewLessons(); toast(`👋 გამარჯობა, ${me.name}!`);
   if (wantCourse) { wantCourse = false; viewCourse(); }
   if (linkInfo.get('type') === 'signup') { toast('✅ ელფოსტა დადასტურდა!'); linkInfo.delete('type'); }
@@ -616,7 +668,7 @@ const GOOGLE_G = '<svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="t
   '<path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>' +
   '<path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>';
 function viewCloudLogin() {
-  document.body.classList.add('out');
+  document.body.classList.add('out', 'guest');
   window.scrollTo(0, 0);
   M.innerHTML = `
     <section class="box" style="max-width:460px;margin:0 auto 24px">
@@ -720,7 +772,7 @@ async function deleteCloudAccount() {
 
 function viewLogin() {
   if (cloud) return viewCloudLogin();
-  document.body.classList.add('out');
+  document.body.classList.add('out', 'guest');
   window.scrollTo(0, 0);
   M.innerHTML = `
     <section class="box" style="max-width:460px;margin:0 auto 24px">
@@ -883,6 +935,8 @@ function confetti() {
 function applyTheme() {
   if (S.settings.theme === 'auto') delete document.documentElement.dataset.theme;
   else document.documentElement.dataset.theme = S.settings.theme;
+  // დაყენებული აპის ფანჯრის ზოლი გვერდის ფონის ფერისაა
+  document.querySelector('meta[name="theme-color"]').content = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
 }
 
 // ---------- ნავიგაცია ----------
@@ -1734,6 +1788,19 @@ $('importFile').onchange = async e => {
 function resetAll() {
   if (!confirm('ნამდვილად წავშალო ყველაფერი? ამას ვერ დააბრუნებ.')) return;
   S = fresh(); save(); applyTheme(); viewSettings(); toast('🗑️ წაიშალა');
+}
+
+// ---------- 💻 აპად დაყენება (Windows, ტელეფონი): manifest.webmanifest + sw.js ----------
+// ფაილიდან ან data: მისამართიდან გახსნისას ბრაუზერი serviceWorker-ს კრძალავს, მაშინ უბრალოდ გამოვტოვებთ
+try { navigator.serviceWorker?.register('sw.js').catch(() => {}); } catch (e) {}
+let installEvt = null; // Edge/Chrome ამას მაშინ გვაძლევს, როცა საიტის აპად დაყენება შეიძლება
+addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; });
+addEventListener('appinstalled', () => toast('✅ აპი დაყენდა! იპოვი Start მენიუში: English Quest'));
+function installApp() {
+  if (!installEvt) return alert('აპის დასაყენებლად გახსენი www.englishquest.space Microsoft Edge-ში ან Google Chrome-ში ' +
+    'და მისამართის ზოლის მარჯვნივ დააჭირე „აპის დაყენება“ (Install) ხატულას.\n\nთუ აპი უკვე დაყენებულია, გახსენი Start მენიუდან: English Quest.');
+  installEvt.prompt();
+  installEvt = null;
 }
 
 function localStart() {

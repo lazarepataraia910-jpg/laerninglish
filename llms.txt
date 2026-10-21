@@ -1,0 +1,13 @@
+# English Quest (ისწავლე ინგლისური)
+
+> English Quest (https://www.englishquest.space/) is a free website for Georgian speakers to learn English vocabulary. You create word lessons and learn them in three steps (copy, write from memory, final test), with flashcards, quizzes and dictation. It also has CEFR levels A1–C2 and a programming English course (12 modules, 240 words). Interface language: Georgian. Works in any browser and installs as a Windows app.
+
+English Quest უფასო საიტია ინგლისური სიტყვების სასწავლად ქართულად: გადაწერა, შენით დაწერა, ჩაბარება, ბარათები, ვიქტორინა, კარნახი, დონეები A1–C2 და პროგრამირების ინგლისური.
+
+## Pages
+
+- [App](https://www.englishquest.space/): sign in with email or Google and study your own word lessons
+- [Programming English course](https://www.englishquest.space/course): 12 modules, 240 words with Georgian translations and code examples
+- [English levels A1–C2](https://www.englishquest.space/levels): what each CEFR level means, with 20 words per level
+- [English words by topic](https://www.englishquest.space/words): 6 topics with Georgian translations
+- [How it works and FAQ](https://www.englishquest.space/about): the three-step method, all features, the Windows app and common questions

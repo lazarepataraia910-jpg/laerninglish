@@ -1,0 +1,15 @@
+{
+  "name": "English Quest · ისწავლე ინგლისური",
+  "short_name": "English Quest",
+  "description": "ისწავლე ინგლისური სიტყვები უფასოდ: გადაწერა, შენით დაწერა, ჩაბარება, ბარათები, დონეები A1–C2 და პროგრამირების ინგლისური.",
+  "lang": "ka",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f4f1",
+  "theme_color": "#f4f4f1",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
