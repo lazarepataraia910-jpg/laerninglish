@@ -562,7 +562,6 @@ const SB_URL = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm';
 const here = () => location.origin + location.pathname; // აქ დაბრუნდება ელფოსტის/Google-ის ბმული
 // ელფოსტის ბმულიდან დაბრუნებისას URL-ში წერია რა მოხდა (Supabase მას მალევე შლის, ამიტომ ახლავე ვიმახსოვრებთ)
 const linkInfo = new URLSearchParams(location.hash.slice(1) || location.search.slice(1));
-let recovering = false;
 async function initCloud() {
   if (linkInfo.get('error_description')) toast(authError({ message: linkInfo.get('error_description') }));
   const { createClient } = await import(SB_URL);
@@ -572,7 +571,6 @@ async function initCloud() {
     .then(r => r.json()).then(s => { googleOn = !!s.external?.google; $('gBtn')?.classList.toggle('hidden', !googleOn); }).catch(() => {});
   // Supabase გვირჩევს ამ callback-ში სხვა Supabase მოთხოვნა პირდაპირ არ გავუშვათ, ამიტომ setTimeout
   cloud.auth.onAuthStateChange((event, session) => setTimeout(() => {
-    if (event === 'PASSWORD_RECOVERY') { recovering = true; if (me?.cloud) return openPasswordChange(); }
     const u = session?.user;
     if (u && me?.id !== u.id) return enterCloud(u);
     if (!u) {
@@ -599,7 +597,6 @@ async function enterCloud(u) {
   applyTheme(); viewLessons(); toast(`👋 გამარჯობა, ${me.name}!`);
   if (wantCourse) { wantCourse = false; viewCourse(); }
   if (linkInfo.get('type') === 'signup') { toast('✅ ელფოსტა დადასტურდა!'); linkInfo.delete('type'); }
-  if (recovering) openPasswordChange();
   if (json && json !== str(remote?.json)) pushCloud();
 }
 
@@ -638,7 +635,6 @@ function viewCloudLogin() {
       </form>
       <div class="btns">
         <button class="btn white gbtn ${googleOn ? '' : 'hidden'}" id="gBtn">${GOOGLE_G} Google-ით შესვლა</button>
-        ${signup ? '' : '<button class="btn white sm" id="resetBtn">პაროლი დამავიწყდა?</button>'}
       </div>
       <p class="muted sm center">☁️ გაკვეთილები შენს ანგარიშზე ინახება და ყველა მოწყობილობაზე გამოჩნდება.</p>
     </section>`;
@@ -669,12 +665,6 @@ function viewCloudLogin() {
     const { error } = await cloud.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: here() } });
     if (error) msg(authError(error));
   };
-  if ($('resetBtn')) $('resetBtn').onclick = async () => {
-    const email = $('aEmail').value.trim();
-    if (!email) return msg('ჯერ ჩაწერე ელფოსტა');
-    const { error } = await cloud.auth.resetPasswordForEmail(email, { redirectTo: here() });
-    error ? msg(authError(error)) : toast('📧 პაროლის აღდგენის ბმული გამოგზავნილია');
-  };
   addEyes();
   $(signup ? 'aName' : 'aEmail').focus();
 }
@@ -699,15 +689,6 @@ async function resendConfirm(email) {
   toast(error ? authError(error) : '📧 ბმული ხელახლა გაიგზავნა');
 }
 
-// პაროლის აღდგენის ბმულიდან დაბრუნებისას: პროფილში პაროლის შეცვლის ველი
-function openPasswordChange() {
-  recovering = false;
-  viewProfile();
-  $('pwForm')?.scrollIntoView({ block: 'center' });
-  $('newPw')?.focus({ preventScroll: true });
-  toast('🔑 ჩაწერე ახალი პაროლი');
-}
-
 function authError(e) {
   const t = String(e?.message || e || '');
   const m = [
@@ -721,7 +702,6 @@ function authError(e) {
     [/provider is not enabled/i, 'შესვლის ეს ხერხი Supabase-ში ჩართული არ არის'],
     [/invalid api key|no api key/i, 'SUPABASE_CONFIG არასწორია, შეამოწმე anonKey'],
     [/failed to fetch|network/i, 'ინტერნეტთან კავშირი არ არის ან SUPABASE_CONFIG-ის url არასწორია'],
-    [/should be different/i, 'ახალი პაროლი ძველისგან უნდა განსხვავდებოდეს'],
     [/for security purposes/i, 'ცოტა დაიცადე და მერე სცადე თავიდან']
   ];
   return '✘ ' + (m.find(([r]) => r.test(t))?.[1] || 'შეცდომა: ' + t);
@@ -1574,13 +1554,6 @@ function viewProfile() {
 
     <section class="box">
       <h2>🔐 ანგარიში</h2>
-      <form id="pwForm" class="set" style="display:block">
-        <b>🔑 პაროლის შეცვლა</b>
-        <input id="newPw" type="password" autocomplete="new-password" minlength="6" required placeholder="ახალი პაროლი (მინ. 6 სიმბოლო)" style="margin-top:10px">
-        <input id="newPw2" type="password" autocomplete="new-password" required placeholder="გაიმეორე ახალი პაროლი" style="margin-top:10px">
-        <p id="pwMsg" class="bad sm" role="alert"></p>
-        <button class="btn" type="submit">შეცვლა</button>
-      </form>
       <div class="btns" style="justify-content:flex-start">
         <button class="btn white" onclick="logout()">🚪 გასვლა</button>
         <button class="btn red" onclick="deleteProfile()">🗑️ ანგარიშის წაშლა</button>
@@ -1597,21 +1570,6 @@ function viewProfile() {
     const err = await renameMe($('newName').value);
     if (err) return $('nameMsg').textContent = err;
     viewProfile(); toast('✅ სახელი შეიცვალა');
-  };
-  addEyes();
-  $('pwForm').onsubmit = async e => {
-    e.preventDefault();
-    const password = $('newPw').value, out = t => { $('pwMsg').textContent = t; };
-    if (password.length < 6) return out('✘ პაროლი მინიმუმ 6 სიმბოლო უნდა იყოს');
-    if (password !== $('newPw2').value) return out('✘ პაროლები არ ემთხვევა');
-    if (me.cloud) {
-      const { error } = await cloud.auth.updateUser({ password });
-      if (error) return out(authError(error));
-    } else {
-      const p = profiles.find(x => x.id === me.id);
-      p.pin = await hashPin(p.id, password); saveProfiles();
-    }
-    out(''); e.target.reset(); toast('✅ პაროლი შეიცვალა');
   };
 }
 
@@ -1722,7 +1680,7 @@ function viewSettings() {
     </section>
 
     <section class="box row-between">
-      <div><h2>👤 ანგარიში</h2><p class="muted sm">ავატარი, სახელი, დონე, მიღწევები, პაროლი და ანგარიშის წაშლა</p></div>
+      <div><h2>👤 ანგარიში</h2><p class="muted sm">ავატარი, სახელი, დონე, მიღწევები და ანგარიშის წაშლა</p></div>
       <button class="btn white" onclick="viewProfile()">პროფილის გახსნა →</button>
     </section>
 
