@@ -135,6 +135,16 @@
            border-radius: 8px; box-shadow: 3px 3px 0 var(--line); }
   .badge .ic { font-size: 30px; }
   .badge.locked { opacity: .4; box-shadow: none; }
+  /* პროგრამირების კურსი */
+  .mod-head { display: flex; gap: 14px; align-items: center; }
+  .mod-head h2 { margin: 0; }
+  .mod-num { font-family: var(--px); font-size: 20px; color: var(--pink); flex: none; }
+  .bar.thin { height: 16px; margin-top: 12px; }
+  details summary { cursor: pointer; font-weight: 800; margin-top: 12px; }
+  details[open] summary { margin-bottom: 8px; }
+  .gloss td { padding: 5px 6px; }
+  pre.code { margin: 12px 0 0; padding: 12px 14px; background: #111; color: #f4f4f1; border: 3px solid var(--line); border-radius: 6px;
+             overflow-x: auto; font: 13px/1.55 ui-monospace, Consolas, "Courier New", monospace; white-space: pre; }
   .chip { font-weight: 800; font-size: 14px; padding: 5px 12px; background: var(--card); border: 3px solid var(--line);
           border-radius: 4px; box-shadow: 3px 3px 0 var(--line); }
   .nav { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
@@ -264,7 +274,7 @@
   @keyframes up { from { transform: translateY(14px); opacity: 0; } }
   @keyframes fall { to { transform: translateY(105vh) rotate(720deg); } }
   @media (max-width: 560px) {
-    .nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .nav { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
     .nav .btn { padding: 6px 2px; font-size: 12px; }
     .nav .btn span { display: block; font-size: 20px; }
     .opts { grid-template-columns: 1fr; }
@@ -319,6 +329,7 @@
   </header>
   <nav class="nav" id="nav">
     <button class="btn" data-v="lessons" onclick="viewLessons()"><span>📚</span> გაკვეთილები</button>
+    <button class="btn" data-v="course" onclick="viewCourse()"><span>💻</span> პროგრამირება</button>
     <button class="btn" data-v="stats" onclick="viewStats()"><span>📊</span> სტატისტიკა</button>
     <button class="btn" data-v="settings" onclick="viewSettings()"><span>⚙️</span> პარამეტრები</button>
   </nav>
@@ -361,6 +372,9 @@ new MutationObserver(list => list.forEach(m => {
 softenEmoji(document.body);
 
 let KEY = null; // შესული პროფილის მონაცემების გასაღები
+let wantCourse = location.hash === '#course'; // englishquest.space/#course შესვლის მერე კურსს გახსნის
+// მისამართის #-ის შეცვლა; ზოგ გარემოში (მაგ. ფაილიდან გახსნისას) ბრაუზერი კრძალავს, მაშინ უბრალოდ გამოვტოვებთ
+function setHash(h) { try { history.replaceState(null, '', h || location.pathname + location.search); } catch (e) {} }
 // ☁️ ჩასვი აქ შენი Supabase პროექტის მონაცემები (იხ. SETUP-SUPABASE.md), მაგ. { url: "https://xxxx.supabase.co", anonKey: "eyJ..." }.
 // სანამ null-ია, საიტი ლოკალურ პროფილებს იყენებს
 const SUPABASE_CONFIG = { url: 'https://eonfodcsszzptuwmldpd.supabase.co', anonKey: 'sb_publishable_ILYAA_cXUzE0ekRD6XUxNg_E_Dg2NEm' };
@@ -410,6 +424,47 @@ const LEVEL_WORDS = {
   C2: 'ubiquitous - ყველგანმყოფი\nephemeral - წარმავალი\npragmatic - პრაგმატული\njuxtaposition - შეპირისპირება\nconundrum - დილემა\nmagnanimous - სულგრძელი\nobfuscate - გაბუნდოვანება\nperfunctory - ზერელე\nsanguine - ოპტიმისტური\nrecalcitrant - ჯიუტი\nineffable - გამოუთქმელი\nidiosyncratic - თავისებური\ncogent - დამაჯერებელი\nvicissitude - ცვალებადობა\nequivocal - ბუნდოვანი\npernicious - მავნე\nserendipity - ბედნიერი შემთხვევითობა\nameliorate - შემსუბუქება\nostensibly - ერთი შეხედვით\nlugubrious - პირქუში'
 };
 const AVATARS = ['🦊', '🐼', '🐯', '🦁', '🐸', '🐧', '🦉', '🐙', '🦄', '🐝', '🌟', '🚀'];
+
+// ---------- 💻 პროგრამირების ინგლისური: სრული კურსი (12 მოდული × ~15 წთ ≈ 3 საათი) ----------
+const COURSE_MIN = 15; // ერთი მოდულის მიახლოებითი დრო წუთებში
+const COURSE = [
+  { icon: '🧩', title: 'საფუძვლები', desc: 'რა არის კოდი, პროგრამა და როგორ ეშვება.',
+    words: 'code - კოდი\nprogram - პროგრამა\nprogramming - პროგრამირება\nprogrammer - პროგრამისტი\nlanguage - ენა\nsoftware - პროგრამული უზრუნველყოფა\nhardware - აპარატურა\nfile - ფაილი\nfolder - საქაღალდე\nline - ხაზი\ncomment - კომენტარი\nsyntax - სინტაქსი\nkeyword - საკვანძო სიტყვა\nrun - გაშვება\nexecute - შესრულება\ncompile - კომპილირება\nsource code - საწყისი კოდი\neditor - რედაქტორი\nterminal - ტერმინალი\ninstruction - ინსტრუქცია',
+    code: '// ეს კომენტარია (comment) — პროგრამა მას არ ასრულებს\nconsole.log("Hello, world!"); // გაშვებისას (run) ეკრანზე დაიბეჭდება ტექსტი' },
+  { icon: '📦', title: 'ცვლადები და მონაცემთა ტიპები', desc: 'როგორ ინახება მონაცემები: რიცხვი, ტექსტი, სია…',
+    words: 'variable - ცვლადი\nconstant - მუდმივა\nvalue - მნიშვნელობა\ntype - ტიპი\ndata - მონაცემები\nnumber - რიცხვი\ninteger - მთელი რიცხვი\nfloat - ათწილადი რიცხვი\nstring - სტრიქონი\ncharacter - სიმბოლო\nboolean - ლოგიკური მნიშვნელობა\ntrue - ჭეშმარიტი\nfalse - მცდარი\nnull - ცარიელი მნიშვნელობა\nundefined - განუსაზღვრელი\narray - მასივი\nlist - სია\nobject - ობიექტი\nassign - მინიჭება\ndeclare - გამოცხადება',
+    code: 'let age = 25;                 // ცვლადი (variable), რიცხვი (number)\nconst name = "Ana";           // მუდმივა (constant), სტრიქონი (string)\nlet isStudent = true;         // ლოგიკური (boolean)\nlet colors = ["red", "blue"]; // მასივი (array)' },
+  { icon: '➕', title: 'ოპერატორები', desc: 'გამოთვლა, შედარება და ლოგიკა.',
+    words: 'operator - ოპერატორი\naddition - შეკრება\nsubtraction - გამოკლება\nmultiply - გამრავლება\ndivide - გაყოფა\nremainder - ნაშთი\nequal - ტოლი\nnot equal - არატოლი\ngreater than - მეტია\nless than - ნაკლებია\nand - და\nor - ან\nnot - არა\nincrement - ერთით გაზრდა\ndecrement - ერთით შემცირება\nexpression - გამოსახულება\ncalculate - გამოთვლა\ncompare - შედარება\nresult - შედეგი\nnegative - უარყოფითი',
+    code: 'let total = 10 + 5 * 2;            // 20 (გამრავლება ჯერ ხდება)\nlet rest = 10 % 3;                 // ნაშთი (remainder) = 1\nlet ok = total > 15 && rest === 1; // და (and) → true' },
+  { icon: '🔀', title: 'პირობები და ციკლები', desc: 'როგორ იღებს პროგრამა გადაწყვეტილებას და იმეორებს მოქმედებას.',
+    words: 'condition - პირობა\nif - თუ\nelse - სხვა შემთხვევაში\nswitch - გადამრთველი\ncase - შემთხვევა\nloop - ციკლი\niteration - იტერაცია\nwhile - სანამ\nbreak - შეწყვეტა\ncontinue - გაგრძელება\nrepeat - გამეორება\nnested - ჩადგმული\ninfinite loop - უსასრულო ციკლი\ncounter - მთვლელი\nrange - დიაპაზონი\nindex - ინდექსი\nstep - ნაბიჯი\nskip - გამოტოვება\nexit - გასვლა\nbranch - განშტოება',
+    code: 'if (score >= 50) {             // თუ (if) პირობა სრულდება\n  console.log("passed");\n} else {                       // სხვა შემთხვევაში (else)\n  console.log("try again");\n}\nfor (let i = 0; i < 3; i++) {  // ციკლი (loop): 3 იტერაცია\n  if (i === 1) continue;       // ამ ნაბიჯის გამოტოვება\n}' },
+  { icon: '🧮', title: 'ფუნქციები', desc: 'კოდის ნაწილი, რომელსაც სახელს ვარქმევთ და ბევრჯერ ვიძახებთ.',
+    words: 'function - ფუნქცია\nmethod - მეთოდი\nparameter - პარამეტრი\nargument - არგუმენტი\nreturn - დაბრუნება\ncall - გამოძახება\ndefine - განსაზღვრა\nscope - ხილვადობის არე\nlocal - ლოკალური\nglobal - გლობალური\ncallback - უკუგამოძახება\nrecursion - რეკურსია\ndefault - ნაგულისხმევი\noutput - გამოტანა\ninput - შეტანა\nreusable - მრავალჯერადი გამოყენების\nmodule - მოდული\nimport - იმპორტი\nexport - ექსპორტი\nname - სახელი',
+    code: 'function add(a, b) {   // a და b — პარამეტრები (parameters)\n  return a + b;        // დაბრუნება (return)\n}\nlet sum = add(2, 3);   // გამოძახება (call); 2 და 3 — არგუმენტები' },
+  { icon: '🏛️', title: 'ობიექტზე ორიენტირებული პროგრამირება', desc: 'კლასები, ობიექტები და მემკვიდრეობა.',
+    words: 'class - კლასი\ninstance - ეგზემპლარი\nproperty - თვისება\nattribute - ატრიბუტი\nconstructor - კონსტრუქტორი\ninheritance - მემკვიდრეობა\nparent class - მშობელი კლასი\nchild class - შვილობილი კლასი\ninterface - ინტერფეისი\nencapsulation - ინკაფსულაცია\npolymorphism - პოლიმორფიზმი\nabstraction - აბსტრაქცია\nprivate - დახურული\npublic - საჯარო\nstatic - სტატიკური\noverride - გადაფარვა\nextend - გაფართოება\ncreate - შექმნა\ndelete - წაშლა\nupdate - განახლება',
+    code: 'class Animal {\n  constructor(name) { this.name = name; }       // კონსტრუქტორი, თვისება (property)\n  speak() { return this.name + " makes a sound"; } // მეთოდი\n}\nclass Dog extends Animal {                       // მემკვიდრეობა (inheritance)\n  speak() { return this.name + " barks"; }      // გადაფარვა (override)\n}\nconst rex = new Dog("Rex");                     // ეგზემპლარი (instance)' },
+  { icon: '🐞', title: 'შეცდომები და დებაგი', desc: 'შეცდომის პოვნა, გაგება და გასწორება.',
+    words: 'error - შეცდომა\nbug - ბაგი\ndebug - გამართვა\nexception - გამონაკლისი\nwarning - გაფრთხილება\ncrash - ავარია\nfix - გასწორება\ntest - ტესტი\nbreakpoint - გაჩერების წერტილი\nlog - ჟურნალი\nstack trace - გამოძახებების კვალი\ntry - ცდა\ncatch - დაჭერა\nthrow - გამოგდება\nhandle - დამუშავება\ninvalid - არასწორი\nmissing - აკლია\nunexpected - მოულოდნელი\ntimeout - დროის ამოწურვა\nfail - ჩავარდნა',
+    code: 'try {                                      // ცდა (try)\n  JSON.parse("{oops}");                    // აქ ხდება შეცდომა (error)\n} catch (error) {                          // დაჭერა (catch)\n  console.error("Invalid JSON:", error.message); // დამუშავება (handle)\n}' },
+  { icon: '🌐', title: 'ვები', desc: 'ვებსაიტები, ბრაუზერი, სერვერი და API.',
+    words: 'website - ვებსაიტი\nweb page - ვებგვერდი\nbrowser - ბრაუზერი\nserver - სერვერი\nclient - კლიენტი\nrequest - მოთხოვნა\nresponse - პასუხი\nlink - ბმული\ndomain - დომენი\nfrontend - ფრონტენდი\nbackend - ბექენდი\nelement - ელემენტი\ntag - ტეგი\nstyle - სტილი\nlayout - განლაგება\nbutton - ღილაკი\nform - ფორმა\ndeploy - განთავსება\nhosting - ჰოსტინგი\nAPI - პროგრამული ინტერფეისი',
+    code: 'const response = await fetch("https://api.example.com/users"); // მოთხოვნა (request) სერვერზე\nconst users = await response.json();                           // პასუხი (response)\ndocument.querySelector("button").textContent = "Click me";      // ელემენტი: ღილაკი (button)' },
+  { icon: '🗄️', title: 'მონაცემთა ბაზები', desc: 'ცხრილები, ჩანაწერები და მოთხოვნები (SQL).',
+    words: 'database - მონაცემთა ბაზა\ntable - ცხრილი\nrow - მწკრივი\ncolumn - სვეტი\nrecord - ჩანაწერი\nquery - მოთხოვნა\nkey - გასაღები\nprimary key - პირველადი გასაღები\nforeign key - გარე გასაღები\ninsert - ჩასმა\nselect - არჩევა\nschema - სქემა\nrelation - კავშირი\nbackup - სარეზერვო ასლი\nstorage - საცავი\ncache - ქეში\nsort - დალაგება\nfilter - ფილტრაცია\ncount - დათვლა\nunique - უნიკალური',
+    code: "SELECT name, email FROM users WHERE age > 18 ORDER BY name;    -- არჩევა, ფილტრაცია, დალაგება\nINSERT INTO users (name, email) VALUES ('Ana', 'ana@mail.com'); -- ჩასმა (insert)\nSELECT COUNT(*) FROM users;                                      -- დათვლა (count)" },
+  { icon: '🌿', title: 'Git და გუნდური მუშაობა', desc: 'ვერსიების კონტროლი და კოდზე ერთად მუშაობა.',
+    words: 'version control - ვერსიების კონტროლი\nrepository - რეპოზიტორი\ncommit - კომიტი\nbranch - განშტოება\nmerge - შერწყმა\npull request - შერწყმის მოთხოვნა\npush - ატვირთვა\npull - ჩამოტვირთვა\nclone - კლონირება\nconflict - კონფლიქტი\nhistory - ისტორია\nchange - ცვლილება\nreview - განხილვა\nissue - პრობლემა\nrelease - გამოშვება\nversion - ვერსია\nteam - გუნდი\ntask - დავალება\ndeadline - ვადა\nfeature - ფუნქციონალი',
+    code: 'git clone https://github.com/user/project.git  # კლონირება (clone)\ngit checkout -b new-feature                     # ახალი განშტოება (branch)\ngit commit -m "Add login page"                  # კომიტი (commit)\ngit push origin new-feature                     # ატვირთვა (push)' },
+  { icon: '🛠️', title: 'ხელსაწყოები და ბრძანებები', desc: 'ინსტალაცია, პაკეტები და ტერმინალის ბრძანებები.',
+    words: 'install - ინსტალაცია\npackage - პაკეტი\nlibrary - ბიბლიოთეკა\nframework - ფრეიმვორკი\ndependency - დამოკიდებულება\ncommand - ბრძანება\ncommand line - ბრძანების სტრიქონი\npath - გზა\ndirectory - დირექტორია\ndownload - ჩამოტვირთვა\nupload - ატვირთვა\nbuild - აწყობა\nconfigure - კონფიგურაცია\nsettings - პარამეტრები\nenvironment - გარემო\nshortcut - მალსახმობი\ncopy - კოპირება\npaste - ჩასმა\nsave - შენახვა\nopen - გახსნა',
+    code: 'npm install express     # პაკეტის (package) ინსტალაცია (install)\ncd projects/my-app      # დირექტორიაში (directory) გადასვლა\nnpm run build           # აწყობა (build)' },
+  { icon: '⌨️', title: 'სიმბოლოები კლავიატურაზე', desc: 'როგორ ჰქვია ინგლისურად კოდში გამოყენებულ ნიშნებს.',
+    words: 'parentheses - მრგვალი ფრჩხილები\nbrackets - კვადრატული ფრჩხილები\ncurly braces - ფიგურული ფრჩხილები\nangle brackets - კუთხოვანი ფრჩხილები\nsemicolon - წერტილმძიმე\ncolon - ორწერტილი\ncomma - მძიმე\ndot - წერტილი\nquotation mark - ბრჭყალი\nslash - დახრილი ხაზი\nbackslash - უკუდახრილი ხაზი\nunderscore - ქვედა ტირე\ndash - ტირე\nasterisk - ვარსკვლავი\nhash sign - დიეზი\nat sign - ძაღლუკა\nampersand - ამპერსანდი\npipe - ვერტიკალური ხაზი\ntilde - ტილდა\nexclamation mark - ძახილის ნიშანი',
+    code: 'let list = [1, 2, 3];        // [ ] კვადრატული ფრჩხილები, მძიმე (comma), წერტილმძიმე (semicolon)\nlet user = { name: "Ana" };  // { } ფიგურული ფრჩხილები, ორწერტილი (colon), ბრჭყალი (quotation mark)\nlet email = "ana@mail.com";  // @ ძაღლუკა (at sign), წერტილი (dot)\nlet file = "docs/notes.txt"; // / დახრილი ხაზი (slash)' }
+];
 
 // ---------- მონაცემები ----------
 const MODE_KEYS = ['cards', 'copy', 'write', 'test', 'quiz', 'dict'];
@@ -489,6 +544,7 @@ function enter(p) {
   try { S = clean(JSON.parse(lsGet(KEY))); } catch (e) { S = fresh(); }
   document.body.classList.remove('out');
   applyTheme(); viewLessons(); toast(`👋 გამარჯობა, ${p.name}!`);
+  if (wantCourse) { wantCourse = false; viewCourse(); }
 }
 
 function logout() {
@@ -538,6 +594,7 @@ async function enterCloud(u) {
   try { S = clean(JSON.parse(json)); } catch (e) { S = fresh(); }
   document.body.classList.remove('out');
   applyTheme(); viewLessons(); toast(`👋 გამარჯობა, ${me.name}!`);
+  if (wantCourse) { wantCourse = false; viewCourse(); }
   if (linkInfo.get('type') === 'signup') { toast('✅ ელფოსტა დადასტურდა!'); linkInfo.delete('type'); }
   if (recovering) openPasswordChange();
   if (json && json !== str(remote?.json)) pushCloud();
@@ -849,6 +906,7 @@ function applyTheme() {
 let timer = null, keyHandler = null;
 function setNav(v) {
   if (persist() && v) toast('💾 პროგრესი შენახულია');
+  if (v !== 'course' && location.hash === '#course') setHash('');
   snapshot = null;
   clearInterval(timer); keyHandler = null;
   try { speechSynthesis.cancel(); } catch (e) {}
@@ -1353,6 +1411,65 @@ function dict(st) {
     setTimeout(() => speak(w.en), 300);
   };
   next();
+}
+
+// ---------- 💻 პროგრამირების კურსის გვერდი ----------
+const courseLessonName = i => `💻 ${i + 1}. ${COURSE[i].title}`;
+const courseWords = i => parseWords(COURSE[i].words);
+// ნასწავლად ითვლება სიტყვა, რომელიც ერთხელ მაინც სწორად დაწერე და შეცდომაზე მეტჯერ გამოგივიდა
+const learnedIn = words => words.filter(w => { const r = S.words[norm(w.en)]; return r && r.right >= 1 && r.right > r.wrong; }).length;
+
+// მოდულის გაკვეთილს ვამატებთ პირველ გახსნაზე (ან თუ წაშლილია), მერე სწავლის ყველა რეჟიმი მუშაობს
+function courseLessonIndex(i) {
+  let n = S.lessons.findIndex(l => l.name === courseLessonName(i));
+  if (n < 0) { S.lessons.unshift({ name: courseLessonName(i), words: courseWords(i) }); n = 0; save(); }
+  return n;
+}
+function startCourse(i, mode) { start(courseLessonIndex(i), mode); }
+
+function viewCourse() {
+  setNav('course');
+  setHash('#course');
+  const mods = COURSE.map((m, i) => { const w = courseWords(i); return { ...m, i, w, learned: learnedIn(w) }; });
+  const total = mods.reduce((a, m) => a + m.w.length, 0), learned = mods.reduce((a, m) => a + m.learned, 0);
+  const next = mods.find(m => m.learned < m.w.length) || mods[0];
+  const pct = Math.round(learned / total * 100);
+  M.innerHTML = `
+    <section class="box">
+      <h2>💻 პროგრამირების ინგლისური</h2>
+      <p class="muted sm">სრული კურსი: ყველა ის ინგლისური სიტყვა, რომელიც პროგრამირებაში დაგჭირდება.
+        ${COURSE.length} მოდული · ${total} სიტყვა · ≈ ${COURSE.length * COURSE_MIN / 60} საათი</p>
+      <div class="bar"><div style="width:${pct}%"></div></div>
+      <div class="row-between">
+        <p class="muted sm">ნასწავლი: <b>${learned}</b> / ${total} (${pct}%)</p>
+        <button class="btn pink" onclick="startCourse(${next.i})">▶ ${learned ? 'გაგრძელება' : 'დაწყება'}: მოდული ${next.i + 1}</button>
+      </div>
+    </section>
+    ${mods.map(m => `
+    <section class="box">
+      <div class="mod-head">
+        <span class="mod-num">${String(m.i + 1).padStart(2, '0')}</span>
+        <div><h2>${m.icon} ${esc(m.title)}${m.learned === m.w.length ? ' ✔' : ''}</h2>
+          <p class="muted sm">${esc(m.desc)} · ${m.w.length} სიტყვა · ≈ ${COURSE_MIN} წთ</p></div>
+      </div>
+      <div class="bar thin"><div style="width:${Math.round(m.learned / m.w.length * 100)}%"></div></div>
+      <p class="muted sm">ნასწავლი: ${m.learned} / ${m.w.length}</p>
+      <div class="btns" style="justify-content:flex-start">
+        <button class="btn sm" onclick="startCourse(${m.i})">▶ სწავლა</button>
+        <button class="btn white sm" onclick="startCourse(${m.i}, 'cards')">🃏 ბარათები</button>
+        <button class="btn white sm" onclick="startCourse(${m.i}, 'quiz')">🎯 ვიქტორინა</button>
+        <button class="btn white sm" onclick="startCourse(${m.i}, 'test')">📝 ტესტი</button>
+      </div>
+      <details>
+        <summary>📖 სიტყვები და კოდის მაგალითი</summary>
+        <table class="gloss">${m.w.map(w => `
+          <tr><td><b>${esc(w.en)}</b></td><td>${esc(w.ka)}</td>
+            <td><button class="btn white sm" data-speak="${esc(w.en)}" aria-label="მოსმენა: ${esc(w.en)}">🔊</button></td></tr>`).join('')}
+        </table>
+        <pre class="code"><code>${esc(m.code)}</code></pre>
+      </details>
+    </section>`).join('')}`;
+  M.querySelectorAll('[data-speak]').forEach(b => b.onclick = () => speak(b.dataset.speak));
 }
 
 // ---------- 🎓 ინგლისურის დონე (A1–C2) ----------
