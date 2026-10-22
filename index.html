@@ -322,6 +322,18 @@
     .search { max-width: none; }
   }
   @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+  /* პარტნიორის პატარა რეკლამა (CodeQuest) */
+  .pt { margin: 26px auto 22px; max-width: 520px; font-family: "Noto Sans Georgian", sans-serif; letter-spacing: 0; }
+  .pt-h { margin: 0 0 14px; font-weight: 800; font-size: 14px; color: #111; }
+  .pt-ad { display: flex; align-items: center; gap: 14px; position: relative; padding: 12px 16px; background: #fff; color: #111; text-align: left;
+           text-decoration: none; border: 3px solid #111; border-radius: 6px; box-shadow: 6px 6px 0 #3d5afe; transition: transform .15s, box-shadow .15s; }
+  .pt-ad:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 #3d5afe; }
+  .pt-ad svg { flex: none; }
+  .pt-t { display: grid; min-width: 0; }
+  .pt-t small { color: #3d5afe; font: 10px "Press Start 2P", monospace; letter-spacing: .15em; margin-bottom: 4px; }
+  .pt-t b { font-size: 17px; line-height: 1.25; }
+  .pt-t em { font-style: normal; font-size: 13px; color: #555; line-height: 1.4; }
+  .pt-tag { position: absolute; top: -12px; right: 10px; background: #111; color: #fff; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 4px; }
 </style>
 </head>
 <body>
@@ -389,8 +401,9 @@
   </section>
   <footer class="foot">
     <button class="btn white sm install" onclick="installApp()">💻 Windows აპის დაყენება</button>
+    <div class="pt"><p class="pt-h">ჩვენი პარტნიორები</p><a class="pt-ad" href="https://codequest.space/?utm_source=englishquest&amp;utm_medium=partner&amp;utm_campaign=app" target="_blank" rel="noopener"><svg viewBox="0 0 305 290" width="46" height="44" aria-hidden="true"><circle cx="152" cy="24" r="18" fill="#FF8A00"/><rect x="146" y="38" width="12" height="30" fill="#13163A"/><rect x="9" y="142" width="34" height="67" rx="10" fill="#13163A"/><rect x="262" y="142" width="34" height="67" rx="10" fill="#13163A"/><rect x="32" y="63" width="240" height="219" rx="68" fill="#3D5AFE"/><rect x="64" y="105" width="177" height="125" rx="40" fill="#13163A"/><polyline points="94,142 122,167 94,192" fill="none" stroke="#3DDC97" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><line x1="146" y1="193" x2="200" y2="193" stroke="#3DDC97" stroke-width="14" stroke-linecap="round"/></svg><span class="pt-t"><small>CODEQUEST</small><b>ისწავლე პროგრამირება</b><em>თამაშით, ქართულად: 19 ენა, რობოტი ბიტი და სკოლა „ისწავლე კოდინგი“</em></span><span class="pt-tag">პარტნიორი</span></a></div>
     <div>Powered by codequest</div>
-    <div class="legal"><a href="privacy">კონფიდენციალურობა</a> · <a href="terms">წესები</a></div></footer>
+    <div class="legal"><a href="privacy">კონფიდენციალურობა</a> · <a href="terms">წესები</a> · <a href="https://codequest.space/?utm_source=englishquest&amp;utm_medium=partner&amp;utm_campaign=app" target="_blank" rel="noopener">🤝 პარტნიორი: CodeQuest</a></div></footer>
 </div>
 <div id="toasts" aria-live="polite"></div>
 <input type="file" id="importFile" accept=".json,application/json" hidden>
