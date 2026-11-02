@@ -611,7 +611,7 @@ function enter(p) {
 
 function logout() {
   persist(); snapshot = null; clearInterval(timer);
-  if (me?.cloud) { const c = cloud; pushCloud().finally(() => c.auth.signOut()); }
+  if (me?.cloud) { const c = cloud; pushCloud().finally(() => c?.auth.signOut()); }
   me = null; KEY = null; lsSet(CURRENT_KEY, null);
   S = fresh(); applyTheme(); viewLogin();
 }
@@ -653,23 +653,34 @@ async function enterCloud(u) {
   me = { id: u.id, email: u.email || '', created: u.created_at || '', cloud: true,
          name: u.user_metadata?.name || u.user_metadata?.full_name || (u.email || '').split('@')[0] };
   KEY = 'english-app-v2:cloud:' + u.id;
-  const local = lsGet(KEY), localAt = +lsGet(KEY + ':at') || 0;
+  let shown = false;
+  const show = json => {
+    try { S = clean(JSON.parse(json)); } catch (e) { S = fresh(); }
+    document.body.classList.remove('out', 'guest');
+    applyTheme(); viewLessons();
+    if (shown) return; shown = true;
+    toast(`👋 გამარჯობა, ${me.name}!`);
+    if (wantCourse) { wantCourse = false; viewCourse(); }
+  };
+  const local = lsGet(KEY);
+  if (local) show(local); // ამ მოწყობილობის ასლი მაშინვე ჩანს, ღრუბელს ფონზე ვამოწმებთ
+  await cloudReady; // გახსნისას შეიძლება Supabase ჯერ იტვირთებოდეს
+  if (!cloud || me?.id !== u.id) return;
   const { data: remote, error } = await cloud.from('user_data').select('json, at').eq('user_id', u.id).maybeSingle();
+  if (me?.id !== u.id) return; // ამასობაში გავიდა
   if (error) toast('⚠️ ღრუბელთან კავშირი ვერ დამყარდა, ვიყენებ ამ მოწყობილობის ასლს');
-  // რომელიც უფრო ახალია (ღრუბელი თუ ეს მოწყობილობა), ის ვიღებთ
-  let json = remote && (!local || num(remote.at) >= localAt) ? str(remote.json) : local;
+  // რომელიც უფრო ახალია (ღრუბელი თუ ეს მოწყობილობა), ის ვიღებთ. ამ დროს შეიძლება უკვე რამე შეინახა
+  const cur = lsGet(KEY), curAt = +lsGet(KEY + ':at') || 0;
+  let json = remote && (!cur || num(remote.at) >= curAt) ? str(remote.json) : cur;
   if (!json && !remote && !error && guessLocalData() && confirm('ამ ბრაუზერში ძველი გაკვეთილები გაქვს. გადავიტანო შენს ანგარიშზე?')) json = guessLocalData();
-  try { S = clean(JSON.parse(json)); } catch (e) { S = fresh(); }
-  document.body.classList.remove('out', 'guest');
-  applyTheme(); viewLessons(); toast(`👋 გამარჯობა, ${me.name}!`);
-  if (wantCourse) { wantCourse = false; viewCourse(); }
+  if (!shown || json !== cur) show(json); // სხვა მოწყობილობაზე უფრო ახალი მონაცემებია
   if (linkInfo.get('type') === 'signup') { toast('✅ ელფოსტა დადასტურდა!'); linkInfo.delete('type'); }
   if (json && json !== str(remote?.json)) pushCloud();
 }
 
 function pushCloud() {
   clearTimeout(cloudTimer);
-  if (!me?.cloud || !KEY) return Promise.resolve();
+  if (!cloud || !me?.cloud || !KEY) return Promise.resolve();
   return cloud.from('user_data').upsert({ user_id: me.id, json: JSON.stringify(S), at: Date.now() })
     .then(({ error }) => { if (error) toast('⚠️ ღრუბელში შენახვა ვერ მოხერხდა'); });
 }
@@ -781,6 +792,8 @@ function authError(e) {
 async function deleteCloudAccount() {
   if (!confirm('წავშალო შენი ანგარიში და ყველა გაკვეთილი? ამას ვერ დააბრუნებ.')) return;
   clearTimeout(cloudTimer);
+  await cloudReady; // გვერდი Supabase-ის ჩატვირთვამდე ჩანს
+  if (!cloud) return toast('⚠️ ღრუბელთან კავშირი ვერ დამყარდა');
   const { error } = await cloud.rpc('delete_user'); // ანგარიშს და მის მონაცემებს ერთად შლის (იხ. supabase.sql)
   if (error) return toast(authError(error));
   lsSet(KEY, null); lsSet(KEY + ':at', null);
@@ -1690,6 +1703,8 @@ async function renameMe(name) {
   name = name.trim();
   if (!name) return '✍️ ჩაწერე სახელი';
   if (me.cloud) {
+    await cloudReady; // გვერდი Supabase-ის ჩატვირთვამდე ჩანს
+    if (!cloud) return '⚠️ ღრუბელთან კავშირი ვერ დამყარდა';
     const { error } = await cloud.auth.updateUser({ data: { name } });
     if (error) return authError(error);
   } else {
@@ -1860,15 +1875,21 @@ function localStart() {
   const last = profiles.find(p => p.id === lsGet(CURRENT_KEY));
   last ? enter(last) : (applyTheme(), viewLogin());
 }
-// ბრაუზერში Supabase-ის სესია არ არის = შესული არ ხარ: შესვლის ფორმას მაშინვე ვაჩვენებთ, Supabase ფონზე იტვირთება
-const signedOut = () => { try { return !Object.keys(localStorage).some(k => /^sb-.+-auth-token$/.test(k)); } catch (e) { return false; } };
+// Supabase-ის შენახული სესია (მასში მომხმარებელიც წერია): Supabase-ის ჩატვირთვას არ ველოდებით.
+// სესია არ არის = შესვლის ფორმა მაშინვე; არის = ამ მოწყობილობის მონაცემები მაშინვე, ღრუბელი ფონზე
+let sbSession = null;
+try { const k = Object.keys(localStorage).find(k => /^sb-.+-auth-token$/.test(k)); sbSession = k ? JSON.parse(localStorage.getItem(k)) || {} : null; } catch (e) { sbSession = {}; }
 if (SUPABASE_CONFIG) {
   applyTheme();
   document.body.classList.add('out');
-  cloudReady = initCloud().catch(() => { cloud = null; cloudOn = false; toast('⚠️ Supabase ვერ ჩაიტვირთა, ვიყენებ ლოკალურ პროფილებს'); localStart(); });
+  cloudReady = initCloud().catch(() => { cloud = null; cloudOn = false; toast('⚠️ Supabase ვერ ჩაიტვირთა, ვიყენებ ლოკალურ პროფილებს'); if (!me?.cloud) localStart(); });
   // ელფოსტის ან Google-ის ბმულიდან დაბრუნებისას სესია ჯერ URL-შია, ამიტომ მაშინ ველოდებით
-  if (signedOut() && !['access_token', 'code', 'error_description'].some(k => linkInfo.has(k))) viewCloudLogin();
-  else M.innerHTML = '<p class="center muted">☁️ იტვირთება...</p>';
+  const fromLink = ['access_token', 'code', 'error_description'].some(k => linkInfo.has(k));
+  if (!sbSession && !fromLink) viewCloudLogin();
+  else {
+    M.innerHTML = '<p class="center muted">☁️ იტვირთება...</p>';
+    if (!fromLink && sbSession.user?.id) enterCloud(sbSession.user);
+  }
 } else localStart();
 </script>
 </body>
