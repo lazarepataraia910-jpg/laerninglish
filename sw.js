@@ -1,7 +1,7 @@
 // აპისთვის (Windows, ტელეფონი): ჯერ ინტერნეტიდან ვიღებთ, რომ ყოველთვის ახალი ვერსია ჩანდეს, და ასლს ვინახავთ.
 // ინტერნეტი თუ არ არის, ბოლო შენახულ ასლს ვაჩვენებთ. Supabase-ის მოთხოვნებს (ანგარიში, მონაცემები) არ ვეხებით
 const CACHE = 'english-quest';
-const HOSTS = [location.host, 'cdn.jsdelivr.net', 'fonts.googleapis.com', 'fonts.gstatic.com'];
+const HOSTS = [location.host, 'cdn.jsdelivr.net']; // შრიფტი ჩვენივე სერვერზეა (fonts/)
 
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));

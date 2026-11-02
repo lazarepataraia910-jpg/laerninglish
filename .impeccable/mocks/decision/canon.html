@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ka"><head><meta charset="utf-8"><meta name="viewport" content="width=390">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wdth,wght@62.5..100,100..900&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#111; --red:#d62828; --bg:#f2f2f2; --mute:#6b6b6b; --soft:#e7e7e7; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 390px; height: 844px; overflow: hidden; background: var(--bg); color: var(--ink); font-family: "Noto Sans Georgian", system-ui, sans-serif; }
+  .emo { font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif; }
+  header { padding: 18px 20px 6px; display: flex; align-items: center; justify-content: space-between; }
+  .hi { display: flex; align-items: center; gap: 10px; }
+  .hi svg { width: 40px; height: 40px; }
+  .hi b { display: block; font-size: 19px; font-weight: 800; } .hi small { font-size: 13px; color: var(--mute); }
+  .streak { background: #fff; border-radius: 999px; padding: 6px 12px; font-size: 14px; font-weight: 800; }
+  .card { margin: 14px 16px 0; background: #fff; border-radius: 20px; padding: 18px; }
+  .goalc { display: flex; align-items: center; gap: 16px; }
+  .ring { width: 64px; height: 64px; border-radius: 50%; background: conic-gradient(var(--red) 0 60%, var(--soft) 60% 100%); display: grid; place-items: center; }
+  .ring i { width: 48px; height: 48px; border-radius: 50%; background: #fff; display: grid; place-items: center; font-style: normal; font-weight: 800; font-size: 14px; }
+  .goalc b { font-size: 17px; } .goalc small { display: block; color: var(--mute); font-size: 13px; }
+  .cont small { font-size: 13px; color: var(--mute); }
+  .cont h2 { font-size: 22px; font-weight: 800; margin-top: 4px; }
+  .cont .w { margin-top: 10px; font-size: 15px; } .cont .w b { font-size: 18px; }
+  .bar { height: 10px; border-radius: 99px; background: var(--soft); margin-top: 12px; } .bar i { display: block; height: 10px; border-radius: 99px; background: var(--red); }
+  .go { display: block; margin-top: 16px; padding: 15px; border-radius: 14px; background: var(--red); color: #fff; text-align: center; font-size: 18px; font-weight: 800; }
+  h3 { margin: 22px 20px 8px; font-size: 16px; font-weight: 800; }
+  .list { margin: 0 16px; display: grid; gap: 10px; }
+  .item { background: #fff; border-radius: 16px; padding: 14px; display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 12px; }
+  .ico { width: 44px; height: 44px; border-radius: 12px; background: var(--bg); display: grid; place-items: center; font-size: 22px; }
+  .item b { font-size: 15px; } .item small { display: block; font-size: 13px; color: var(--mute); }
+  .item .n { font-size: 14px; font-weight: 800; }
+  nav { position: absolute; left: 0; right: 0; bottom: 0; height: 72px; display: grid; grid-template-columns: repeat(4, 1fr); background: #fff; border-radius: 20px 20px 0 0; }
+  nav a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 700; color: var(--mute); }
+  nav a .emo { font-size: 22px; } nav a.on { color: var(--red); }
+</style></head><body>
+<header>
+  <div class="hi"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="2" y="2" width="44" height="44" rx="7" fill="#d62828" stroke="#111" stroke-width="3"/><path d="M24 15c-4-3-9-3.5-14-2v21c5-1.5 10-1 14 2z" fill="#fff" stroke="#111" stroke-width="2.6" stroke-linejoin="round"/><path d="M24 15c4-3 9-3.5 14-2v21c-5-1.5-10-1-14 2z" fill="#fff" stroke="#111" stroke-width="2.6" stroke-linejoin="round"/><path d="M30 12.2V22l2.5-2 2.5 2v-9.6" fill="#d62828" stroke="#111" stroke-width="2" stroke-linejoin="round"/></svg>
+    <div><b>გამარჯობა, ანა!</b><small>⭐ 120 XP · A2</small></div></div>
+  <span class="streak"><span class="emo">🔥</span> 5</span>
+</header>
+<div class="card goalc"><div class="ring"><i>60%</i></div><div><b>დღის მიზანი</b><small>18 / 30 XP · კიდევ 12</small></div></div>
+<div class="card cont">
+  <small>გააგრძელე</small>
+  <h2><span class="emo">🐶</span> ცხოველები</h2>
+  <p class="w">შემდეგი: <b>elephant</b> · სპილო</p>
+  <div class="bar"><i style="width:60%"></i></div>
+  <a class="go">▶ გაგრძელება</a>
+</div>
+<h3>ჩემი გაკვეთილები</h3>
+<div class="list">
+  <div class="item"><span class="ico emo">💻</span><div><b>01 · საფუძვლები</b><small>პროგრამირება</small></div><span class="n">4/20</span></div>
+  <div class="item"><span class="ico emo">🎓</span><div><b>A1 სიტყვები</b><small>დონე A1</small></div><span class="n">12/20</span></div>
+</div>
+<nav>
+  <a class="on"><span class="emo">📚</span>გაკვეთილები</a><a><span class="emo">💻</span>კურსი</a>
+  <a><span class="emo">📊</span>სტატისტიკა</a><a><span class="emo">⚙️</span>პარამეტრები</a>
+</nav>
+</body></html>

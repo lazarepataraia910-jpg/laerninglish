@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ka"><head><meta charset="utf-8"><meta name="viewport" content="width=390">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wdth,wght@62.5..100,100..900&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#111; --red:#d62828; --rule:#dcdcdc; --mute:#666; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 390px; height: 844px; overflow: hidden; color: var(--ink); font-family: "Noto Sans Georgian", system-ui, sans-serif;
+    background: #fff repeating-linear-gradient(transparent 0 31px, var(--rule) 31px 32px); background-position: 0 4px; }
+  body::before { content: ""; position: absolute; top: 0; bottom: 0; left: 52px; width: 2px; background: var(--red); opacity: .8; }
+  .emo { font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif; }
+  .margin { position: absolute; left: 0; width: 52px; text-align: center; font-size: 12px; font-weight: 700; color: var(--mute); line-height: 32px; }
+  header { height: 68px; padding: 18px 16px 0 66px; display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 17px; font-stretch: 80%; }
+  .brand svg { width: 30px; height: 30px; }
+  .date { font-size: 13px; color: var(--mute); }
+  main { padding-left: 66px; padding-right: 16px; line-height: 32px; }
+  .hw { font-size: 13px; font-weight: 700; color: var(--mute); letter-spacing: .04em; margin-top: 4px; }
+  h1 { font-size: 22px; font-weight: 800; line-height: 32px; }
+  .word { font-size: 40px; font-weight: 800; font-stretch: 75%; line-height: 64px; position: relative; }
+  .ka { font-size: 20px; line-height: 32px; }
+  .fix { font-size: 20px; line-height: 32px; color: var(--mute); }
+  .fix s { text-decoration: none; position: relative; }
+  .fix s::after { content: ""; position: absolute; left: -2px; right: -2px; top: 50%; height: 2px; background: var(--red); transform: rotate(-6deg); }
+  .fix em { font-style: normal; color: var(--red); font-weight: 800; margin-left: 6px; }
+  .score { position: absolute; left: 6px; top: 196px; width: 40px; height: 40px; border: 2px solid var(--red); border-radius: 50%;
+    color: var(--red); font-weight: 800; font-size: 15px; display: grid; place-items: center; transform: rotate(-8deg); }
+  .goal { font-size: 15px; } .goal b { color: var(--red); }
+  .go { display: block; margin: 16px 0 0; padding: 0; height: 48px; line-height: 48px; background: var(--red); color: #fff; text-align: center;
+    font-size: 18px; font-weight: 800; font-stretch: 80%; }
+  h2 { font-size: 13px; color: var(--mute); font-weight: 700; letter-spacing: .04em; margin-top: 32px; }
+  .row { display: flex; justify-content: space-between; font-size: 16px; font-weight: 600; }
+  .row small { font-size: 14px; color: var(--mute); } .row .tick { color: var(--red); font-weight: 800; }
+  nav { position: absolute; left: 0; right: 0; bottom: 0; height: 68px; display: grid; grid-template-columns: repeat(4, 1fr);
+    background: #fff; border-top: 2px solid var(--ink); }
+  nav a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 700; color: var(--mute); }
+  nav a .emo { font-size: 20px; } nav a.on { color: var(--red); }
+</style></head><body>
+<div class="margin" style="top:100px"><span class="emo">🔥</span><br>5</div>
+<div class="margin" style="top:420px"><span class="emo">⭐</span><br>120</div>
+<div class="score">9/10</div>
+<header>
+  <div class="brand"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="2" y="2" width="44" height="44" rx="7" fill="#d62828" stroke="#111" stroke-width="3"/><path d="M24 15c-4-3-9-3.5-14-2v21c5-1.5 10-1 14 2z" fill="#fff" stroke="#111" stroke-width="2.6" stroke-linejoin="round"/><path d="M24 15c4-3 9-3.5 14-2v21c-5-1.5-10-1-14 2z" fill="#fff" stroke="#111" stroke-width="2.6" stroke-linejoin="round"/><path d="M30 12.2V22l2.5-2 2.5 2v-9.6" fill="#d62828" stroke="#111" stroke-width="2" stroke-linejoin="round"/></svg>English Quest</div>
+  <span class="date">1 ნოემბერი</span>
+</header>
+<main>
+  <p class="hw">საშინაო დავალება</p>
+  <h1><span class="emo">🐶</span> ცხოველები · 6 / 10</h1>
+  <p class="word">elephant</p>
+  <p class="ka">სპილო</p>
+  <p class="fix"><s>elefant</s><em>ph!</em> გუშინდელი შეცდომა</p>
+  <p class="goal">დღის მიზანი: <b>18</b> / 30 XP</p>
+  <a class="go">▶ გაგრძელება</a>
+  <h2>ჩემი გაკვეთილები</h2>
+  <p class="row"><span><span class="emo">💻</span> 01 · საფუძვლები</span><small>4 / 20</small></p>
+  <p class="row"><span><span class="emo">🎓</span> A1 სიტყვები</span><small>12 / 20</small></p>
+  <p class="row"><span><span class="emo">🎨</span> ფერები</span><small class="tick">✔ 10 / 10</small></p>
+  <p class="row"><span><span class="emo">🔢</span> რიცხვები</span><small>0 / 10</small></p>
+</main>
+<nav>
+  <a class="on"><span class="emo">📚</span>გაკვეთილები</a><a><span class="emo">💻</span>კურსი</a>
+  <a><span class="emo">📊</span>სტატისტიკა</a><a><span class="emo">⚙️</span>პარამეტრები</a>
+</nav>
+</body></html>

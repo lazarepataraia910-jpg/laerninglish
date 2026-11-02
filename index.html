@@ -2,7 +2,7 @@
 <html lang="ka" data-theme="paper">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ისწავლე ინგლისური უფასოდ · English Quest</title>
 <meta name="description" content="უფასო საიტი ინგლისური სიტყვების სასწავლად ქართულად: შექმენი გაკვეთილი, გადაწერე, შენით დაწერე და ჩააბარე ტესტი. დონეები A1–C2, პროგრამირების ინგლისური და Windows აპი.">
 <link rel="canonical" href="https://www.englishquest.space/">
@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary">
 <!-- Windows/ტელეფონის აპი: manifest + აპის ფანჯრის ზოლის ფერი (applyTheme სტილის მიხედვით ცვლის) -->
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#f4f4f1">
+<meta name="theme-color" content="#25262a">
 <!-- Google-ისა და AI ასისტენტებისთვის: რა არის ეს საიტი -->
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@graph": [
@@ -34,312 +34,306 @@
 <!-- Vercel Web Analytics: ანონიმური ვიზიტების სტატისტიკა (cookie-ების გარეშე) -->
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- ერთი შრიფტი ჩვენივე სერვერიდან (ქართული + ლათინური, ცვლადი სიგანე და სისქე) და Supabase-ის ერთი ფაილი: ადრე იწყებენ ჩატვირთვას -->
+<link rel="preload" href="fonts/noto-sans-georgian-1.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://eonfodcsszzptuwmldpd.supabase.co" crossorigin>
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" as="script" crossorigin integrity="sha384-0w2KAL2YHP6wKOkUDzkCDGgVvfmHnj02DHeQ6XcHOgTfFsGyonKOpShMH1x6nk9o" fetchpriority="low">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect x='2' y='2' width='44' height='44' rx='7' fill='%23d62828' stroke='%23111' stroke-width='3'/%3E%3Cpath d='M24 15c-4-3-9-3.5-14-2v21c5-1.5 10-1 14 2z' fill='%23fff' stroke='%23111' stroke-width='2.6' stroke-linejoin='round'/%3E%3Cpath d='M24 15c4-3 9-3.5 14-2v21c-5-1.5-10-1-14 2z' fill='%23fff' stroke='%23111' stroke-width='2.6' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;600;800&family=Noto+Serif+Georgian:wght@900&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <style>
-  /* რეტრო, მშვიდი: სეპიის ფერები + ერთი აქცენტი (აგურისფერი), პიქსელური შრიფტი ინგლისურისთვის, მუქში CRT ხაზები */
+  /* „გასვლების დაფა“: ფოლადისფერი ფონი, შავი ფირფიტები (flap) თეთრი ასოებით. წითელი = შეცდომა ან მთავარი ღილაკი,
+     თეთრი (ინვერსიული) = აქტიური, ჩამქრალი = ჯერ დასაწერი. ერთი შრიფტი: ვიწრო ფირფიტებსა და წარწერებზე, ჩვეულებრივი საკითხავ ტექსტზე */
+  @font-face { font-family: "Noto Sans Georgian"; src: url(fonts/noto-sans-georgian-1.woff2) format("woff2");
+               font-weight: 400 800; font-stretch: 62.5% 100%; font-display: swap; } /* SIL Open Font License */
+  /* მთავარი სტილი (paper): წითელი, შავი, თეთრი */
   :root {
-    --bg:#f3e8d2; --card:#fbf5e8; --ink:#2b1d14; --muted:#6b5640; --line:#2b1d14; --soft:#eadcc0;
-    --yellow:#e8d5ad; --pink:#d9794f; --mint:#a3ad80; --blue:#d6c39c; --purple:#d6c39c; --red:#c9775f;
-    --ghost:#cdb98f; --ok:#2f7a3d; --bad:#b03a2e; --scan:transparent; color-scheme: light;
-    --px: "Press Start 2P", "Noto Sans Georgian", monospace;
-    --vt: "VT323", "Noto Sans Georgian", ui-monospace, monospace;
-    --serif: "Noto Serif Georgian", Georgia, serif;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme]) {
-      --bg:#1d1813; --card:#2a231c; --ink:#f0e4cc; --muted:#b3a386; --line:#0b0806; --soft:#3a3027;
-      --ghost:#5a4d3f; --ok:#9bd18b; --bad:#ff8a70; --scan:rgba(0,0,0,.22); color-scheme: dark;
-    }
+    --ground:#25262a; --panel:#111113; --raise:#1d1e21; --rule:#323439; --edge:#6a6c73; --field:#0b0b0c;
+    --ink:#f2f2ef; --mute:#a3a4a8; --hi:#f2f2ef; --on-hi:#111113; --red:#d62828; --on-red:#fff; --red-ink:#ff6b5e;
+    --flap:#1a1a1d; --flap-ink:#f4f4f1; --flap-ghost:#8c8d91; --emo-edge:#fff; --emo-edge-a:.35; color-scheme: dark;
   }
   :root[data-theme="dark"] {
-    --bg:#1d1813; --card:#2a231c; --ink:#f0e4cc; --muted:#b3a386; --line:#0b0806; --soft:#3a3027;
-    --ghost:#5a4d3f; --ok:#9bd18b; --bad:#ff8a70; --scan:rgba(0,0,0,.22); color-scheme: dark;
+    --ground:#0d0d0e; --panel:#000; --raise:#161618; --rule:#26262a; --edge:#5c5c61; --field:#060606;
+    --ink:#e8e8e5; --mute:#9b9ba0; --hi:#e8e8e5; --on-hi:#000; --flap:#141416; --flap-ghost:#85858a;
   }
-  /* დამატებითი სტილები: ყველა მშვიდი, ერთი აქცენტით */
+  :root[data-theme="light"] {
+    --ground:#e3e3df; --panel:#fbfbf9; --raise:#efefec; --rule:#d3d3ce; --edge:#8a8a85; --field:#fff;
+    --ink:#141415; --mute:#5a5a5e; --hi:#141415; --on-hi:#fbfbf9; --red-ink:#c11f1f; --emo-edge:#111; --emo-edge-a:.45; color-scheme: light;
+  }
+  @media (prefers-color-scheme: light) { /* „ავტო“: სისტემის ნათელ რეჟიმში ნათელი დაფა */
+    :root:not([data-theme]) {
+      --ground:#e3e3df; --panel:#fbfbf9; --raise:#efefec; --rule:#d3d3ce; --edge:#8a8a85; --field:#fff;
+      --ink:#141415; --mute:#5a5a5e; --hi:#141415; --on-hi:#fbfbf9; --red-ink:#c11f1f; --emo-edge:#111; --emo-edge-a:.45; color-scheme: light;
+    }
+  }
   :root[data-theme="terminal"] {
-    --bg:#0a110a; --card:#0f1a0f; --ink:#8cf58c; --muted:#5fae5f; --line:#000; --soft:#183018;
-    --yellow:#5cc45c; --pink:#a6ff7a; --mint:#5cc45c; --blue:#3f9a3f; --purple:#3f9a3f; --red:#e0a845;
-    --ghost:#2e5a2e; --ok:#a6ff7a; --bad:#ff7a5a; --scan:rgba(0,0,0,.35); color-scheme: dark;
+    --ground:#07130b; --panel:#020905; --raise:#0b1b10; --rule:#173b22; --edge:#2f7a3d; --field:#010502;
+    --ink:#8cf58c; --mute:#5fb85f; --hi:#8cf58c; --on-hi:#020905; --red:#c8321f; --red-ink:#ff7a5a;
+    --flap:#0a180e; --flap-ink:#a8ff9e; --flap-ghost:#4f9a56;
   }
   :root[data-theme="ocean"] {
-    --bg:#e3ecee; --card:#f5f9fa; --ink:#14303a; --muted:#4b6b75; --line:#14303a; --soft:#d1e0e4;
-    --yellow:#c9dde2; --pink:#5a9fb0; --mint:#9cc5a8; --blue:#b5ced4; --purple:#b5ced4; --red:#d98b7a;
-    --ghost:#a9c1c7; --ok:#2f7a3d; --bad:#b03a2e;
+    --ground:#16303a; --panel:#0a1b21; --raise:#10262e; --rule:#23404a; --edge:#4d7380; --field:#061318;
+    --ink:#eaf4f6; --mute:#93b5be; --hi:#eaf4f6; --on-hi:#0a1b21; --flap:#0c2128; --flap-ghost:#7f9ea6;
   }
   :root[data-theme="forest"] {
-    --bg:#e7eadc; --card:#f6f7ef; --ink:#22301c; --muted:#57664c; --line:#22301c; --soft:#d9dfc8;
-    --yellow:#d5ddbb; --pink:#8aa85a; --mint:#a8c08a; --blue:#c6d1ab; --purple:#c6d1ab; --red:#c47d5a;
-    --ghost:#b9c3a2; --ok:#2f6b2a; --bad:#a83a2e;
+    --ground:#1c291b; --panel:#0e160d; --raise:#162115; --rule:#2b3b29; --edge:#567052; --field:#081007;
+    --ink:#eef3e8; --mute:#a3b898; --hi:#eef3e8; --on-hi:#0e160d; --flap:#121d11; --flap-ghost:#8da283;
   }
   :root[data-theme="rose"] {
-    --bg:#f5e8e8; --card:#fdf6f6; --ink:#3a1f26; --muted:#7a5560; --line:#3a1f26; --soft:#ebd5d8;
-    --yellow:#eed3d7; --pink:#d27f91; --mint:#b9c9a6; --blue:#e0c1c7; --purple:#e0c1c7; --red:#c9775f;
-    --ghost:#d7b8bd; --ok:#2f7a3d; --bad:#b03a2e;
+    --ground:#efe1e2; --panel:#fffafa; --raise:#f7ebec; --rule:#e7d2d5; --edge:#a8818a; --field:#fff;
+    --ink:#2a1418; --mute:#7a5560; --hi:#2a1418; --on-hi:#fffafa; --red:#c41f3a; --red-ink:#b01a33;
+    --flap:#2a1418; --flap-ink:#fff6f6; --flap-ghost:#b48d95; --emo-edge:#2a1418; --emo-edge-a:.45; color-scheme: light;
   }
-  /* მთავარი სტილი: მხოლოდ წითელი, შავი და თეთრი */
-  :root[data-theme="paper"] {
-    --bg:#f4f4f1; --card:#fff; --ink:#111; --muted:#555; --line:#111; --soft:#ececea;
-    --yellow:#fff; --pink:#d62828; --mint:#111; --blue:#fff; --purple:#fff; --red:#d62828;
-    --ghost:#bbb; --ok:#111; --bad:#d62828;
-  }
-  :root[data-theme="paper"] .btn { color: #111; }
-  :root[data-theme="paper"] .btn.pink, :root[data-theme="paper"] .btn.red { color: #fff; }
-  :root[data-theme="paper"] .btn.mint, :root[data-theme="paper"] .btn.dark { background: #111; color: #fff; }
-  :root[data-theme="paper"] .btn.pink, :root[data-theme="paper"] .btn.red, :root[data-theme="paper"] .btn.mint,
-  :root[data-theme="paper"] .btn.dark { box-shadow: inset -3px -3px 0 #0004, inset 3px 3px 0 #fff3, var(--d) var(--d) 0 var(--line); }
-  :root[data-theme="paper"] .opt.right { background: #111 !important; color: #fff !important; }
-  :root[data-theme="paper"] .opt.wrong { background: #d62828 !important; color: #fff !important; }
-  :root[data-theme="paper"] .av { color: #fff; }
-  :root[data-theme="paper"] .trace { background: #111; }
-  :root[data-theme="paper"] .trace input { caret-color: #ff4d4d; }
-  :root[data-theme="paper"] .letters .g { color: #555; }
-  :root[data-theme="paper"] .letters .ok { color: #fff; text-shadow: none; }
-  :root[data-theme="paper"] .letters .bad, :root[data-theme="paper"] .letters.done span { color: #ff4d4d; text-shadow: none; }
-  :root[data-theme="paper"] .timer { background: #111; color: #fff; }
-  :root[data-theme="paper"] .face { background: linear-gradient(#d62828 0 0) 0 46px / 100% 2px no-repeat,
-                                     repeating-linear-gradient(#fff 0 29px, #e5e5e5 29px 31px); }
-  :root[data-theme="paper"] .score { box-shadow: 6px 6px 0 #d62828; }
   * { box-sizing: border-box; }
-  /* გასული მომხმარებლისთვის მენიუ და ქულები დამალულია */
-  .out #nav, .out .chips { display: none; }
-  .prof { display: inline-flex; align-items: center; gap: 10px; font-size: 18px; }
-  .av { display: inline-grid; place-items: center; width: 34px; height: 34px; border: 3px solid var(--line); border-radius: 4px;
-        background: var(--pink); color: #2b1d14; font-family: var(--serif); font-weight: 900; }
-  .chips { align-items: center; }
-  .pw { position: relative; }
-  .pw input { padding-right: 52px; }
-  .eye { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); padding: 4px 8px; display: flex;
-         background: none; border: none; cursor: pointer; color: var(--muted); }
-  .eye:hover { color: var(--ink); }
-  .eye:focus-visible { outline: 3px dashed var(--pink); border-radius: 4px; }
-  .gbtn { display: inline-flex; align-items: center; gap: 10px; background: #fff !important; color: #1f1f1f !important; }
-  .gbtn.hidden { display: none !important; }
-  .foot { margin-top: 30px; text-align: center; font-family: var(--px); font-size: 10px; letter-spacing: .12em; color: var(--muted); }
-  .foot .legal { margin-top: 10px; font-family: "Noto Sans Georgian", sans-serif; font-size: 13px; letter-spacing: 0; }
-  .foot a { color: var(--muted); }
-  .foot .install { font-family: "Noto Sans Georgian", sans-serif; letter-spacing: 0; margin-bottom: 16px; }
-  @media (display-mode: standalone) { .foot .install { display: none; } } /* უკვე აპში ვართ */
-  /* შესავალი მხოლოდ შესვლის გვერდზე ჩანს: სტუმრისთვის და Google-ისთვის */
-  #intro { display: none; }
-  .guest #intro { display: block; }
-  #intro h1 { margin: 0 0 6px; font-family: var(--serif); font-size: 26px; font-weight: 900; }
-  #intro ul { margin: 8px 0; padding-left: 22px; }
-  #intro a { color: var(--pink); font-weight: 800; }
-  body { margin: 0; min-height: 100vh; font-family: "Noto Sans Georgian", system-ui, sans-serif; color: var(--ink);
-         background: var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.09'/%3E%3C/svg%3E"); }
-  body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
-                background: repeating-linear-gradient(transparent 0 2px, var(--scan) 2px 3px); }
-  h2 { margin: 0 0 6px; font-family: var(--serif); font-size: 21px; font-weight: 900; }
+  html { background: var(--ground); scrollbar-color: var(--edge) var(--ground); }
+  body { margin: 0; min-height: 100vh; color: var(--ink); background: var(--ground); -webkit-tap-highlight-color: transparent;
+         font: 400 16px/1.5 "Noto Sans Georgian", system-ui, sans-serif; }
+  button, input, textarea, select { font: inherit; color: inherit; }
+  ::selection { background: var(--red); color: var(--on-red); }
+  :focus-visible { outline: 2px solid var(--hi); outline-offset: 2px; }
+  input, textarea { caret-color: var(--red); }
+  a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  h1, h2 { font-weight: 800; font-stretch: 75%; line-height: 1.15; text-wrap: balance; }
+  h2 { margin: 0 0 6px; font-size: 22px; }
   p { margin: 6px 0; }
-  .app { max-width: 860px; margin: 0 auto; padding: 22px 16px 80px; }
-  .muted { color: var(--muted); } .sm { font-size: 14px; } .center { text-align: center; }
-  .ok { color: var(--ok); } .bad { color: var(--bad); }
+  .app { max-width: 760px; margin: 0 auto; padding: 0 12px 32px; }
+  .muted { color: var(--mute); } .sm { font-size: 14px; } .center { text-align: center; }
+  .ok { color: var(--ink); font-weight: 700; } .bad { color: var(--red-ink); }
   .hidden { display: none !important; }
-  .row-between { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
-  .mono { font-family: var(--vt); font-size: 1.25em; }
+  .row-between { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; }
+  .n, .mono, table { font-variant-numeric: tabular-nums; }
+  .mono { font-weight: 700; font-stretch: 80%; }
+  /* ემოჯები: საკუთარი შრიფტით და წითელ-შავ-თეთრად (ფილტრი #rbw body-ს დასაწყისშია) */
+  .emo { font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif; font-weight: 400; filter: url(#rbw); }
+  /* პატარა წარწერები: ვიწრო, მთავრული, ფართო ინტერვალით */
+  .cap, th { font-size: 12px; font-weight: 700; font-stretch: 75%; letter-spacing: .1em; text-transform: uppercase; color: var(--mute); }
+  /* ფირფიტა: ზედა ნახევარი ოდნავ ნათელია, შუაზე თხელი ნაპრალი */
+  .chip, .flaps b, .face, .count, .dep .ic, .mod-num, .lvl .code, .avatar-big, .badge .ic, .opt .key, .timer {
+    --c: var(--flap); color: var(--flap-ink); border-radius: 3px;
+    background: linear-gradient(color-mix(in srgb, var(--c) 93%, #fff) calc(50% - .5px), rgb(0 0 0 / .55) 0 calc(50% + .5px), var(--c) 0); }
 
-  /* ---- ზედა ზოლი ---- */
-  .top { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between; margin-bottom: 26px; }
-  /* ლოგოს ფერები ყველა სტილში ერთია: წითელი, შავი, თეთრი */
-  .logo { display: inline-flex; align-items: center; gap: 12px; padding: 8px 18px 8px 10px; background: #fff; color: #111;
-          border: 3px solid #111; border-radius: 6px; box-shadow: 5px 5px 0 #d62828; }
-  .logo-mark { width: 46px; height: 46px; flex: none; }
-  .logo .px { display: block; font-family: var(--px); font-size: 10px; letter-spacing: .15em; margin-bottom: 4px; color: #d62828; }
-  .logo b { font-family: var(--serif); font-weight: 900; font-size: 22px; }
-  /* ემოჯები მხოლოდ წითელ, შავ და თეთრ ფერებში (ფილტრი #rbw body-ს დასაწყისშია) */
-  .emo { filter: url(#rbw); }
-  .chips { display: flex; gap: 8px; flex-wrap: wrap; }
-  button.chip { font: inherit; font-weight: 800; font-size: 14px; color: var(--ink); cursor: pointer; transition: transform .06s; }
-  button.chip:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--line); }
-  button.chip:focus-visible { outline: 3px dashed var(--pink); outline-offset: 3px; }
-  /* დონის არჩევა და პროფილი */
-  .levels { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 14px; margin-top: 14px; }
-  .lvl { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; text-align: left; padding: 14px; }
-  .lvl .code { font-family: var(--px); font-size: 22px; color: var(--pink); }
-  .lvl small { font-weight: 600; opacity: .8; }
-  .prof-head { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
-  .prof-info { flex: 1; min-width: 200px; }
-  .prof-info h2 { font-size: 26px; }
-  .avatar-big { width: 88px; height: 88px; display: grid; place-items: center; font-size: 46px; cursor: pointer; padding: 0;
-                background: var(--soft); border: 3px solid var(--line); border-radius: 14px; box-shadow: 4px 4px 0 var(--line); }
-  .avatar-big:focus-visible { outline: 3px dashed var(--pink); outline-offset: 3px; }
-  .avatars { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-  .avatars .btn { font-size: 24px; padding: 6px 10px; }
-  .badges { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; margin-top: 12px; }
-  .badge { display: flex; flex-direction: column; gap: 4px; padding: 12px; background: var(--card); border: 3px solid var(--line);
-           border-radius: 8px; box-shadow: 3px 3px 0 var(--line); }
-  .badge .ic { font-size: 30px; }
-  .badge.locked { opacity: .4; box-shadow: none; }
-  /* პროგრამირების კურსი */
-  .mod-head { display: flex; gap: 14px; align-items: center; }
-  .mod-head h2 { margin: 0; }
-  .mod-num { font-family: var(--px); font-size: 20px; color: var(--pink); flex: none; }
-  .bar.thin { height: 16px; margin-top: 12px; }
-  details summary { cursor: pointer; font-weight: 800; margin-top: 12px; }
+  /* ---- ზედა ზოლი და მენიუ ---- */
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 -12px 12px; padding: 10px 12px;
+         background: var(--panel); border-bottom: 1px solid var(--rule); }
+  .logo { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .logo-mark { width: 38px; height: 38px; flex: none; }
+  .logo .en { display: block; font-size: 11px; font-weight: 700; font-stretch: 75%; letter-spacing: .2em; line-height: 1.3; color: var(--red-ink); }
+  .logo b { display: block; font-size: 17px; font-weight: 800; font-stretch: 75%; line-height: 1.15; white-space: nowrap; }
+  .chips { display: flex; gap: 4px; align-items: center; }
+  .chip { display: inline-flex; align-items: center; gap: 5px; height: 34px; padding: 0 9px; border: 0; white-space: nowrap;
+          font-size: 15px; font-weight: 700; font-stretch: 75%; font-variant-numeric: tabular-nums; }
+  .chip .nm { margin-left: 2px; }
+  button.chip { cursor: pointer; }
+  button.chip:hover { --c: color-mix(in srgb, var(--flap) 82%, var(--flap-ink)); }
+  .tabs { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0 0 12px; background: var(--panel); border: 1px solid var(--rule); }
+  .tab { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 6px 8px; cursor: pointer;
+         border: 0; border-left: 1px solid var(--rule); background: none; color: var(--mute); font-size: 15px; font-weight: 700; font-stretch: 80%; }
+  .tab:first-child { border-left: 0; }
+  .tab:hover { color: var(--ink); }
+  .tab.on { background: var(--hi); color: var(--on-hi); }
+  .out .tabs, .out .chips { display: none; } /* გასულ მომხმარებელს მენიუ და ქულები არ უჩანს */
+
+  /* ---- პანელები, ღილაკები, ველები ---- */
+  .box { background: var(--panel); border: 1px solid var(--rule); padding: 16px; margin: 0 0 12px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 8px 16px; cursor: pointer;
+         font-size: 16px; font-weight: 700; font-stretch: 85%; line-height: 1.2; text-decoration: none; color: var(--ink);
+         background: var(--raise); border: 1px solid var(--edge); border-radius: 2px; transition: background-color .15s, border-color .15s, color .15s; }
+  .btn:hover { border-color: var(--ink); }
+  .btn:active { transform: translateY(1px); }
+  .btn:disabled { opacity: .5; cursor: default; transform: none; border-color: var(--edge); }
+  .btn.pink, .btn.red { background: var(--red); border-color: var(--red); color: var(--on-red); }
+  .btn.pink:hover, .btn.red:hover { background: color-mix(in srgb, var(--red) 85%, #000); }
+  .btn.mint, .btn.dark { background: var(--hi); border-color: var(--hi); color: var(--on-hi); }
+  .btn.mint:hover, .btn.dark:hover { background: color-mix(in srgb, var(--hi) 85%, var(--panel)); }
+  .btn.white { background: transparent; }
+  .btn.sm { min-height: 36px; padding: 5px 11px; font-size: 14px; }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 14px; }
+  .seg { display: flex; gap: 6px; flex-wrap: wrap; }
+  input, textarea, select { width: 100%; padding: 11px 12px; font-size: 17px; background: var(--field); border: 1px solid var(--edge); border-radius: 2px; }
+  input::placeholder, textarea::placeholder { color: var(--mute); opacity: 1; }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--hi); box-shadow: 0 0 0 1px var(--hi); }
+  textarea { min-height: 160px; resize: vertical; margin: 10px 0 4px; line-height: 1.5; }
+  input.good { border-color: var(--hi); box-shadow: 0 0 0 1px var(--hi); }
+  input.bad { border-color: var(--red); background: color-mix(in srgb, var(--red) 22%, var(--field)); }
+  input[type="checkbox"], input[type="range"] { width: auto; accent-color: var(--red); }
+  input[type="checkbox"] { width: 24px; height: 24px; }
+  .bar { height: 6px; margin: 12px 0 6px; background: var(--rule); }
+  .bar div { height: 100%; width: 0; background: var(--hi); transition: width .4s cubic-bezier(.16, 1, .3, 1); }
+  .bar.thin { height: 4px; }
+  details summary { cursor: pointer; font-weight: 700; margin-top: 12px; }
   details[open] summary { margin-bottom: 8px; }
-  .gloss td { padding: 5px 6px; }
-  pre.code { margin: 12px 0 0; padding: 12px 14px; background: #111; color: #f4f4f1; border: 3px solid var(--line); border-radius: 6px;
-             overflow-x: auto; font: 13px/1.55 ui-monospace, Consolas, "Courier New", monospace; white-space: pre; }
-  .chip { font-weight: 800; font-size: 14px; padding: 5px 12px; background: var(--card); border: 3px solid var(--line);
-          border-radius: 4px; box-shadow: 3px 3px 0 var(--line); }
-  .nav { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+  table { width: 100%; border-collapse: collapse; }
+  th { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--edge); }
+  td { text-align: left; padding: 9px 6px; font-size: 15px; border-bottom: 1px solid var(--rule); }
 
-  /* ---- ფანჯრები და ღილაკები ---- */
-  .box { position: relative; background: var(--card); border: 3px solid var(--line); border-radius: 8px;
-         box-shadow: 6px 6px 0 var(--line); padding: 32px 20px 20px; margin-bottom: 24px; }
-  /* ძველი Mac-ის ფანჯრის ზოლები, ერთფეროვანი */
-  .box::before, .lcard::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 14px; border-radius: 5px 5px 0 0;
-                 border-bottom: 3px solid var(--line);
-                 background: repeating-linear-gradient(var(--line) 0 2px, var(--card) 2px 4px); }
-  .btn { --d: 4px; font: inherit; font-weight: 800; font-size: 16px; padding: 10px 18px; background: var(--yellow); color: #2b1d14;
-         border: 3px solid var(--line); border-radius: 4px; cursor: pointer; transition: transform .06s;
-         box-shadow: inset -3px -3px 0 #0003, inset 3px 3px 0 #fff7, var(--d) var(--d) 0 var(--line); }
-  .btn:hover { --d: 5px; transform: translate(-1px, -1px); }
-  .btn:active { --d: 1px; transform: translate(3px, 3px); box-shadow: inset 3px 3px 0 #0003, 1px 1px 0 var(--line); }
-  .btn:focus-visible { outline: 3px dashed var(--pink); outline-offset: 4px; }
-  .btn:disabled { cursor: default; opacity: .6; }
-  .btn.pink { background: var(--pink); } .btn.mint { background: var(--mint); } .btn.blue { background: var(--blue); }
-  .btn.purple { background: var(--purple); } .btn.red { background: var(--red); }
-  .btn.white { background: var(--card); color: var(--ink); } .btn.dark { background: var(--ink); color: var(--bg); }
-  .btn.sm { --d: 3px; padding: 6px 12px; font-size: 14px; }
-  .btns { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 14px; }
+  /* ---- ფირფიტების რიგი: თითო ასო თავის უჯრაში. ასოები 30 მწ-ის დაშორებით ჩამოიშლება ---- */
+  .flaps { --n: 8; display: flex; align-items: flex-start; justify-content: center; gap: 4px; container-type: inline-size; perspective: 500px; }
+  .flaps b { flex: 0 1 calc((100% - (var(--n) - 1) * 4px) / var(--n)); max-width: 50px; aspect-ratio: 5 / 7; display: grid; place-items: center;
+             font-size: min(36px, 100cqi / var(--n) * 1.1); font-weight: 800; font-stretch: 62.5%; line-height: 1; text-transform: uppercase; }
+  .flaps b.g { color: var(--flap-ghost); }
+  .flaps b.bad { --c: var(--red); color: var(--on-red); }
+  .flaps b.on, .trace:focus-within .flaps b.cur { --c: var(--flap-ink); color: var(--flap); }
+  .flaps b.sp { background: none; }
+  .flaps b.f { animation: flap .34s cubic-bezier(.16, 1, .3, 1) calc(var(--i, 0) * 30ms) both; }
+  @keyframes flap { from { transform: rotateX(-80deg); filter: brightness(1.8); } }
 
-  input, textarea, select { font: inherit; font-size: 17px; padding: 11px 14px; background: var(--card); color: var(--ink); width: 100%;
-                            border: 3px solid var(--line); border-radius: 4px; box-shadow: inset 3px 3px 0 var(--soft); }
-  input:focus, textarea:focus, select:focus { outline: none; box-shadow: inset 3px 3px 0 var(--soft), 4px 4px 0 var(--pink); }
-  textarea { min-height: 160px; resize: vertical; margin: 10px 0 4px; }
-  input.good { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 15%, var(--card)); }
-  input.bad { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 15%, var(--card)); }
-  input[type="checkbox"], input[type="range"] { width: auto; accent-color: var(--pink); box-shadow: none; }
-  input[type="checkbox"] { width: 26px; height: 26px; }
-
-  /* ძველი "loading" ზოლივით, ბლოკებად */
-  .bar { height: 26px; padding: 3px; margin: 14px 0 6px; background: var(--soft); border: 3px solid var(--line); border-radius: 4px; }
-  .bar div { height: 100%; width: 0; transition: width .35s;
-             background: repeating-linear-gradient(90deg, var(--pink) 0 14px, transparent 14px 18px); }
-
-  /* ---- გაკვეთილები ---- */
-  .packs { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 22px; margin-top: 16px; }
-  .lcard { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 30px 16px 16px; background: var(--card); border: 3px solid var(--line);
-           border-radius: 6px; box-shadow: 6px 6px 0 var(--line); transition: transform .12s; }
-  .lcard:hover { transform: translate(-2px, -2px) rotate(-.6deg); }
-  .lname { font-family: var(--serif); font-weight: 900; font-size: 20px; word-break: break-word; }
-  .preview { font-family: var(--vt); font-size: 20px; line-height: 1.1; color: var(--muted); flex: 1; }
-  .lact { display: flex; gap: 8px; flex-wrap: wrap; }
-  .search { max-width: 260px; }
-  .paused { font-weight: 800; color: var(--pink); }
-  .hard { background: var(--soft); }
+  /* ---- გაკვეთილები: დაფა, გაგრძელება, სია ---- */
+  .board { padding: 14px; }
+  .board .cap { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+  .board .flaps { justify-content: flex-start; }
+  .board .ka { margin: 10px 0 0; font-size: 20px; font-weight: 600; }
+  .goal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; margin-top: 14px; font-size: 14px; color: var(--mute); }
+  .goal b { color: var(--ink); }
+  .btn.go { width: 100%; min-height: 56px; margin: 0 0 12px; font-size: 19px; font-stretch: 75%; letter-spacing: .02em; }
+  .search { margin: 10px 0 2px; }
+  /* გასვლების ცხრილი: ემოჯო ფირფიტაზე | სახელი და სტატუსი | რაოდენობა. მთელი ხაზი ხსნის გაკვეთილს, ⋯ აჩენს დანარჩენ მოქმედებებს */
+  .dep-head { display: flex; justify-content: space-between; margin-top: 10px; padding: 0 52px 6px 4px; border-bottom: 1px solid var(--edge); }
+  .dep { display: grid; grid-template-columns: 1fr auto; align-items: center; border-bottom: 1px solid var(--rule); }
+  .dep-go { display: grid; grid-template-columns: 40px 1fr auto; gap: 12px; align-items: center; padding: 10px 4px; text-align: left;
+            background: none; border: 0; cursor: pointer; }
+  .dep-go:hover { background: var(--raise); }
+  .dep .ic { display: grid; place-items: center; width: 40px; height: 40px; font-size: 22px; }
+  .lname { display: block; font-size: 17px; font-weight: 800; font-stretch: 80%; overflow-wrap: anywhere; }
+  .meta { display: block; font-size: 13px; color: var(--mute); overflow-wrap: anywhere; }
+  .count { display: grid; place-items: center; min-width: 44px; height: 36px; padding: 0 6px; font-size: 20px; font-weight: 800; font-stretch: 62.5%; font-variant-numeric: tabular-nums; }
+  .dep.on .dep-go { background: var(--hi); color: var(--on-hi); } /* გაჩერებული = აქტიური ხაზი */
+  .dep.on .meta { color: inherit; }
+  .dep.done .lname, .dep.done .meta { color: var(--mute); } /* ჩაბარებული ყველა სიტყვით = ჩამქრალი */
+  .dep-more { margin-left: 8px; min-width: 40px; padding-inline: 8px; }
+  .lact { grid-column: 1 / -1; display: none; gap: 6px; flex-wrap: wrap; padding: 0 0 12px 56px; }
+  .dep.open .lact { display: flex; }
+  .nw { white-space: nowrap; }
+  .packs { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
 
   /* ---- სწავლა ---- */
-  .modes { display: flex; gap: 10px; overflow-x: auto; padding: 4px 8px 10px 2px; margin-top: 14px; }
-  .modes .btn { white-space: nowrap; }
-  .stage { min-height: 300px; padding-top: 10px; }
-  .word { font-family: var(--vt); font-size: clamp(36px, 9vw, 58px); line-height: 1.1; margin: 6px 0 12px; word-break: break-word; }
-  .trace { position: relative; display: inline-block; max-width: 100%; overflow: hidden; margin: 4px 0 14px;
-           font-family: "VT323", ui-monospace, Consolas, monospace; font-size: clamp(40px, 12vw, 68px);
-           background: #17120d; border: 3px solid var(--line); border-radius: 6px; box-shadow: inset 0 0 18px #000a, 5px 5px 0 var(--line); }
-  /* input გამჭვირვალეა და ზუსტად ასოებს ზემოდან ადევს */
-  .letters, .trace input { font: inherit; line-height: 1.2; padding: 6px 16px; letter-spacing: .08em; white-space: pre; }
-  .trace input { position: absolute; inset: 0; width: 100%; border: none; border-radius: 0; background: transparent;
-                 color: transparent; caret-color: #e8b04a; box-shadow: none; }
-  .letters .g { color: #5a4d3f; }
-  .letters .ok { color: #9bd18b; text-shadow: 0 0 8px #9bd18b88; }
-  .letters .bad { color: #ff7b6b; text-decoration: underline wavy; text-shadow: 0 0 8px #ff7b6b88; }
-  .letters.done span { color: #e8b04a; text-shadow: 0 0 10px #e8b04aaa; }
-  .letters.done { animation: pop .4s; }
-  .answer { display: block; max-width: 440px; margin: 8px auto; font-size: 24px; text-align: center; }
-  .hint { font-family: var(--vt); font-size: 30px; letter-spacing: .15em; min-height: 1.2em; color: var(--muted); }
+  .modes { display: flex; gap: 6px; overflow-x: auto; margin: 12px 0 0; padding: 2px 2px 6px; scrollbar-width: thin; }
+  .modes .btn { flex: none; white-space: nowrap; }
+  .stage { min-height: 300px; padding-top: 8px; }
+  .word { margin: 6px 0 12px; font-size: clamp(30px, 8vw, 46px); font-weight: 800; font-stretch: 75%; line-height: 1.15; overflow-wrap: anywhere; }
+  .trace { position: relative; max-width: 600px; margin: 10px auto 14px; }
+  .trace input { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; opacity: 0; font-size: 16px; cursor: text; }
+  .answer { display: block; max-width: 440px; margin: 8px auto; font-size: 22px; font-weight: 700; text-align: center; }
+  .hint { max-width: 440px; margin: 12px auto 0; }
   .shake { animation: shake .35s; }
-
-  /* ბარათი — ძველი ხაზებიანი ბარათივით */
-  .flip { perspective: 1200px; width: min(100%, 400px); height: 240px; margin: 8px auto 20px; cursor: pointer; }
-  .flip .in { position: relative; width: 100%; height: 100%; transition: transform .55s; transform-style: preserve-3d; }
-  .flip.on .in { transform: rotateY(180deg); }
-  .face { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
-          padding: 16px; text-align: center; color: #2b1d14; border: 3px solid var(--line); border-radius: 6px;
-          box-shadow: 6px 6px 0 var(--line); backface-visibility: hidden; -webkit-backface-visibility: hidden;
-          background: linear-gradient(#d9794f 0 0) 0 46px / 100% 2px no-repeat,
-                      repeating-linear-gradient(#fffaf0 0 29px, #e2d5bb 29px 31px); }
-  .face.back { background: var(--yellow); transform: rotateY(180deg); }
-  .face small { font-weight: 600; opacity: .7; }
-
-  .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 18px; }
-  .opt { display: flex; gap: 12px; align-items: center; text-align: left; font-size: 18px; }
-  .opt .key { flex: none; display: inline-grid; place-items: center; width: 30px; height: 30px; font-family: var(--px); font-size: 11px;
-              border: 2.5px solid var(--line); border-radius: 3px; }
-  .opt.right { background: var(--mint) !important; color: #2b1d14 !important; }
-  .opt.wrong { background: var(--red) !important; color: #2b1d14 !important; }
-
-  .test .row { display: grid; grid-template-columns: 34px minmax(90px, 1fr) 2fr; gap: 10px; align-items: center;
-               padding: 8px 0; border-bottom: 2px dashed var(--soft); }
-  .test .fix { grid-column: 3; font-size: 14px; font-weight: 600; }
+  /* ბარათი: ერთი დიდი ფირფიტა, რომელიც ქვემოთ გადმოიშლება */
+  .flip { perspective: 1000px; width: min(100%, 420px); height: 220px; margin: 8px auto 16px; cursor: pointer; }
+  .flip .in { position: relative; height: 100%; transition: transform .55s cubic-bezier(.16, 1, .3, 1); transform-style: preserve-3d; }
+  .flip.on .in { transform: rotateX(-180deg); }
+  .face { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 16px;
+          text-align: center; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+  .face.back { transform: rotateX(180deg); }
+  .face .word { margin: 0; }
+  .face small { color: var(--flap-ghost); font-weight: 600; }
+  .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
+  .opt { justify-content: flex-start; gap: 12px; min-height: 56px; text-align: left; font-size: 18px; }
+  .opt .key { flex: none; display: inline-grid; place-items: center; width: 28px; height: 32px; font-weight: 800; font-stretch: 70%; }
+  .opt.right { background: var(--hi) !important; border-color: var(--hi) !important; color: var(--on-hi) !important; }
+  .opt.wrong { background: var(--red) !important; border-color: var(--red) !important; color: var(--on-red) !important; }
+  .test .row { display: grid; grid-template-columns: 32px minmax(90px, 1fr) 2fr; gap: 6px 10px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--rule); }
+  .test .fix { grid-column: 3; font-size: 14px; font-weight: 700; }
   .test .fix:empty { display: none; }
-  .timer { font-family: var(--px); font-size: 13px; padding: 8px 10px; background: #17120d; color: #e8b04a; border-radius: 4px; border: 3px solid var(--line); }
-  .score { text-align: center; padding: 22px; margin: 24px 12px 22px 0; background: var(--yellow); color: #2b1d14; border: 3px solid var(--line);
-           border-radius: 6px; box-shadow: 6px 6px 0 var(--line); }
-  .score b { display: block; font-family: var(--px); font-size: clamp(24px, 7vw, 38px); margin-bottom: 10px; }
+  .timer { flex: none; padding: 7px 10px; font-weight: 700; font-stretch: 75%; font-variant-numeric: tabular-nums; }
+  .score { margin: 18px 0; padding: 18px 0; text-align: center; border-block: 1px solid var(--rule); }
+  .score .flaps { margin-bottom: 12px; }
+  .score .flaps b { max-width: 56px; }
 
-  /* ---- სტატისტიკა / პარამეტრები ---- */
-  .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 14px; }
-  .tile { padding: 14px; background: var(--soft); color: var(--ink); border: 3px solid var(--line); border-radius: 4px;
-          box-shadow: inset -3px -3px 0 #0002, inset 3px 3px 0 #fff6, 4px 4px 0 var(--line); }
-  .tile b { display: block; font-family: var(--px); font-size: 18px; margin-bottom: 8px; color: var(--pink); }
-  .tile span { font-size: 14px; font-weight: 600; }
-  .chart { display: flex; align-items: flex-end; gap: 10px; height: 170px; margin-top: 12px; }
+  /* ---- სტატისტიკა, პროფილი, პარამეტრები ---- */
+  .figs { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; margin: 8px 0 0; }
+  .figs div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--rule); }
+  .figs dt { color: var(--mute); }
+  .figs dd { margin: 0; font-size: 22px; font-weight: 800; font-stretch: 70%; font-variant-numeric: tabular-nums; }
+  .chart { display: flex; align-items: flex-end; gap: 6px; height: 160px; margin-top: 12px; }
   .chart .col { flex: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 4px; }
-  .chart .v { width: 100%; min-height: 4px; border: 3px solid var(--line);
-              background: repeating-linear-gradient(var(--blue) 0 10px, color-mix(in srgb, var(--blue) 70%, #000) 10px 12px); }
-  .chart .today .v { background: repeating-linear-gradient(var(--pink) 0 10px, color-mix(in srgb, var(--pink) 70%, #000) 10px 12px); }
-  .chart small { font-size: 12px; color: var(--muted); font-weight: 600; }
-  table { width: 100%; border-collapse: collapse; }
-  td, th { padding: 8px 6px; text-align: left; font-size: 15px; border-bottom: 2px dashed var(--soft); }
-  .set { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 14px 0; border-bottom: 2px dashed var(--soft); }
+  .chart .v { width: 100%; min-height: 2px; background: repeating-linear-gradient(to top, var(--edge) 0 8px, transparent 8px 10px); }
+  .chart .today .v { background: repeating-linear-gradient(to top, var(--hi) 0 8px, transparent 8px 10px); }
+  .chart small { font-size: 12px; color: var(--mute); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .set { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
   .set:last-child { border-bottom: none; }
-  .seg { display: flex; gap: 10px; flex-wrap: wrap; }
+  .levels { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin-top: 14px; }
+  .lvl { flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 2px; padding: 12px; text-align: left; }
+  .lvl .code { display: grid; place-items: center; min-width: 52px; height: 44px; margin-bottom: 8px; font-size: 26px; font-weight: 800; font-stretch: 62.5%; }
+  .lvl small { font-weight: 500; }
+  .prof-head { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .prof-info { flex: 1; min-width: 200px; }
+  .prof-info h2 { font-size: 26px; }
+  .avatar-big { width: 76px; height: 76px; display: grid; place-items: center; padding: 0; border: 0; font-size: 40px; cursor: pointer; }
+  .avatars { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .avatars .btn { min-width: 52px; padding: 4px 8px; font-size: 24px; }
+  .badges { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0 24px; margin-top: 8px; }
+  .badge { display: grid; grid-template-columns: 44px 1fr; column-gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--rule); }
+  .badge .ic { grid-row: span 2; display: grid; place-items: center; width: 44px; height: 44px; font-size: 24px; }
+  .badge small { color: var(--mute); }
+  .badge.locked b { color: var(--mute); }
+  .badge.locked .ic .emo { opacity: .35; }
+  .prof { gap: 8px; }
+  .av { display: inline-grid; place-items: center; width: 26px; height: 26px; background: var(--red); color: var(--on-red); font-weight: 800; border-radius: 2px; }
+  .pw { position: relative; }
+  .pw input { padding-right: 52px; }
+  .eye { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); display: flex; padding: 6px 8px; background: none; border: none; cursor: pointer; color: var(--mute); }
+  .eye:hover { color: var(--ink); }
+  .gbtn { background: #fff !important; color: #1f1f1f !important; border-color: #dadce0 !important; }
+  .gbtn.hidden { display: none !important; }
+  /* პროგრამირების კურსი */
+  .mod-head { display: flex; gap: 12px; align-items: center; }
+  .mod-head h2 { margin: 0; }
+  .mod-num { flex: none; display: grid; place-items: center; width: 44px; height: 48px; font-size: 26px; font-weight: 800; font-stretch: 62.5%; }
+  .gloss td { padding: 6px; }
+  pre.code { margin: 12px 0 0; padding: 12px 14px; overflow-x: auto; white-space: pre; background: var(--field); color: var(--ink);
+             border: 1px solid var(--rule); font: 13px/1.55 ui-monospace, Consolas, "Courier New", monospace; }
 
-  #toasts { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); z-index: 50;
-            display: flex; flex-direction: column; align-items: center; gap: 8px; pointer-events: none; }
-  .toast { font-weight: 800; padding: 8px 18px; background: var(--yellow); color: #2b1d14; border: 3px solid var(--line);
-           border-radius: 4px; box-shadow: 4px 4px 0 var(--line); animation: up .25s steps(4); }
-  .cf { position: fixed; top: -14px; width: 10px; height: 10px; z-index: 99; pointer-events: none; animation: fall linear forwards; }
-
-  @keyframes shake { 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
-  @keyframes pop { 50% { transform: scale(1.08); } }
-  @keyframes up { from { transform: translateY(14px); opacity: 0; } }
-  @keyframes fall { to { transform: translateY(105vh) rotate(720deg); } }
-  @media (max-width: 560px) {
-    .nav { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    .nav .btn { padding: 6px 2px; font-size: 12px; }
-    .nav .btn span { display: block; font-size: 20px; }
-    .opts { grid-template-columns: 1fr; }
-    .test .row { grid-template-columns: 26px 1fr; }
-    .test .row input, .test .fix { grid-column: 1 / -1; }
-    .search { max-width: none; }
-  }
-  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+  /* ---- შესავალი (სტუმრისთვის და Google-ისთვის), ქვედა ნაწილი, შეტყობინებები ---- */
+  #intro { display: none; }
+  .guest #intro { display: block; }
+  #intro h1 { margin: 0 0 8px; font-size: 26px; }
+  #intro ul { margin: 8px 0; padding-left: 22px; }
+  #intro a { font-weight: 700; text-decoration-color: var(--red); }
+  .foot { margin-top: 28px; text-align: center; font-size: 13px; color: var(--mute); }
+  .foot a { color: var(--mute); }
+  .foot .install { margin-bottom: 18px; } /* ჩანს მხოლოდ მაშინ, როცა ბრაუზერი აპის დაყენებას გვთავაზობს */
+  @media (display-mode: standalone) { .foot .install { display: none; } } /* უკვე აპში ვართ */
+  .foot .by { font-size: 11px; font-weight: 700; font-stretch: 75%; letter-spacing: .18em; text-transform: uppercase; }
+  .foot .legal { margin-top: 8px; }
   /* პარტნიორის პატარა რეკლამა (CodeQuest) */
-  .pt { margin: 26px auto 22px; max-width: 520px; font-family: "Noto Sans Georgian", sans-serif; letter-spacing: 0; }
-  .pt-h { margin: 0 0 14px; font-weight: 800; font-size: 14px; color: #111; }
-  .pt-ad { display: flex; align-items: center; gap: 14px; position: relative; padding: 12px 16px; background: #fff; color: #111; text-align: left;
-           text-decoration: none; border: 3px solid #111; border-radius: 6px; box-shadow: 6px 6px 0 #3d5afe; transition: transform .15s, box-shadow .15s; }
-  .pt-ad:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 #3d5afe; }
+  .pt { max-width: 520px; margin: 0 auto 18px; text-align: left; }
+  .pt-ad { position: relative; display: flex; align-items: center; gap: 14px; padding: 12px 14px; background: var(--panel); color: var(--ink);
+           text-decoration: none; border: 1px solid var(--rule); transition: border-color .15s; }
+  .pt-ad:hover { border-color: #3d5afe; }
   .pt-ad svg { flex: none; }
   .pt-t { display: grid; min-width: 0; }
-  .pt-t small { color: #3d5afe; font: 10px "Press Start 2P", monospace; letter-spacing: .15em; margin-bottom: 4px; }
   .pt-t b { font-size: 17px; line-height: 1.25; }
-  .pt-t em { font-style: normal; font-size: 13px; color: #555; line-height: 1.4; }
-  .pt-tag { position: absolute; top: -12px; right: 10px; background: #111; color: #fff; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 4px; }
+  .pt-t em { font-style: normal; font-size: 13px; line-height: 1.4; color: var(--mute); }
+  .pt-tag { position: absolute; top: -9px; right: 10px; padding: 1px 7px; background: var(--hi); color: var(--on-hi); font-size: 11px; font-weight: 800; border-radius: 2px; }
+  #toasts { position: fixed; left: 50%; bottom: 20px; z-index: 50; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center;
+            gap: 6px; width: max-content; max-width: calc(100% - 24px); pointer-events: none; perspective: 500px; }
+  .toast { padding: 9px 14px; background: var(--flap); color: var(--flap-ink); font-weight: 700; font-size: 15px; text-align: center;
+           border: 1px solid var(--edge); border-radius: 3px; animation: flap .34s cubic-bezier(.16, 1, .3, 1) both; }
+  @keyframes shake { 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+
+  /* ---- ტელეფონი: მენიუ ქვემოთ, ქულები მოკლედ ---- */
+  @media (max-width: 640px) {
+    .tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; margin: 0; border-width: 1px 0 0; padding-bottom: env(safe-area-inset-bottom); }
+    .tab { flex-direction: column; gap: 2px; min-height: 60px; padding: 6px 2px; font-size: 11px; }
+    .tab .emo { font-size: 20px; }
+    body:not(.out) .app { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
+    body:not(.out) #toasts { bottom: calc(76px + env(safe-area-inset-bottom)); }
+  }
+  @media (max-width: 520px) {
+    body:not(.out) .logo div, .chip .nm { display: none; }
+    .opts, .figs { grid-template-columns: 1fr; }
+    .test .row { grid-template-columns: 26px 1fr; }
+    .test .row input, .test .fix { grid-column: 1 / -1; }
+    h2 { font-size: 20px; }
+  }
+  @media (min-width: 641px) {
+    .board .flaps b, .trace .flaps b { max-width: 64px; font-size: min(46px, 100cqi / var(--n) * 1.1); }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
 <body>
 <!-- ემოჯების ფილტრი: ნაცრისფერი → კონტრასტის გაზრდა → რბილი გრადიენტი
      შავი → მუქი წითელი → წითელი → ღია წითელი → თეთრი (რბილი გადასვლები ინარჩუნებს დეტალებს პატარა ზომაზეც),
-     და ძალიან თხელი, ნახევრად გამჭვირვალე კონტური, რომ თეთრი ნაწილები თეთრ ფონზე არ გაქრეს -->
+     და ძალიან თხელი, ნახევრად გამჭვირვალე კონტური: მუქ სტილებში ღია, ნათელში მუქი (--emo-edge), რომ ემოჯო ფონზე არ გაქრეს -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <filter id="rbw" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
     <feColorMatrix in="SourceGraphic" type="matrix" result="gray"
@@ -355,7 +349,7 @@
       <feFuncB type="table" tableValues="0.067 0.078 0.157 0.639 1"/>
     </feComponentTransfer>
     <feMorphology in="SourceAlpha" operator="dilate" radius="0.45" result="fat"/>
-    <feFlood flood-color="#111" flood-opacity=".45"/>
+    <feFlood style="flood-color: var(--emo-edge); flood-opacity: var(--emo-edge-a)"/>
     <feComposite in2="fat" operator="in" result="outline"/>
     <feMerge><feMergeNode in="outline"/><feMergeNode in="tone"/></feMerge>
   </filter>
@@ -371,18 +365,18 @@
         <path d="M30 12.2V22l2.5-2 2.5 2v-9.6" fill="#d62828" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
         <path d="M14 20h6M14 25h6M28 26h6" stroke="#111" stroke-width="2" stroke-linecap="round"/>
       </svg>
-      <div><span class="px">LEARN ENGLISH</span><b>ისწავლე ინგლისური</b></div>
+      <div><span class="en">LEARN ENGLISH</span><b>ისწავლე ინგლისური</b></div>
     </div>
-    <div class="chips"><span class="chip" id="cStreak"></span><span class="chip" id="cXp"></span>
+    <!-- სერია, XP, დონე და პროფილი პატარა ფირფიტებზე (გასვლა პროფილის გვერდზეა) -->
+    <div class="chips"><span class="chip" id="cStreak" title="სერია: რამდენი დღე ზედიზედ სწავლობ"></span><span class="chip" id="cXp" title="XP ქულები"></span>
       <button class="chip" id="cLvl" onclick="viewLevels()" title="ინგლისურის დონის არჩევა"></button>
-      <button class="chip" id="cUser" onclick="viewProfile()" title="პროფილი"></button>
-      <button class="btn white sm" onclick="logout()">გასვლა</button></div>
+      <button class="chip" id="cUser" onclick="viewProfile()" title="პროფილი" aria-label="პროფილი"></button></div>
   </header>
-  <nav class="nav" id="nav">
-    <button class="btn" data-v="lessons" onclick="viewLessons()"><span>📚</span> გაკვეთილები</button>
-    <button class="btn" data-v="course" onclick="viewCourse()"><span>💻</span> პროგრამირება</button>
-    <button class="btn" data-v="stats" onclick="viewStats()"><span>📊</span> სტატისტიკა</button>
-    <button class="btn" data-v="settings" onclick="viewSettings()"><span>⚙️</span> პარამეტრები</button>
+  <nav class="tabs" id="nav" aria-label="მთავარი მენიუ">
+    <button class="tab" data-v="lessons" onclick="viewLessons()"><span>📚</span>გაკვეთილები</button>
+    <button class="tab" data-v="course" onclick="viewCourse()"><span>💻</span>პროგრამირება</button>
+    <button class="tab" data-v="stats" onclick="viewStats()"><span>📊</span>სტატისტიკა</button>
+    <button class="tab" data-v="settings" onclick="viewSettings()"><span>⚙️</span>პარამეტრები</button>
   </nav>
   <main id="main"></main>
   <!-- სტუმრისთვის, Google-ისა და AI-სთვის: რა არის ეს საიტი (შესულ მომხმარებელს არ უჩანს, იხ. .guest) -->
@@ -400,9 +394,9 @@
       <a href="words">📖 სიტყვები თემებით</a> · <a href="about">ℹ️ როგორ მუშაობს</a></p>
   </section>
   <footer class="foot">
-    <button class="btn white sm install" onclick="installApp()">💻 Windows აპის დაყენება</button>
-    <div class="pt"><p class="pt-h">ჩვენი პარტნიორები</p><a class="pt-ad" href="https://codequest.space/?utm_source=englishquest&amp;utm_medium=partner&amp;utm_campaign=app" target="_blank" rel="noopener"><svg viewBox="0 0 305 290" width="46" height="44" aria-hidden="true"><circle cx="152" cy="24" r="18" fill="#FF8A00"/><rect x="146" y="38" width="12" height="30" fill="#13163A"/><rect x="9" y="142" width="34" height="67" rx="10" fill="#13163A"/><rect x="262" y="142" width="34" height="67" rx="10" fill="#13163A"/><rect x="32" y="63" width="240" height="219" rx="68" fill="#3D5AFE"/><rect x="64" y="105" width="177" height="125" rx="40" fill="#13163A"/><polyline points="94,142 122,167 94,192" fill="none" stroke="#3DDC97" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><line x1="146" y1="193" x2="200" y2="193" stroke="#3DDC97" stroke-width="14" stroke-linecap="round"/></svg><span class="pt-t"><small>CODEQUEST</small><b>ისწავლე პროგრამირება</b><em>თამაშით, ქართულად: 19 ენა, რობოტი ბიტი და სკოლა „ისწავლე კოდინგი“</em></span><span class="pt-tag">პარტნიორი</span></a></div>
-    <div>Powered by codequest</div>
+    <button class="btn white sm install hidden" id="installBtn" onclick="installApp()">💻 Windows აპის დაყენება</button>
+    <div class="pt"><a class="pt-ad" href="https://codequest.space/?utm_source=englishquest&amp;utm_medium=partner&amp;utm_campaign=app" target="_blank" rel="noopener"><svg viewBox="0 0 305 290" width="46" height="44" aria-hidden="true"><circle cx="152" cy="24" r="18" fill="#FF8A00"/><rect x="146" y="38" width="12" height="30" fill="#13163A"/><rect x="9" y="142" width="34" height="67" rx="10" fill="#13163A"/><rect x="262" y="142" width="34" height="67" rx="10" fill="#13163A"/><rect x="32" y="63" width="240" height="219" rx="68" fill="#3D5AFE"/><rect x="64" y="105" width="177" height="125" rx="40" fill="#13163A"/><polyline points="94,142 122,167 94,192" fill="none" stroke="#3DDC97" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><line x1="146" y1="193" x2="200" y2="193" stroke="#3DDC97" stroke-width="14" stroke-linecap="round"/></svg><span class="pt-t"><b>CodeQuest: ისწავლე პროგრამირება</b><em>თამაშით, ქართულად: 19 ენა, რობოტი ბიტი და სკოლა „ისწავლე კოდინგი“</em></span><span class="pt-tag">პარტნიორი</span></a></div>
+    <div class="by">Powered by codequest</div>
     <div class="legal"><a href="privacy">კონფიდენციალურობა</a> · <a href="terms">წესები</a> · <a href="https://codequest.space/?utm_source=englishquest&amp;utm_medium=partner&amp;utm_campaign=app" target="_blank" rel="noopener">🤝 პარტნიორი: CodeQuest</a></div></footer>
 </div>
 <div id="toasts" aria-live="polite"></div>
@@ -410,7 +404,8 @@
 
 <script>
 // ემოჯები ოდნავ ჩამქრალი ფერით (.emo), რომ გვერდი ზედმეტად ჭრელი არ იყოს. ფერის სიძლიერე CSS-შია (.emo)
-const EMO_RE = /\p{Extended_Pictographic}(?:️|‍\p{Extended_Pictographic})*️?/gu;
+// ▶ გამონაკლისია: ღილაკებზე უბრალო თეთრი სამკუთხედია და არა ემოჯო
+const EMO_RE = /(?!▶)\p{Extended_Pictographic}(?:️|‍\p{Extended_Pictographic})*️?/gu;
 function softenEmoji(root) {
   if (!root || root.nodeType !== 1 || /^(SCRIPT|STYLE|TEXTAREA|OPTION|TITLE)$/.test(root.nodeName)) return;
   const walk = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), found = [];
@@ -448,7 +443,7 @@ function setHash(h) { try { history.replaceState(null, '', h || location.pathnam
 const SUPABASE_CONFIG = { url: 'https://eonfodcsszzptuwmldpd.supabase.co', anonKey: 'sb_publishable_ILYAA_cXUzE0ekRD6XUxNg_E_Dg2NEm' };
 let cloud = null, cloudTimer = null, googleOn = false;
 const OLD_KEY = 'english-lessons';
-const THEMES = [['paper', '📰 გაზეთი'], ['auto', '🌗 ავტო'], ['light', '☀️ დღე'], ['dark', '🌙 ღამე'],
+const THEMES = [['paper', '🚉 დაფა'], ['auto', '🌗 ავტო'], ['light', '☀️ დღე'], ['dark', '🌙 ღამე'],
                 ['terminal', '📟 ტერმინალი'], ['ocean', '🌊 ზღვა'], ['forest', '🌲 ტყე'], ['rose', '🌸 ვარდი']];
 const $ = id => document.getElementById(id);
 const M = $('main');
@@ -461,7 +456,6 @@ const str = v => (typeof v === 'string' ? v : '');
 const fmt = s => Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
 const KBD = '⌨️ კლავიატურა ქართულზეა — გადართე ინგლისურზე (Alt+Shift ან Win+Space)';
 const NOFILL = 'autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"';
-const COLORS = ['yellow', 'pink', 'mint', 'blue', 'purple'];
 // " - ", " – ", " = ", " : " ან "-" რომელსაც ქართული ასო მოსდევს (ice-cream - ნაყინი სწორად იყოფა)
 const SEP = /\s+[-–—=:]\s+|\s*[-–—=:]\s*(?=[Ⴀ-ჿ])/;
 
@@ -570,7 +564,7 @@ function clean(d) {
     .map(h => ({ d: str(h.d), name: str(h.name), ok: num(h.ok), total: num(h.total), secs: num(h.secs) })).slice(-50);
   const st = d.settings && typeof d.settings === 'object' ? d.settings : {};
   f.settings = {
-    // მთავარი სტილი „გაზეთია“; სხვა სტილი რჩება მხოლოდ მაშინ, თუ მომხმარებელმა თავად აირჩია
+    // მთავარი სტილი „დაფაა“ (id 'paper' ძველი მონაცემებისთვის); სხვა სტილი რჩება მხოლოდ მაშინ, თუ მომხმარებელმა თავად აირჩია
     theme: st.themeChosen === true && THEMES.some(t => t[0] === st.theme) ? st.theme : 'paper',
     themeChosen: st.themeChosen === true,
     rate: Math.min(1.5, Math.max(0.4, num(st.rate, 0.85))),
@@ -623,13 +617,21 @@ function logout() {
 }
 
 // ---------- ☁️ Supabase: ნამდვილი ანგარიშები, მონაცემები ყველა მოწყობილობაზე ----------
-const SB_URL = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm';
+// ერთი ფაილი (UMD), ESM-ის ათობით თანმიმდევრული მოთხოვნის ნაცვლად: ნელ ინტერნეტზე ბევრად სწრაფია. იგივე ბმული head-ში preload-ია
+const SB_URL = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js';
+const SB_SRI = 'sha384-0w2KAL2YHP6wKOkUDzkCDGgVvfmHnj02DHeQ6XcHOgTfFsGyonKOpShMH1x6nk9o';
+const loadSupabase = () => new Promise((ok, fail) => {
+  const s = Object.assign(document.createElement('script'), { src: SB_URL, integrity: SB_SRI, crossOrigin: 'anonymous' });
+  s.onload = () => window.supabase ? ok(window.supabase) : fail(new Error('supabase')); s.onerror = fail;
+  document.head.append(s);
+});
+let cloudOn = !!SUPABASE_CONFIG, cloudReady = Promise.resolve(); // cloudReady: Supabase ჩაიტვირთა (ან ვერ ჩაიტვირთა)
 const here = () => location.origin + location.pathname; // აქ დაბრუნდება ელფოსტის/Google-ის ბმული
 // ელფოსტის ბმულიდან დაბრუნებისას URL-ში წერია რა მოხდა (Supabase მას მალევე შლის, ამიტომ ახლავე ვიმახსოვრებთ)
 const linkInfo = new URLSearchParams(location.hash.slice(1) || location.search.slice(1));
 async function initCloud() {
   if (linkInfo.get('error_description')) toast(authError({ message: linkInfo.get('error_description') }));
-  const { createClient } = await import(SB_URL);
+  const { createClient } = await loadSupabase();
   cloud = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
   // Google-ის ღილაკი მხოლოდ მაშინ ჩანს, თუ Supabase-ში Google ჩართულია
   fetch(SUPABASE_CONFIG.url + '/auth/v1/settings', { headers: { apikey: SUPABASE_CONFIG.anonKey } })
@@ -640,7 +642,7 @@ async function initCloud() {
     if (u && me?.id !== u.id) return enterCloud(u);
     if (!u) {
       if (me?.cloud) { me = null; KEY = null; S = fresh(); applyTheme(); }
-      viewLogin();
+      if (!$('authForm')) viewLogin(); // შესვლის ფორმა უკვე ჩანს (მაგ. სწრაფი გახსნისას): ნაწერს არ ვშლით
     }
   }));
 }
@@ -707,6 +709,8 @@ function viewCloudLogin() {
   $('authForm').onsubmit = async e => {
     e.preventDefault();
     msg('');
+    await cloudReady; // ფორმა Supabase-ზე ადრე ჩანს
+    if (!cloud) return;
     const email = $('aEmail').value.trim(), password = $('aPass').value;
     if (!signup) {
       const { error } = await cloud.auth.signInWithPassword({ email, password });
@@ -727,6 +731,8 @@ function viewCloudLogin() {
     if (!data.session) { signup = false; viewEmailSent(email); }
   };
   $('gBtn').onclick = async () => {
+    await cloudReady;
+    if (!cloud) return;
     const { error } = await cloud.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: here() } });
     if (error) msg(authError(error));
   };
@@ -784,7 +790,7 @@ async function deleteCloudAccount() {
 }
 
 function viewLogin() {
-  if (cloud) return viewCloudLogin();
+  if (cloudOn) return viewCloudLogin();
   document.body.classList.add('out', 'guest');
   window.scrollTo(0, 0);
   M.innerHTML = `
@@ -895,8 +901,8 @@ function addXP(n, silent) {
   st.daily[t] = (st.daily[t] || 0) + n;
   save(); renderTop();
   if (!silent) toast(`+${n} XP`);
-  if (level(st.xp) > lvl) { toast(`🏅 ახალი დონე: ${level(st.xp)}!`); confetti(); }
-  if (before < S.settings.goal && st.todayXp >= S.settings.goal) { toast('🎯 დღის მიზანი შესრულდა!'); confetti(); }
+  if (level(st.xp) > lvl) toast(`🏅 ახალი დონე: ${level(st.xp)}!`);
+  if (before < S.settings.goal && st.todayXp >= S.settings.goal) toast('🎯 დღის მიზანი შესრულდა!');
 }
 
 function record(w, ok) {
@@ -908,11 +914,12 @@ function record(w, ok) {
 const hardWords = () => Object.values(S.words).filter(r => r.wrong > r.right).sort((a, b) => b.wrong - a.wrong).slice(0, 30);
 
 function renderTop() {
-  $('cUser').textContent = `${S.profile.avatar || (me?.cloud ? '☁️' : '👤')} ${me?.name ?? ''}`;
+  $('cUser').innerHTML = `${esc(S.profile.avatar || (me?.cloud ? '☁️' : '👤'))}<span class="nm">${esc(me?.name ?? '')}</span>`;
   $('cStreak').textContent = `🔥 ${streakNow()}`;
-  $('cXp').textContent = `⭐ ${S.stats.xp} XP`;
+  $('cXp').textContent = `⭐ ${S.stats.xp}`;
   $('cLvl').textContent = `🎓 ${S.profile.cefr || 'დონე'}`;
 }
+const fig = (v, label) => `<div><dt>${label}</dt><dd>${v}</dd></div>`; // ციფრების დაფის ერთი ხაზი
 const masteredCount = () => Object.values(S.words).filter(r => r.right >= 3 && r.right > r.wrong * 2).length;
 
 // ---------- ხმა, შეტყობინებები, კონფეტი, თემა ----------
@@ -933,23 +940,17 @@ function toast(text) {
   setTimeout(() => d.remove(), 1900);
 }
 
-function confetti() {
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const colors = ['#d9794f', '#e8d5ad', '#a3ad80', '#6b5640', '#2b1d14'];
-  for (let i = 0; i < 80; i++) {
-    const c = document.createElement('i');
-    c.className = 'cf';
-    c.style.cssText = `left:${Math.random() * 100}vw;background:${colors[i % 5]};animation-delay:${Math.random() * .4}s;animation-duration:${1.6 + Math.random() * 1.4}s`;
-    document.body.appendChild(c);
-    setTimeout(() => c.remove(), 3600);
-  }
+// ფირფიტების რიგი (.flaps): თითო ასო თავის უჯრაში; CSS-ში ასოები 30 მწ-ის დაშორებით ჩამოიშლება
+function flaps(el, chars, cls = '') {
+  el.style.setProperty('--n', chars.length);
+  el.innerHTML = chars.map((c, k) => `<b class="f ${cls}${c === ' ' ? ' sp' : ''}" style="--i:${k}">${esc(c)}</b>`).join('');
 }
 
 function applyTheme() {
   if (S.settings.theme === 'auto') delete document.documentElement.dataset.theme;
   else document.documentElement.dataset.theme = S.settings.theme;
   // დაყენებული აპის ფანჯრის ზოლი გვერდის ფონის ფერისაა
-  document.querySelector('meta[name="theme-color"]').content = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+  document.querySelector('meta[name="theme-color"]').content = getComputedStyle(document.documentElement).getPropertyValue('--ground').trim();
 }
 
 // ---------- ნავიგაცია ----------
@@ -960,7 +961,10 @@ function setNav(v) {
   snapshot = null;
   clearInterval(timer); keyHandler = null;
   try { speechSynthesis.cancel(); } catch (e) {}
-  document.querySelectorAll('#nav button').forEach(b => b.className = 'btn ' + (b.dataset.v === v ? 'dark' : 'white'));
+  document.querySelectorAll('#nav button').forEach(b => {
+    b.classList.toggle('on', b.dataset.v === v);
+    b.dataset.v === v ? b.setAttribute('aria-current', 'page') : b.removeAttribute('aria-current');
+  });
   renderTop();
   window.scrollTo(0, 0);
 }
@@ -983,18 +987,30 @@ function parseWords(text) {
   }).filter(w => w.en);
 }
 
+// დაფისთვის: გაჩერებული გაკვეთილი (ან ბოლოს დამატებული), მისი რეჟიმი და შემდეგი სიტყვა
+function upNext() {
+  const n = Math.max(0, S.lessons.findIndex(l => l.progress)), l = S.lessons[n];
+  if (!l) return null;
+  const p = l.progress, st = p?.st || {}, ws = p ? p.words : l.words;
+  const k = p && { copy: st.i, write: st.queue?.[st.pos], cards: st.q?.[st.i], quiz: st.qs?.[st.i], dict: st.q?.[st.i] }[p.mode];
+  return { n, l, mode: p ? p.mode : 'copy', w: ws[Number.isInteger(k) && ws[k] ? k : 0] };
+}
+
 function viewLessons() {
   setNav('lessons'); rollDay();
-  const g = S.settings.goal, hard = hardWords();
+  const g = S.settings.goal, hard = hardWords(), up = upNext();
+  // „შენით“, ჩაბარება და კარნახი ინგლისურ სიტყვას მალავს, ამიტომ დაფაზე მხოლოდ ცარიელი ფირფიტებია
+  const hide = up && ['write', 'test', 'dict'].includes(up.mode);
   M.innerHTML = `
-    <section class="box">
-      <div class="row-between">
-        <div><h2>🎯 დღის მიზანი</h2>
-          <p class="muted sm">დღეს: <b>${S.stats.todayXp}</b> / ${g} XP · 🔥 სერია: <b>${streakNow()}</b> დღე</p></div>
-        <button class="btn pink" onclick="openForm(null)">＋ ახალი გაკვეთილი</button>
-      </div>
-      <div class="bar"><div style="width:${Math.min(100, S.stats.todayXp / g * 100)}%"></div></div>
+    <section class="box board">
+      <div class="cap"><span>${up ? `${esc(up.l.name)} · ${MODES.find(m => m[0] === up.mode)[1]}` : 'დღის დაფა'}</span>
+        <span class="n">${up ? (up.l.progress ? up.l.progress.pct + '%' : up.l.words.length + ' სიტყვა') : ''}</span></div>
+      <div class="flaps" id="nextFlaps" aria-hidden="true"></div>
+      <p class="ka">${up ? esc(up.w.ka || '🔊 მოუსმინე') : 'გამარჯობა! შექმენი გაკვეთილი ან აირჩიე მზა'}</p>
+      <div class="goal"><span>🎯 დღის მიზანი</span><span class="n"><b>${S.stats.todayXp}</b> / ${g} XP</span></div>
+      <div class="bar thin"><div style="width:${Math.min(100, S.stats.todayXp / g * 100)}%"></div></div>
     </section>
+    <button class="btn pink go" id="go">${up ? (up.l.progress ? '▶ გაგრძელება' : '▶ დაწყება') : '＋ ახალი გაკვეთილი'}</button>
 
     <section class="box ${formOpen ? '' : 'hidden'}" id="form">
       <h2>${editing === null ? '＋ ახალი გაკვეთილი' : '✏️ გაკვეთილის რედაქტირება'}</h2>
@@ -1006,29 +1022,35 @@ function viewLessons() {
     </section>
 
     <section class="box">
+      <div class="row-between">
+        <h2>📚 ჩემი გაკვეთილები</h2>
+        <button class="btn sm" onclick="openForm(null)">＋ ახალი</button>
+      </div>
+      ${S.lessons.length > 6 || query ? `<input class="search" id="search" placeholder="ძიება: სახელი ან სიტყვა" aria-label="გაკვეთილების ძიება" value="${esc(query)}">` : ''}
+      <div class="dep-head cap"><span>გაკვეთილი</span><span>სიტყვა</span></div>
+      <div id="grid"></div>
+    </section>
+
+    ${hard.length ? `
+    <section class="box row-between">
+      <div><h2>💪 რთული სიტყვები: ${hard.length}</h2>
+        <p class="muted sm">${hard.slice(0, 6).map(r => esc(r.en)).join(' · ')}${hard.length > 6 ? ' …' : ''}</p></div>
+      <button class="btn white" onclick="startHard()">ივარჯიშე →</button>
+    </section>` : ''}
+
+    <section class="box">
       <h2>✨ მზა გაკვეთილები</h2>
       <p class="muted sm">ერთი დაჭერით დაამატე</p>
       <div class="packs">${Object.keys(PACKS).map(n => {
         const has = S.lessons.some(l => l.name === n);
         return `<button class="btn ${has ? 'white' : ''} sm" data-pack="${esc(n)}" ${has ? 'disabled' : ''}>${esc(n)}${has ? ' ✔' : ''}</button>`;
       }).join('')}</div>
-    </section>
+    </section>`;
 
-    ${hard.length ? `
-    <section class="box hard row-between">
-      <div><h2>💪 რთული სიტყვები: ${hard.length}</h2>
-        <p class="muted sm">${hard.slice(0, 6).map(r => esc(r.en)).join(' · ')}${hard.length > 6 ? ' …' : ''}</p></div>
-      <button class="btn white" onclick="startHard()">ივარჯიშე →</button>
-    </section>` : ''}
-
-    <div class="row-between">
-      <h2>📚 ჩემი გაკვეთილები</h2>
-      <input class="search" id="search" placeholder="🔍 ძიება..." value="${esc(query)}">
-    </div>
-    <div class="grid" id="grid"></div>`;
-
+  flaps($('nextFlaps'), up ? [...up.w.en].map(c => hide && c !== ' ' ? '' : c) : [...'hello']);
+  $('go').onclick = () => up ? start(up.n) : openForm(null);
   document.querySelectorAll('[data-pack]').forEach(b => b.onclick = () => addPack(b.dataset.pack));
-  $('search').oninput = e => { query = e.target.value; renderGrid(); };
+  if ($('search')) $('search').oninput = e => { query = e.target.value; renderGrid(); };
   $('lessonWords').oninput = updateCount;
   if (editing !== null) {
     $('lessonName').value = S.lessons[editing].name;
@@ -1042,22 +1064,32 @@ function renderGrid() {
   const q = norm(query);
   const list = S.lessons.map((l, n) => [l, n]).filter(([l]) => !q || norm(l.name).includes(q) ||
     l.words.some(w => norm(w.en).includes(q) || norm(w.ka).includes(q)));
-  $('grid').innerHTML = list.length ? list.map(([l, n]) => `
-    <div class="lcard" style="--c:var(--${COLORS[n % COLORS.length]})">
-      <div class="lname">${esc(l.name)}</div>
-      <div class="muted sm">${l.words.length} სიტყვა${l.best != null ? ` · 🏆 ${l.best}/${l.words.length}` : ''}</div>
-      <div class="preview">${l.words.slice(0, 4).map(w => esc(w.en)).join(' · ')}${l.words.length > 4 ? ' …' : ''}</div>
-      ${l.progress ? `<div class="paused sm">⏸ ${MODES.find(m => m[0] === l.progress.mode)[1]} · ${l.progress.pct}%${l.progress.retry ? ' · შეცდომები' : ''}</div>` : ''}
+  // გასვლების ცხრილი: ხაზი ხსნის გაკვეთილს; ⋯ აჩენს ტესტს, რედაქტირებას, თავიდან დაწყებას და წაშლას
+  $('grid').innerHTML = list.length ? list.map(([l, n]) => {
+    EMO_RE.lastIndex = 0;
+    const m = EMO_RE.exec(l.name), ic = m && m.index === 0 ? m[0] : '📘', name = m && m.index === 0 ? l.name.slice(m[0].length).trim() : l.name;
+    const done = l.best === l.words.length && !l.progress;
+    return `
+    <div class="dep${l.progress ? ' on' : ''}${done ? ' done' : ''}">
+      <button class="dep-go" onclick="start(${n})" aria-label="${l.progress ? 'გაგრძელება' : 'დაწყება'}: ${esc(l.name)}">
+        <span class="ic">${ic}</span>
+        <span><span class="lname">${esc(name)}</span>
+          <span class="meta">${l.progress
+            ? `⏸ ${MODES.find(m => m[0] === l.progress.mode)[1]} · ${l.progress.pct}%${l.progress.retry ? ' · შეცდომები' : ''}`
+            : `${done ? '✔ ჩაბარებულია · ' : ''}${l.words.slice(0, 4).map(w => esc(w.en)).join(' · ')}${l.words.length > 4 ? ' …' : ''}`}</span></span>
+        <span class="count" title="${l.best != null ? 'საუკეთესო ტესტი / სიტყვა' : 'სიტყვა'}">${l.best != null ? l.best + '/' : ''}${l.words.length}</span>
+      </button>
+      <button class="btn white sm dep-more" aria-expanded="false" aria-label="მეტი მოქმედება"
+        onclick="const d = this.parentElement; this.setAttribute('aria-expanded', d.classList.toggle('open'))">⋯</button>
       <div class="lact">
-        ${l.progress ? `<button class="btn pink sm" onclick="start(${n})">▶ გაგრძელება</button>
-        <button class="btn white sm" onclick="restart(${n})" title="თავიდან დაწყება">↺</button>`
-        : `<button class="btn sm" onclick="start(${n})">▶ დაწყება</button>`}
-        <button class="btn white sm" onclick="start(${n}, 'test')" title="ტესტი">📝</button>
-        <button class="btn white sm" onclick="openForm(${n})" title="რედაქტირება">✏️</button>
-        <button class="btn white sm" onclick="removeLesson(${n})" title="წაშლა">🗑️</button>
+        ${l.progress ? `<button class="btn white sm" onclick="restart(${n})">↺ თავიდან</button>` : ''}
+        <button class="btn white sm" onclick="start(${n}, 'test')">📝 ტესტი</button>
+        <button class="btn white sm" onclick="openForm(${n})">✏️ შეცვლა</button>
+        <button class="btn white sm" onclick="removeLesson(${n})">🗑️ წაშლა</button>
       </div>
-    </div>`).join('')
-    : `<p class="muted">${S.lessons.length ? 'ვერაფერი მოიძებნა 🤷' : 'ჯერ გაკვეთილი არ გაქვს — შექმენი ან აირჩიე მზა გაკვეთილი 👆'}</p>`;
+    </div>`;
+  }).join('')
+    : `<p class="muted">${S.lessons.length ? 'ვერაფერი მოიძებნა' : 'ჯერ გაკვეთილი არ გაქვს: შექმენი ან აირჩიე მზა გაკვეთილი ქვემოთ'}</p>`;
 }
 
 function updateCount() {
@@ -1170,7 +1202,7 @@ function cards(st) {
     persist();
     const w = words[q[i]];
     setBody(`
-      <p class="muted center">დააჭირე ბარათს, რომ გადააბრუნო · ${Math.min(known + 1, total)} / ${total}</p>
+      <p class="muted center">დააჭირე ბარათს, რომ გადააბრუნო <span class="nw">· ${Math.min(known + 1, total)} / ${total}</span></p>
       <div class="flip" id="flip"><div class="in">
         <div class="face"><span class="word">${esc(w.en)}</span><small>🔄 დააჭირე</small></div>
         <div class="face back"><span class="word">${esc(w.ka || w.en)}</span><small>${esc(w.en)}</small></div>
@@ -1208,37 +1240,50 @@ function copy(st) {
   persist();
   const t = words[i].en;
   setBody(`
-    <p class="muted center">გადაწერე სიტყვა ზემოდან · ${i + 1} / ${words.length}</p>
+    <p class="muted center">გადაწერე სიტყვა ფირფიტებიდან <span class="nw">· ${i + 1} / ${words.length}</span></p>
     <div class="center">
       <div class="word">${esc(words[i].ka)}</div>
-      <div class="trace"><div class="letters" id="letters"></div><input id="ans" ${NOFILL} aria-label="გადაწერე: ${esc(t)}"></div>
+      <div class="trace"><div class="flaps" id="letters" aria-hidden="true"></div><input id="ans" ${NOFILL} aria-label="გადაწერე: ${esc(t)}"></div>
       <div><button class="btn white sm" id="say">🔊 მოსმენა</button></div>
       <p class="bad sm" id="kbd"></p>
     </div>`, i / words.length);
-  const inp = $('ans');
+  const inp = $('ans'), row = $('letters'), shown = [];
   let finished = false;
-  const draw = () => {
-    const v = inp.value;
-    let h = '';
-    for (let k = 0; k < Math.max(t.length, v.length); k++) {
-      if (k >= v.length) { h += `<span class="g">${esc(t[k])}</span>`; continue; }
-      const good = v[k].toLowerCase() === (t[k] || '').toLowerCase();
-      h += `<span class="${good ? 'ok' : 'bad'}">${esc(!good && v[k] === ' ' ? '_' : v[k])}</span>`;
-    }
-    $('letters').innerHTML = h + ' ';
+  // ყოველი ასო თავის ფირფიტაზე: ჯერ დასაწერი ჩამქრალია, სწორი თეთრდება, შეცდომა წითლდება, შემდეგი ინვერსიულია.
+  // მხოლოდ შეცვლილი ფირფიტა გადაბრუნდება (პირველად ყველა, რიგრიგობით)
+  const draw = first => {
+    const v = inp.value, n = Math.max(t.length, v.length);
+    row.style.setProperty('--n', n);
+    while (row.children.length < n) row.append(document.createElement('b'));
+    while (row.children.length > n) row.lastChild.remove();
+    shown.length = Math.min(shown.length, n);
+    [...row.children].forEach((b, k) => {
+      const typed = k < v.length, good = typed && v[k].toLowerCase() === (t[k] || '').toLowerCase();
+      const ch = !typed ? t[k] : !good && v[k] === ' ' ? '_' : v[k];
+      const cls = (!typed ? 'g' : good ? 'ok' : 'bad') + (ch === ' ' ? ' sp' : '');
+      b.classList.toggle('cur', k === v.length);
+      if (shown[k] === cls + ch) return;
+      shown[k] = cls + ch;
+      b.textContent = ch;
+      b.className = cls + (k === v.length ? ' cur' : '');
+      b.style.setProperty('--i', first ? k : 0);
+      void b.offsetWidth; // ანიმაცია თავიდან რომ დაიწყოს
+      b.classList.add('f');
+    });
     $('kbd').textContent = isGeo(v) ? KBD : '';
   };
   inp.oninput = () => {
     draw();
     if (finished || norm(inp.value) !== norm(t)) return;
     finished = true;
-    $('letters').classList.add('done');
+    // მთელი სიტყვა სწორია: ყველა ფირფიტა კიდევ ერთხელ ჩამოიშლება
+    [...row.children].forEach((b, k) => { b.classList.remove('f', 'cur'); b.style.setProperty('--i', k); void b.offsetWidth; b.classList.add('f'); });
     speak(t); addXP(1, true);
     snapshot = () => ['copy', { i: i + 1 }, (i + 1) / words.length]; // თუ ახლა გავა, ეს სიტყვა უკვე ჩაითვალა
     setTimeout(() => copy({ i: i + 1 }), 800);
   };
   $('say').onclick = () => { speak(t); inp.focus(); };
-  draw();
+  draw(true);
   autoSpeak(t);
 }
 
@@ -1256,11 +1301,11 @@ function write(st) {
     const w = words[queue[pos]];
     let wrong = false, hint = 0, locked = false;
     setBody(`
-      <p class="muted center">დაწერე ინგლისურად · ${pos + 1} / ${queue.length}</p>
+      <p class="muted center">დაწერე ინგლისურად <span class="nw">· ${pos + 1} / ${queue.length}</span></p>
       <div class="center">
         <div class="word">${w.ka ? esc(w.ka) : '🔊 მოუსმინე და დაწერე'}</div>
         <input id="ans" class="answer" ${NOFILL} placeholder="დაწერე და დააჭირე Enter">
-        <p class="hint" id="hint"></p>
+        <div class="flaps hint" id="hint" role="img"></div>
         <p id="msg"></p>
         <div class="btns">
           <button class="btn" id="check">შემოწმება</button>
@@ -1293,7 +1338,9 @@ function write(st) {
     inp.onkeydown = e => { if (e.key === 'Enter') check(); };
     $('hintBtn').onclick = () => {
       hint = Math.min(hint + 1, w.en.length);
-      $('hint').textContent = [...w.en].map((c, k) => k < hint || c === ' ' ? c : '_').join(' ');
+      const shown = [...w.en].map((c, k) => k < hint || c === ' ' ? c : '');
+      flaps($('hint'), shown);
+      $('hint').setAttribute('aria-label', 'მინიშნება: ' + shown.map(c => c || '_').join(' '));
       inp.focus();
     };
     $('say').onclick = () => { speak(w.en); inp.focus(); };
@@ -1351,16 +1398,16 @@ function test(st) {
     if (!retry && !cur.virtual && (cur.best == null || ok > cur.best)) cur.best = ok;
     S.stats.history = [...S.stats.history, { d: dayStr(), name: cur.name, ok, total: words.length, secs }].slice(-50);
     addXP(ok * 3 + (wrongs.length ? 0 : 10));
-    if (!wrongs.length) confetti();
     const grade = pct === 100 ? '🏆 შესანიშნავია!' : pct >= 80 ? '👏 ძალიან კარგი!' : pct >= 50 ? '🙂 არაუშავს, გაიმეორე' : '📚 კიდევ ივარჯიშე';
     $('submit').parentElement.remove();
     $('result').innerHTML = `
-      <div class="score"><b>${ok} / ${words.length}</b><div>${pct}% · ${grade} · ⏱ ${fmt(secs)}</div></div>
+      <div class="score"><div class="flaps" id="scoreFlaps" role="img" aria-label="${ok} / ${words.length}"></div><div>${pct}% · ${grade} · ⏱ ${fmt(secs)}</div></div>
       <div class="btns">
         ${wrongs.length ? '<button class="btn pink" id="retryWrong">🔁 გაიმეორე შეცდომები</button>' : ''}
         <button class="btn white" id="again">თავიდან</button>
         <button class="btn white" onclick="viewLessons()">გაკვეთილები</button>
       </div>`;
+    flaps($('scoreFlaps'), [...`${ok}/${words.length}`], wrongs.length ? '' : 'on'); // ყველა სწორია: ფირფიტები თეთრდება
     $('result').scrollIntoView({ behavior: 'smooth', block: 'center' });
     if (wrongs.length) $('retryWrong').onclick = () => { words = wrongs; retry = true; go('copy'); };
     $('again').onclick = () => { words = cur.words.slice(); retry = false; go('copy'); };
@@ -1382,7 +1429,7 @@ function quiz(st) {
     const w = words[qs[i]], seen = new Set([w.ka]);
     const opts = shuffle([w, ...shuffle(pool).filter(x => !seen.has(x.ka) && seen.add(x.ka)).slice(0, 3)]);
     setBody(`
-      <p class="muted center">რას ნიშნავს? · ${i + 1} / ${qs.length}</p>
+      <p class="muted center">რას ნიშნავს? <span class="nw">· ${i + 1} / ${qs.length}</span></p>
       <div class="center"><div class="word">${esc(w.en)}</div><button class="btn white sm" id="say">🔊</button></div>
       <div class="opts">${opts.map((o, k) => `<button class="btn white opt" data-k="${k}"><span class="key">${k + 1}</span>${esc(o.ka)}</button>`).join('')}</div>`,
       i / qs.length);
@@ -1419,7 +1466,7 @@ function dict(st) {
     const w = words[q[i]];
     let tried = false, locked = false;
     setBody(`
-      <p class="muted center">მოუსმინე და დაწერე · ${i + 1} / ${q.length}</p>
+      <p class="muted center">მოუსმინე და დაწერე <span class="nw">· ${i + 1} / ${q.length}</span></p>
       <div class="center">
         <div class="btns"><button class="btn blue" id="play">🔊 მოსმენა</button><button class="btn white" id="slow">🐢 ნელა</button></div>
         <input id="ans" class="answer" ${NOFILL} placeholder="დაწერე რაც გაიგე">
@@ -1604,12 +1651,10 @@ function viewProfile() {
       <h2>📈 პროგრესი</h2>
       <p class="muted sm">XP დონე ${level(S.stats.xp)} · შემდეგ დონემდე ${100 - xpIn} XP</p>
       <div class="bar"><div style="width:${xpIn}%"></div></div>
-      <div class="tiles" style="margin-top:14px">
-        <div class="tile"><b>${S.stats.xp}</b><span>⭐ სულ XP</span></div>
-        <div class="tile"><b>${streakNow()}</b><span>🔥 სერია (დღე)</span></div>
-        <div class="tile"><b>${masteredCount()}</b><span>✅ ნასწავლი სიტყვა</span></div>
-        <div class="tile"><b>${S.lessons.length}</b><span>📚 გაკვეთილი</span></div>
-      </div>
+      <dl class="figs">
+        ${fig(S.stats.xp, '⭐ სულ XP')}${fig(streakNow(), '🔥 სერია (დღე)')}
+        ${fig(masteredCount(), '✅ ნასწავლი სიტყვა')}${fig(S.lessons.length, '📚 გაკვეთილი')}
+      </dl>
     </section>
 
     <section class="box">
@@ -1669,20 +1714,15 @@ function viewStats() {
   const vals = days.map(d => st.daily[dayStr(d)] || 0), max = Math.max(...vals, 1);
   const wd = ['კვ', 'ორშ', 'სამ', 'ოთხ', 'ხუთ', 'პარ', 'შაბ'];
   const hard = hardWords().slice(0, 10);
-  const tile = (c, v, l) => `<div class="tile" style="--c:var(--${c})"><b>${v}</b><span>${l}</span></div>`;
   M.innerHTML = `
     <section class="box">
       <h2>📊 ჩემი პროგრესი</h2>
-      <div class="tiles" style="margin-top:14px">
-        ${tile('yellow', st.xp, '⭐ სულ XP')}
-        ${tile('purple', level(st.xp), `🏅 დონე · ${toNext} XP შემდეგამდე`)}
-        ${tile('pink', streakNow(), '🔥 სერია (დღე)')}
-        ${tile('pink', st.bestStreak, '🏆 საუკეთესო სერია')}
-        ${tile('blue', lessonWords, '📚 სიტყვა გაკვეთილებში')}
-        ${tile('mint', mastered, '✅ კარგად ნასწავლი')}
-        ${tile('mint', acc + '%', '🎯 სიზუსტე')}
-        ${tile('blue', st.history.length, '📝 ჩაბარებული ტესტი')}
-      </div>
+      <dl class="figs">
+        ${fig(st.xp, '⭐ სულ XP')}${fig(level(st.xp), `🏅 დონე · ${toNext} XP შემდეგამდე`)}
+        ${fig(streakNow(), '🔥 სერია (დღე)')}${fig(st.bestStreak, '🏆 საუკეთესო სერია')}
+        ${fig(lessonWords, '📚 სიტყვა გაკვეთილებში')}${fig(mastered, '✅ კარგად ნასწავლი')}
+        ${fig(acc + '%', '🎯 სიზუსტე')}${fig(st.history.length, '📝 ჩაბარებული ტესტი')}
+      </dl>
     </section>
 
     <section class="box">
@@ -1807,8 +1847,8 @@ function resetAll() {
 // ფაილიდან ან data: მისამართიდან გახსნისას ბრაუზერი serviceWorker-ს კრძალავს, მაშინ უბრალოდ გამოვტოვებთ
 try { navigator.serviceWorker?.register('sw.js').catch(() => {}); } catch (e) {}
 let installEvt = null; // Edge/Chrome ამას მაშინ გვაძლევს, როცა საიტის აპად დაყენება შეიძლება
-addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; });
-addEventListener('appinstalled', () => toast('✅ აპი დაყენდა! იპოვი Start მენიუში: English Quest'));
+addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; $('installBtn').classList.remove('hidden'); });
+addEventListener('appinstalled', () => $('installBtn').classList.add('hidden') || toast('✅ აპი დაყენდა! იპოვი Start მენიუში: English Quest'));
 function installApp() {
   if (!installEvt) return alert('აპის დასაყენებლად გახსენი www.englishquest.space Microsoft Edge-ში ან Google Chrome-ში ' +
     'და მისამართის ზოლის მარჯვნივ დააჭირე „აპის დაყენება“ (Install) ხატულას.\n\nთუ აპი უკვე დაყენებულია, გახსენი Start მენიუდან: English Quest.');
@@ -1820,11 +1860,15 @@ function localStart() {
   const last = profiles.find(p => p.id === lsGet(CURRENT_KEY));
   last ? enter(last) : (applyTheme(), viewLogin());
 }
+// ბრაუზერში Supabase-ის სესია არ არის = შესული არ ხარ: შესვლის ფორმას მაშინვე ვაჩვენებთ, Supabase ფონზე იტვირთება
+const signedOut = () => { try { return !Object.keys(localStorage).some(k => /^sb-.+-auth-token$/.test(k)); } catch (e) { return false; } };
 if (SUPABASE_CONFIG) {
   applyTheme();
   document.body.classList.add('out');
-  M.innerHTML = '<p class="center muted">☁️ იტვირთება...</p>';
-  initCloud().catch(() => { cloud = null; toast('⚠️ Supabase ვერ ჩაიტვირთა, ვიყენებ ლოკალურ პროფილებს'); localStart(); });
+  cloudReady = initCloud().catch(() => { cloud = null; cloudOn = false; toast('⚠️ Supabase ვერ ჩაიტვირთა, ვიყენებ ლოკალურ პროფილებს'); localStart(); });
+  // ელფოსტის ან Google-ის ბმულიდან დაბრუნებისას სესია ჯერ URL-შია, ამიტომ მაშინ ველოდებით
+  if (signedOut() && !['access_token', 'code', 'error_description'].some(k => linkInfo.has(k))) viewCloudLogin();
+  else M.innerHTML = '<p class="center muted">☁️ იტვირთება...</p>';
 } else localStart();
 </script>
 </body>

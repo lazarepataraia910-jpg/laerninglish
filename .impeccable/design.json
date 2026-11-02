@@ -1,0 +1,642 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-02T14:51:02.976Z",
+  "title": "Design System: English Quest",
+  "extensions": {
+    "colorMeta": {
+      "ground": {
+        "role": "neutral",
+        "displayName": "Graphite Ground",
+        "canonical": "#25262a",
+        "cssVar": "--ground",
+        "oklch": "oklch(26.9% 0.008 274.7)",
+        "tonalRamp": [
+          "#0a0b0e",
+          "#232428",
+          "#3e3f44",
+          "#5c5d62",
+          "#7f8085",
+          "#a3a4a9",
+          "#c9cacf",
+          "#edeef4"
+        ]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Panel Black",
+        "canonical": "#111113",
+        "cssVar": "--panel",
+        "oklch": "oklch(17.9% 0.004 286.0)",
+        "tonalRamp": [
+          "#0b0b0d",
+          "#242426",
+          "#3f3f42",
+          "#5d5d60",
+          "#808083",
+          "#a4a4a7",
+          "#cacacd",
+          "#eeeef1"
+        ]
+      },
+      "raise": {
+        "role": "neutral",
+        "displayName": "Raised Steel",
+        "canonical": "#1d1e21",
+        "cssVar": "--raise",
+        "oklch": "oklch(23.5% 0.006 271.2)",
+        "tonalRamp": [
+          "#0a0b0e",
+          "#232427",
+          "#3e4043",
+          "#5c5d61",
+          "#7f8084",
+          "#a3a4a8",
+          "#c9cace",
+          "#edeef3"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Steel Rule",
+        "canonical": "#323439",
+        "cssVar": "--rule",
+        "oklch": "oklch(32.5% 0.009 268.4)",
+        "tonalRamp": [
+          "#090b0f",
+          "#222429",
+          "#3e4045",
+          "#5b5d63",
+          "#7e8086",
+          "#a2a4ab",
+          "#c8cad1",
+          "#eceef5"
+        ]
+      },
+      "edge": {
+        "role": "neutral",
+        "displayName": "Steel Edge",
+        "canonical": "#6a6c73",
+        "cssVar": "--edge",
+        "oklch": "oklch(53.2% 0.011 273.2)",
+        "tonalRamp": [
+          "#0a0b10",
+          "#22242a",
+          "#3e3f46",
+          "#5b5d64",
+          "#7e8087",
+          "#a2a4ac",
+          "#c8cad2",
+          "#eceef6"
+        ]
+      },
+      "field": {
+        "role": "neutral",
+        "displayName": "Field Black",
+        "canonical": "#0b0b0c",
+        "cssVar": "--field",
+        "oklch": "oklch(15.0% 0.002 286.1)",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242425",
+          "#3f3f41",
+          "#5d5d5f",
+          "#808081",
+          "#a4a4a6",
+          "#cacacc",
+          "#eeeef0"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Letter White",
+        "canonical": "#f2f2ef",
+        "cssVar": "--ink",
+        "oklch": "oklch(96.0% 0.004 106.5)",
+        "tonalRamp": [
+          "#0b0b09",
+          "#242422",
+          "#40403d",
+          "#5e5e5b",
+          "#80807e",
+          "#a5a5a2",
+          "#cbcbc8",
+          "#efefec"
+        ]
+      },
+      "mute": {
+        "role": "neutral",
+        "displayName": "Mute",
+        "canonical": "#a3a4a8",
+        "cssVar": "--mute",
+        "oklch": "oklch(71.9% 0.006 274.9)",
+        "tonalRamp": [
+          "#0a0b0e",
+          "#232427",
+          "#3f3f43",
+          "#5c5d61",
+          "#7f8084",
+          "#a3a4a8",
+          "#c9cace",
+          "#edeef2"
+        ]
+      },
+      "hi": {
+        "role": "neutral",
+        "displayName": "Inversion White",
+        "canonical": "#f2f2ef",
+        "cssVar": "--hi",
+        "oklch": "oklch(96.0% 0.004 106.5)",
+        "tonalRamp": [
+          "#0b0b09",
+          "#242422",
+          "#40403d",
+          "#5e5e5b",
+          "#80807e",
+          "#a5a5a2",
+          "#cbcbc8",
+          "#efefec"
+        ]
+      },
+      "on-hi": {
+        "role": "neutral",
+        "displayName": "On-Inversion",
+        "canonical": "#111113",
+        "cssVar": "--on-hi",
+        "oklch": "oklch(17.9% 0.004 286.0)",
+        "tonalRamp": [
+          "#0b0b0d",
+          "#242426",
+          "#3f3f42",
+          "#5d5d60",
+          "#808083",
+          "#a4a4a7",
+          "#cacacd",
+          "#eeeef1"
+        ]
+      },
+      "red": {
+        "role": "primary",
+        "displayName": "Signal Red",
+        "canonical": "#d62828",
+        "cssVar": "--red",
+        "oklch": "oklch(56.8% 0.208 27.1)",
+        "tonalRamp": [
+          "#3f0000",
+          "#660000",
+          "#8c0000",
+          "#b3000d",
+          "#de3c37",
+          "#ff665c",
+          "#ff8f80",
+          "#ffb4a3"
+        ]
+      },
+      "on-red": {
+        "role": "primary",
+        "displayName": "On Red",
+        "canonical": "#ffffff",
+        "cssVar": "--on-red",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#808080",
+          "#a4a4a4",
+          "#cacaca",
+          "#eeeeee"
+        ]
+      },
+      "red-ink": {
+        "role": "primary",
+        "displayName": "Red Ink",
+        "canonical": "#ff6b5e",
+        "cssVar": "--red-ink",
+        "oklch": "oklch(70.9% 0.183 27.7)",
+        "tonalRamp": [
+          "#3c0000",
+          "#610000",
+          "#870000",
+          "#ad1717",
+          "#d8473d",
+          "#ff6e61",
+          "#ff9686",
+          "#ffbaa9"
+        ]
+      },
+      "flap": {
+        "role": "neutral",
+        "displayName": "Flap Black",
+        "canonical": "#1a1a1d",
+        "cssVar": "--flap",
+        "oklch": "oklch(21.9% 0.006 285.9)",
+        "tonalRamp": [
+          "#0b0b0e",
+          "#242427",
+          "#3f3f43",
+          "#5d5d61",
+          "#808084",
+          "#a4a4a8",
+          "#cacace",
+          "#eeeef2"
+        ]
+      },
+      "flap-ink": {
+        "role": "neutral",
+        "displayName": "Flap Paint",
+        "canonical": "#f4f4f1",
+        "cssVar": "--flap-ink",
+        "oklch": "oklch(96.6% 0.004 106.5)",
+        "tonalRamp": [
+          "#0b0b09",
+          "#242422",
+          "#40403d",
+          "#5e5e5b",
+          "#80807e",
+          "#a5a5a2",
+          "#cbcbc8",
+          "#efefec"
+        ]
+      },
+      "flap-ghost": {
+        "role": "neutral",
+        "displayName": "Ghost Paint",
+        "canonical": "#8c8d91",
+        "cssVar": "--flap-ghost",
+        "oklch": "oklch(64.4% 0.006 274.9)",
+        "tonalRamp": [
+          "#0a0b0e",
+          "#232427",
+          "#3f3f43",
+          "#5c5d61",
+          "#7f8084",
+          "#a3a4a8",
+          "#c9cace",
+          "#edeef3"
+        ]
+      }
+    },
+    "themes": {
+      "attribute": "data-theme on <html>; auto = no attribute",
+      "paper": "default; values as in frontmatter",
+      "auto": "paper values; light values under prefers-color-scheme: light",
+      "dark": {
+        "ground": "#0d0d0e",
+        "panel": "#000",
+        "raise": "#161618",
+        "rule": "#26262a",
+        "edge": "#5c5c61",
+        "field": "#060606",
+        "ink": "#e8e8e5",
+        "mute": "#9b9ba0",
+        "hi": "#e8e8e5",
+        "on-hi": "#000",
+        "flap": "#141416",
+        "flap-ghost": "#85858a"
+      },
+      "light": {
+        "ground": "#e3e3df",
+        "panel": "#fbfbf9",
+        "raise": "#efefec",
+        "rule": "#d3d3ce",
+        "edge": "#8a8a85",
+        "field": "#fff",
+        "ink": "#141415",
+        "mute": "#5a5a5e",
+        "hi": "#141415",
+        "on-hi": "#fbfbf9",
+        "red-ink": "#c11f1f",
+        "emo-edge": "#111",
+        "emo-edge-a": ".45",
+        "color-scheme": "light"
+      },
+      "terminal": {
+        "ground": "#07130b",
+        "panel": "#020905",
+        "raise": "#0b1b10",
+        "rule": "#173b22",
+        "edge": "#2f7a3d",
+        "field": "#010502",
+        "ink": "#8cf58c",
+        "mute": "#5fb85f",
+        "hi": "#8cf58c",
+        "on-hi": "#020905",
+        "red": "#c8321f",
+        "red-ink": "#ff7a5a",
+        "flap": "#0a180e",
+        "flap-ink": "#a8ff9e",
+        "flap-ghost": "#4f9a56"
+      },
+      "ocean": {
+        "ground": "#16303a",
+        "panel": "#0a1b21",
+        "raise": "#10262e",
+        "rule": "#23404a",
+        "edge": "#4d7380",
+        "field": "#061318",
+        "ink": "#eaf4f6",
+        "mute": "#93b5be",
+        "hi": "#eaf4f6",
+        "on-hi": "#0a1b21",
+        "flap": "#0c2128",
+        "flap-ghost": "#7f9ea6"
+      },
+      "forest": {
+        "ground": "#1c291b",
+        "panel": "#0e160d",
+        "raise": "#162115",
+        "rule": "#2b3b29",
+        "edge": "#567052",
+        "field": "#081007",
+        "ink": "#eef3e8",
+        "mute": "#a3b898",
+        "hi": "#eef3e8",
+        "on-hi": "#0e160d",
+        "flap": "#121d11",
+        "flap-ghost": "#8da283"
+      },
+      "rose": {
+        "ground": "#efe1e2",
+        "panel": "#fffafa",
+        "raise": "#f7ebec",
+        "rule": "#e7d2d5",
+        "edge": "#a8818a",
+        "field": "#fff",
+        "ink": "#2a1418",
+        "mute": "#7a5560",
+        "hi": "#2a1418",
+        "on-hi": "#fffafa",
+        "red": "#c41f3a",
+        "red-ink": "#b01a33",
+        "flap": "#2a1418",
+        "flap-ink": "#fff6f6",
+        "flap-ghost": "#b48d95",
+        "emo-edge": "#2a1418",
+        "emo-edge-a": ".45",
+        "color-scheme": "light"
+      }
+    },
+    "emoji": {
+      "wrapper": ".emo via softenEmoji()",
+      "filter": "SVG #rbw: luminance greyscale, slope 1.3 / intercept -0.15, table R 0.067 0.541 0.839 0.949 1, G/B 0.067 0.078 0.157 0.639 1, 0.45px dilated edge in --emo-edge at --emo-edge-a",
+      "edge": {
+        "paper": "#fff at .35",
+        "light": "#111 at .45",
+        "rose": "#2a1418 at .45"
+      },
+      "excluded": "▶ (EMO_RE negative lookahead)"
+    },
+    "font": {
+      "file": "fonts/noto-sans-georgian-1.woff2",
+      "size": "54 KB",
+      "license": "SIL OFL",
+      "source": "github.com/google/fonts NotoSansGeorgian[wdth,wght].ttf",
+      "build": [
+        "fonttools varLib.instancer NotoSansGeorgian[wdth,wght].ttf wght=400:800 wdth=62.5:100",
+        "pyftsubset --unicodes=\"U+0020-007E,U+00A0,U+00AB,U+00B7,U+00BB,U+00D7,U+10D0-10FF,U+1C90-1CBA,U+1CBD-1CBF,U+2013-2014,U+2018-2019,U+201C-201E,U+2022,U+2026,U+2190-2193,U+2212\" --layout-features='*' --flavor=woff2"
+      ],
+      "caching": "/fonts/ is immutable for a year (vercel.json); a rebuilt font needs a new file name (-2)"
+    },
+    "typographyMeta": {
+      "flap": {
+        "displayName": "Flap",
+        "purpose": "Letters in board flaps and the score row; uppercase; 46px cap above 640px."
+      },
+      "display": {
+        "displayName": "Display",
+        "purpose": "The word under study."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Panel headings; 20px under 520px."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Lesson names, logo name."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Reading text; public pages 17px/1.65, 68ch."
+      },
+      "control": {
+        "displayName": "Control",
+        "purpose": "Buttons; tabs at 80% width."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Counts, level codes, module numbers, stats."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Board caption and column heads; Georgian stays Mkhedruli."
+      }
+    },
+    "shadows": [
+      {
+        "name": "focus-ring",
+        "value": "0 0 0 1px var(--hi)",
+        "purpose": "Focused and correct inputs, with border in --hi."
+      },
+      {
+        "name": "keyboard-focus",
+        "value": "outline: 2px solid var(--hi); outline-offset: 2px",
+        "purpose": "All :focus-visible."
+      },
+      {
+        "name": "flap-split",
+        "value": "linear-gradient(color-mix(in srgb, var(--c) 93%, #fff) calc(50% - .5px), rgb(0 0 0 / .55) 0 calc(50% + .5px), var(--c) 0)",
+        "purpose": "The depth of every flap surface."
+      }
+    ],
+    "motion": [
+      {
+        "name": "flap",
+        "value": ".34s cubic-bezier(.16, 1, .3, 1), from rotateX(-80deg) brightness(1.8), delay var(--i) * 30ms",
+        "purpose": "Letters cascading into cells; only changed cells replay; toasts enter with it."
+      },
+      {
+        "name": "card-flip",
+        "value": "transform .55s cubic-bezier(.16, 1, .3, 1), rotateX(-180deg)",
+        "purpose": "Flashcard turning."
+      },
+      {
+        "name": "bar-fill",
+        "value": "width .4s cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "Progress bars."
+      },
+      {
+        "name": "control",
+        "value": "background-color, border-color, color .15s",
+        "purpose": "Button state changes."
+      },
+      {
+        "name": "shake",
+        "value": ".35s, translateX ±8px",
+        "purpose": "Wrong answer."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation: none; transition: none (all elements)",
+        "purpose": "prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact",
+        "value": "520px"
+      },
+      {
+        "name": "public-compact",
+        "value": "560px"
+      },
+      {
+        "name": "phone",
+        "value": "640px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Flap Row",
+      "kind": "custom",
+      "refersTo": "flap-cell",
+      "description": "Letters in split-flap cells: settled, wrong, cursor, pending.",
+      "html": "<div class=\"ds-flaps\"><b>W</b><b>O</b><b class=\"ds-bad\">E</b><b class=\"ds-cur\">D</b><b class=\"ds-g\">S</b></div>",
+      "css": ".ds-flaps { display: flex; gap: 4px; } .ds-flaps b { --c: var(--flap, #1a1a1d); width: 44px; aspect-ratio: 5 / 7; display: grid; place-items: center; color: var(--flap-ink, #f4f4f1); border-radius: 3px; font: 800 32px/1 \"Noto Sans Georgian\", system-ui, sans-serif; font-stretch: 62.5%; text-transform: uppercase; background: linear-gradient(color-mix(in srgb, var(--c) 93%, #fff) calc(50% - .5px), rgb(0 0 0 / .55) 0 calc(50% + .5px), var(--c) 0); animation: ds-flap .34s cubic-bezier(.16, 1, .3, 1) both; } .ds-flaps b:nth-child(2) { animation-delay: 30ms; } .ds-flaps b:nth-child(3) { animation-delay: 60ms; } .ds-flaps b:nth-child(4) { animation-delay: 90ms; } .ds-flaps b:nth-child(5) { animation-delay: 120ms; } .ds-flaps b.ds-g { color: var(--flap-ghost, #8c8d91); } .ds-flaps b.ds-bad { --c: var(--red, #d62828); color: var(--on-red, #fff); } .ds-flaps b.ds-cur { --c: var(--flap-ink, #f4f4f1); color: var(--flap, #1a1a1d); } @keyframes ds-flap { from { transform: rotateX(-80deg); filter: brightness(1.8); } } @media (prefers-reduced-motion: reduce) { .ds-flaps b { animation: none; } }"
+    },
+    {
+      "name": "Continue Button",
+      "kind": "button",
+      "refersTo": "button-continue",
+      "description": "The one full-width red primary action on the board.",
+      "html": "<button class=\"ds-btn-go\">▶ გაგრძელება</button>",
+      "css": ".ds-btn-go { width: 100%; min-height: 56px; padding: 8px 16px; background: var(--red, #d62828); color: var(--on-red, #fff); border: 1px solid var(--red, #d62828); border-radius: 2px; font: 700 19px/1.2 \"Noto Sans Georgian\", system-ui, sans-serif; font-stretch: 75%; letter-spacing: .02em; cursor: pointer; transition: background-color .15s; } .ds-btn-go:hover { background: color-mix(in srgb, var(--red, #d62828) 85%, #000); } .ds-btn-go:active { transform: translateY(1px); } .ds-btn-go:focus-visible { outline: 2px solid var(--hi, #f2f2ef); outline-offset: 2px; }"
+    },
+    {
+      "name": "Button",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "Default steel button.",
+      "html": "<button class=\"ds-btn\">+ ახალი</button>",
+      "css": ".ds-btn { min-height: 44px; padding: 8px 16px; background: var(--raise, #1d1e21); color: var(--ink, #f2f2ef); border: 1px solid var(--edge, #6a6c73); border-radius: 2px; font: 700 16px/1.2 \"Noto Sans Georgian\", system-ui, sans-serif; font-stretch: 85%; cursor: pointer; transition: border-color .15s; } .ds-btn:hover { border-color: var(--ink, #f2f2ef); } .ds-btn:active { transform: translateY(1px); } .ds-btn:focus-visible { outline: 2px solid var(--hi, #f2f2ef); outline-offset: 2px; }"
+    },
+    {
+      "name": "Inverted Button",
+      "kind": "button",
+      "refersTo": "button-inverted",
+      "description": "White inversion for the current or confirmed choice.",
+      "html": "<button class=\"ds-btn-inv\">შემდეგი</button>",
+      "css": ".ds-btn-inv { min-height: 44px; padding: 8px 16px; background: var(--hi, #f2f2ef); color: var(--on-hi, #111113); border: 1px solid var(--hi, #f2f2ef); border-radius: 2px; font: 700 16px/1.2 \"Noto Sans Georgian\", system-ui, sans-serif; font-stretch: 85%; cursor: pointer; } .ds-btn-inv:hover { background: color-mix(in srgb, var(--hi, #f2f2ef) 85%, var(--panel, #111113)); } .ds-btn-inv:focus-visible { outline: 2px solid var(--hi, #f2f2ef); outline-offset: 2px; }"
+    },
+    {
+      "name": "Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Recessed field; hi ring on focus, red tint when wrong.",
+      "html": "<input class=\"ds-input\" placeholder=\"დაწერე სიტყვა\"> <input class=\"ds-input ds-bad\" value=\"elefant\">",
+      "css": ".ds-input { width: 100%; padding: 11px 12px; margin-bottom: 8px; background: var(--field, #0b0b0c); color: var(--ink, #f2f2ef); border: 1px solid var(--edge, #6a6c73); border-radius: 2px; font: 400 17px/1.5 \"Noto Sans Georgian\", system-ui, sans-serif; caret-color: var(--red, #d62828); } .ds-input::placeholder { color: var(--mute, #a3a4a8); } .ds-input:focus { outline: none; border-color: var(--hi, #f2f2ef); box-shadow: 0 0 0 1px var(--hi, #f2f2ef); } .ds-input.ds-bad { border-color: var(--red, #d62828); background: color-mix(in srgb, var(--red, #d62828) 22%, var(--field, #0b0b0c)); }"
+    },
+    {
+      "name": "Stat Chips",
+      "kind": "chip",
+      "refersTo": "stat-chip",
+      "description": "Top-bar streak, XP and level as small flap cells.",
+      "html": "<div class=\"ds-chips\"><span class=\"ds-chip\">5</span><span class=\"ds-chip\">186</span><span class=\"ds-chip\">A2</span></div>",
+      "css": ".ds-chips { display: flex; gap: 4px; } .ds-chip { display: inline-flex; align-items: center; height: 34px; padding: 0 9px; color: var(--flap-ink, #f4f4f1); border-radius: 3px; font: 700 15px/1 \"Noto Sans Georgian\", system-ui, sans-serif; font-stretch: 75%; font-variant-numeric: tabular-nums; background: linear-gradient(color-mix(in srgb, var(--flap, #1a1a1d) 93%, #fff) calc(50% - .5px), rgb(0 0 0 / .55) 0 calc(50% + .5px), var(--flap, #1a1a1d) 0); }"
+    },
+    {
+      "name": "Tab Bar",
+      "kind": "nav",
+      "refersTo": "tab",
+      "description": "Four equal tabs, active one inverted.",
+      "html": "<nav class=\"ds-tabs\"><button class=\"ds-tab ds-on\">გაკვეთილები</button><button class=\"ds-tab\">პროგრამირება</button><button class=\"ds-tab\">სტატისტიკა</button><button class=\"ds-tab\">პარამეტრები</button></nav>",
+      "css": ".ds-tabs { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--panel, #111113); border: 1px solid var(--rule, #323439); } .ds-tab { min-height: 48px; padding: 6px 8px; background: none; border: 0; border-left: 1px solid var(--rule, #323439); color: var(--mute, #a3a4a8); font: 700 15px/1.2 \"Noto Sans Georgian\", system-ui, sans-serif; font-stretch: 80%; cursor: pointer; } .ds-tab:first-child { border-left: 0; } .ds-tab:hover { color: var(--ink, #f2f2ef); } .ds-tab.ds-on { background: var(--hi, #f2f2ef); color: var(--on-hi, #111113); } .ds-tab:focus-visible { outline: 2px solid var(--hi, #f2f2ef); outline-offset: 2px; }"
+    },
+    {
+      "name": "Departures List",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Lessons as departure rows in a square panel: flap icon, name and meta, count flap; paused row inverted.",
+      "html": "<div class=\"ds-panel\"><div class=\"ds-cap\"><span>გაკვეთილი</span><span>სიტყვა</span></div><div class=\"ds-dep ds-on\"><span class=\"ds-ic\">1</span><span><b>ცხოველები</b><small>1. გადაწერა · 90%</small></span><span class=\"ds-count\">10</span></div><div class=\"ds-dep\"><span class=\"ds-ic\">2</span><span><b>A2 სიტყვები</b><small>weather · holiday · kitchen</small></span><span class=\"ds-count\">20</span></div></div>",
+      "css": ".ds-panel { padding: 16px; background: var(--panel, #111113); color: var(--ink, #f2f2ef); border: 1px solid var(--rule, #323439); font: 400 16px/1.5 \"Noto Sans Georgian\", system-ui, sans-serif; } .ds-cap { display: flex; justify-content: space-between; padding: 0 4px 6px; border-bottom: 1px solid var(--edge, #6a6c73); font-size: 12px; font-weight: 700; font-stretch: 75%; letter-spacing: .1em; text-transform: uppercase; color: var(--mute, #a3a4a8); } .ds-dep { display: grid; grid-template-columns: 40px 1fr auto; gap: 12px; align-items: center; padding: 10px 4px; border-bottom: 1px solid var(--rule, #323439); cursor: pointer; } .ds-dep:hover { background: var(--raise, #1d1e21); } .ds-dep.ds-on { background: var(--hi, #f2f2ef); color: var(--on-hi, #111113); } .ds-dep b { display: block; font-size: 17px; font-weight: 800; font-stretch: 80%; } .ds-dep small { display: block; font-size: 13px; color: var(--mute, #a3a4a8); } .ds-dep.ds-on small { color: inherit; } .ds-ic, .ds-count { display: grid; place-items: center; height: 40px; color: var(--flap-ink, #f4f4f1); border-radius: 3px; background: linear-gradient(color-mix(in srgb, var(--flap, #1a1a1d) 93%, #fff) calc(50% - .5px), rgb(0 0 0 / .55) 0 calc(50% + .5px), var(--flap, #1a1a1d) 0); font-weight: 800; font-stretch: 62.5%; font-variant-numeric: tabular-nums; } .ds-ic { width: 40px; } .ds-count { min-width: 44px; height: 36px; padding: 0 6px; font-size: 20px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Departure Board",
+    "overview": "Every word is a row of matte black flaps on a graphite concourse wall. Letters cascade into their cells; correct letters settle white, wrong ones flip red, letters still to type sit dimmed, and the cell or row you are on is inverted to a white flap. Lessons are listed as departures: a flap-cell icon, a name, a count in a flap, separated by 1px steel rules. The board is the drill, so the system is built from very few parts used everywhere: flap cells, square panels, hairline rules, one condensed family.\n\nDensity is moderate and phone-first: a single centred column (760px max) that keeps its shape on desktop, with the tab bar moving from a fixed bottom bar on phones to a top strip above 640px. Colour is red, black and white across all eight styles; the styles are re-tintings of the same board, never different layouts. Emojis remain the icon set, but every one is pushed through a red/black/white tone map so it reads as board paint, not a sticker.\n\nThe board rejects the bright gamified lesson path: no rounded cards, no mascots, no confetti, no offset shadows. Feedback is the flap itself turning.",
+    "keyCharacteristics": [
+      "Split-flap cells (3px corners, a dark 1px split across the middle, top half 7% lighter) carry letters, numbers, stats, icons, timers and the flashcard.",
+      "Square panels (0 radius, 1px rule border) on a flat graphite ground.",
+      "Red is a signal: wrong, cancelled, and the one primary action.",
+      "White inversion marks \"you are here\": active tab, active lesson row, current letter, correct option.",
+      "One variable family, Noto Sans Georgian; the width axis, not a second face, separates flaps, headings, controls and reading text.",
+      "30 ms per-cell cascade on change; nothing moves under reduced motion."
+    ],
+    "rules": [
+      {
+        "name": "The Red Means Wrong Rule",
+        "body": "Red marks a mistake, a cancellation, or the single primary action on a view. It never decorates.",
+        "section": "colors"
+      },
+      {
+        "name": "The Inversion Is Here Rule",
+        "body": "A white flap on black (`hi` / `on-hi`) means \"current\": the active tab, the paused lesson row, the cursor letter, the correct quiz option. Do not use inversion for emphasis.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tinted Emoji Rule",
+        "body": "Emojis are the icons, and every one is wrapped in `.emo` (by `softenEmoji()`) and filtered through SVG `#rbw`: greyscale, contrast lift, then a black → dark red → red → light red → white tone map, with a hairline edge in `--emo-edge` at `--emo-edge-a` (white at .35 on dark styles, near-black at .45 on light). `EMO_RE` skips ▶ so it renders as plain text, not a tinted emoji. No untinted colour emoji ships.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Family Rule",
+        "body": "No second display face. A new role gets a new width/weight on the same file, not a new font. Monospace is allowed only for code.",
+        "section": "typography"
+      },
+      {
+        "name": "The Mkhedruli Caps Rule",
+        "body": "Chromium does not map `text-transform: uppercase` to Georgian Mtavruli, so Georgian labels stay Mkhedruli under the label style; only Latin letters capitalise. Rank Georgian labels with width, weight, tracking and colour, never by relying on case.",
+        "section": "typography"
+      },
+      {
+        "name": "The New Name Rule",
+        "body": "`/fonts/` is served `immutable` for a year (vercel.json). A rebuilt font must ship under a new file name (`-2`, `-3`) and every `@font-face` and preload updated.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Rule",
+        "body": "All numbers that change or line up (chips, counts, timers, tables, stats) use tabular figures.",
+        "section": "typography"
+      },
+      {
+        "name": "The Hairline Split Rule",
+        "body": "Every flap surface carries the split: `linear-gradient(color-mix(in srgb, var(--c) 93%, #fff) calc(50% - .5px), rgb(0 0 0 / .55) 0 calc(50% + .5px), var(--c) 0)`. State changes swap `--c`, never the gradient.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Steel Rule Rule",
+        "body": "Rows are separated by 1px `rule` lines; headers sit on a 1px `edge` line. No zebra striping, no row cards.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** build new indicators (counts, codes, timers, badges, avatars) as flap cells using the Hairline Split gradient and change state by swapping `--c`.",
+      "**Do** keep every style a token override of the same board; add a style by setting `ground` through `flap-ghost` plus `--emo-edge` / `--emo-edge-a`.",
+      "**Do** use the width axis for hierarchy: 62.5% flaps and numerals, 75% headings and labels, 80–85% controls, 100% reading text.",
+      "**Do** separate rows with 1px `rule` and headings with 1px `edge`.",
+      "**Do** wrap every emoji in `.emo` so it gets the `#rbw` tint.",
+      "**Do** cascade cells at 30 ms and re-flip only changed cells; turn all motion off under reduced motion.",
+      "**Do** keep touch targets at 44px or more and numbers tabular."
+    ],
+    "donts": [
+      "**Don't** use rounded cards, pills or radii above 3px.",
+      "**Don't** add drop or offset shadows; depth is tonal plus the flap split.",
+      "**Don't** use red for decoration, headings or \"new\" badges; red means wrong, cancelled, or the primary action.",
+      "**Don't** add a second typeface outside code blocks.",
+      "**Don't** rely on `text-transform: uppercase` to emphasise Georgian text.",
+      "**Don't** ship a rebuilt font under the old file name.",
+      "**Don't** use partner or third-party brand colours (CodeQuest #3d5afe hover, the white Google sign-in button) outside those two elements."
+    ]
+  }
+}

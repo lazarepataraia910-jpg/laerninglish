@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ka"><head><meta charset="utf-8"><meta name="viewport" content="width=390">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wdth,wght@62.5..100,100..900&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#111; --red:#d62828; --grid:#dcdcdc; --mute:#666; --c: 26px; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 390px; height: 844px; overflow: hidden; color: var(--ink); font-family: "Noto Sans Georgian", system-ui, sans-serif;
+    background: #fff;
+    background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: var(--c) var(--c); background-position: -1px -1px; }
+  .emo { font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif; }
+  header { height: 52px; display: flex; align-items: center; justify-content: space-between; padding: 0 13px; background: #fff; border-bottom: 2px solid var(--ink); }
+  .brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 17px; font-stretch: 80%; }
+  .brand svg { width: 28px; height: 28px; }
+  .stats { display: flex; gap: 12px; font-size: 14px; font-weight: 700; }
+  .meta { margin: 26px 13px 0; display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; line-height: 26px; }
+  .meta span { background: #fff; padding: 0 4px; }
+  .word { margin: 0 13px; display: grid; grid-template-columns: repeat(8, 52px); grid-auto-rows: 78px; }
+  .word b { display: grid; place-items: center; font-size: 66px; line-height: 1; font-weight: 900; font-stretch: 62.5%; }
+  .word b.bad { background: var(--red); color: #fff; }
+  .ka { margin: 0 13px; height: 52px; line-height: 52px; font-size: 24px; font-weight: 600; }
+  .ka span { background: #fff; padding: 0 4px; }
+  .go { display: block; margin: 0 13px; height: 52px; line-height: 52px; background: var(--red); color: #fff; text-align: center; font-size: 18px; font-weight: 800; font-stretch: 80%; }
+  .tiles { margin: 26px 13px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 2px solid var(--ink); border-left: 2px solid var(--ink); }
+  .tile { height: 104px; padding: 10px 12px; background: #fff; border-right: 2px solid var(--ink); border-bottom: 2px solid var(--ink); display: flex; flex-direction: column; justify-content: space-between; }
+  .tile b { font-size: 15px; font-weight: 800; } .tile small { font-size: 26px; font-weight: 900; font-stretch: 62.5%; }
+  .tile.done small { color: var(--red); }
+  nav { position: absolute; left: 0; right: 0; bottom: 0; height: 68px; display: grid; grid-template-columns: repeat(4, 1fr); background: #fff; border-top: 2px solid var(--ink); }
+  nav a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 700; color: var(--mute); }
+  nav a .emo { font-size: 20px; } nav a.on { color: var(--ink); background: #fff; box-shadow: inset 0 4px 0 var(--red); }
+</style></head><body>
+<header>
+  <div class="brand"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="2" y="2" width="44" height="44" rx="7" fill="#d62828" stroke="#111" stroke-width="3"/><path d="M24 15c-4-3-9-3.5-14-2v21c5-1.5 10-1 14 2z" fill="#fff" stroke="#111" stroke-width="2.6" stroke-linejoin="round"/><path d="M24 15c4-3 9-3.5 14-2v21c-5-1.5-10-1-14 2z" fill="#fff" stroke="#111" stroke-width="2.6" stroke-linejoin="round"/><path d="M30 12.2V22l2.5-2 2.5 2v-9.6" fill="#d62828" stroke="#111" stroke-width="2" stroke-linejoin="round"/></svg>English Quest</div>
+  <div class="stats"><span><span class="emo">🔥</span> 5</span><span><span class="emo">⭐</span> 120</span><span>A2</span></div>
+</header>
+<div class="meta"><span><span class="emo">🐶</span> ცხოველები · ნაბიჯი 2</span><span>7 / 10</span></div>
+<div class="word"><b>e</b><b>l</b><b class="bad">e</b><b>p</b><b>h</b><b>a</b><b>n</b><b>t</b></div>
+<p class="ka"><span>სპილო</span></p>
+<a class="go">▶ გაგრძელება</a>
+<div class="tiles">
+  <div class="tile"><b><span class="emo">💻</span> 01 · საფუძვლები</b><small>4/20</small></div>
+  <div class="tile"><b><span class="emo">🎓</span> A1 სიტყვები</b><small>12/20</small></div>
+  <div class="tile done"><b><span class="emo">🎨</span> ფერები</b><small>✔ 10/10</small></div>
+  <div class="tile"><b><span class="emo">🎯</span> დღის მიზანი</b><small>18/30</small></div>
+</div>
+<nav>
+  <a class="on"><span class="emo">📚</span>გაკვეთილები</a><a><span class="emo">💻</span>კურსი</a>
+  <a><span class="emo">📊</span>სტატისტიკა</a><a><span class="emo">⚙️</span>პარამეტრები</a>
+</nav>
+</body></html>

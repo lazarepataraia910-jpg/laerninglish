@@ -15,7 +15,7 @@ const EMO_RE = Function(`return ${pick(/^const EMO_RE = (\/.+\/gu);/m, 'EMO_RE')
 const FILTER = pick(/<svg width="0"[\s\S]*?<\/svg>/, 'ემოჯის ფილტრი');
 const LOGO = pick(/<svg class="logo-mark"[\s\S]*?<\/svg>/, 'ლოგო');
 const ICONS = pick(/<link rel="icon"[^>]*>\n<link rel="icon"[^>]*>/, 'ხატულები');
-const FONTS = pick(/<link href="https:\/\/fonts\.googleapis\.com[^>]*>/, 'შრიფტები');
+const FONTS = pick(/<link rel="preload" href="fonts\/[^>]*>/, 'შრიფტი');
 
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const words = s => s.split('\n').map(l => {
@@ -33,14 +33,14 @@ const page = ({ file, title, desc, body, ld }) => {
   // ემოჯებს .emo-ში ვფუთავთ (წითელ-შავ-თეთრი ფილტრი, როგორც აპში); მხოლოდ body-ში, რომ meta-ებს არ შეეხოს
   const html = `${FILTER}
 <header class="top">
-  <a class="logo" href="./">${LOGO}<span><span class="px">LEARN ENGLISH</span><b>ისწავლე ინგლისური</b></span></a>
+  <a class="logo" href="./">${LOGO}<span><span class="en">LEARN ENGLISH</span><b>ისწავლე ინგლისური</b></span></a>
   <a class="btn red" href="./">▶ დაიწყე სწავლა</a>
 </header>
-<nav class="nav">${NAV.map(([h, t]) => `<a href="${h}"${h === file ? ' aria-current="page"' : ''}>${t}</a>`).join('')}</nav>
+<nav class="tabs" aria-label="გვერდები">${NAV.map(([h, t]) => `<a href="${h}"${h === file ? ' aria-current="page"' : ''}>${t}</a>`).join('')}</nav>
 <main>
 ${body}
 </main>
-<footer class="foot"><div class="pt"><p class="pt-h">ჩვენი პარტნიორები</p><a class="pt-ad" href="https://codequest.space/?utm_source=englishquest&amp;utm_medium=partner&amp;utm_campaign=pages" target="_blank" rel="noopener"><svg viewBox="0 0 305 290" width="46" height="44" aria-hidden="true"><circle cx="152" cy="24" r="18" fill="#FF8A00"/><rect x="146" y="38" width="12" height="30" fill="#13163A"/><rect x="9" y="142" width="34" height="67" rx="10" fill="#13163A"/><rect x="262" y="142" width="34" height="67" rx="10" fill="#13163A"/><rect x="32" y="63" width="240" height="219" rx="68" fill="#3D5AFE"/><rect x="64" y="105" width="177" height="125" rx="40" fill="#13163A"/><polyline points="94,142 122,167 94,192" fill="none" stroke="#3DDC97" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><line x1="146" y1="193" x2="200" y2="193" stroke="#3DDC97" stroke-width="14" stroke-linecap="round"/></svg><span class="pt-t"><small>CODEQUEST</small><b>ისწავლე პროგრამირება</b><em>თამაშით, ქართულად: 19 ენა, რობოტი ბიტი და სკოლა „ისწავლე კოდინგი“</em></span><span class="pt-tag">პარტნიორი</span></a></div>Powered by codequest
+<footer class="foot"><div class="pt"><a class="pt-ad" href="https://codequest.space/?utm_source=englishquest&amp;utm_medium=partner&amp;utm_campaign=pages" target="_blank" rel="noopener"><svg viewBox="0 0 305 290" width="46" height="44" aria-hidden="true"><circle cx="152" cy="24" r="18" fill="#FF8A00"/><rect x="146" y="38" width="12" height="30" fill="#13163A"/><rect x="9" y="142" width="34" height="67" rx="10" fill="#13163A"/><rect x="262" y="142" width="34" height="67" rx="10" fill="#13163A"/><rect x="32" y="63" width="240" height="219" rx="68" fill="#3D5AFE"/><rect x="64" y="105" width="177" height="125" rx="40" fill="#13163A"/><polyline points="94,142 122,167 94,192" fill="none" stroke="#3DDC97" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><line x1="146" y1="193" x2="200" y2="193" stroke="#3DDC97" stroke-width="14" stroke-linecap="round"/></svg><span class="pt-t"><b>CodeQuest: ისწავლე პროგრამირება</b><em>თამაშით, ქართულად: 19 ენა, რობოტი ბიტი და სკოლა „ისწავლე კოდინგი“</em></span><span class="pt-tag">პარტნიორი</span></a></div><div class="by">Powered by codequest</div>
   <div class="legal"><a href="privacy">კონფიდენციალურობა</a> · <a href="terms">წესები</a> · <a href="https://codequest.space/?utm_source=englishquest&amp;utm_medium=partner&amp;utm_campaign=pages" target="_blank" rel="noopener">🤝 პარტნიორი: CodeQuest</a></div></footer>`.replace(EMO_RE, '<span class="emo">$&</span>');
   return `<!doctype html>
 <html lang="ka">
@@ -59,13 +59,11 @@ ${body}
 <meta property="og:image" content="${SITE}icon-512.png">
 <meta name="twitter:card" content="summary">
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#f4f4f1">
+<meta name="theme-color" content="#25262a">
 ${ICONS}
 <!-- Vercel Web Analytics: ანონიმური ვიზიტების სტატისტიკა (cookie-ების გარეშე) -->
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 ${FONTS}
 <link rel="stylesheet" href="site.css">
 <script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', url, ...ld }).replace(/</g, '\\u003c')}</script>
@@ -148,7 +146,7 @@ friend - მეგობარი</code></pre>
 
 const FAQ = [
   ['სად ვისწავლო ინგლისური სიტყვები უფასოდ?', 'English Quest-ზე (www.englishquest.space). საიტი სრულიად უფასოა და ქართულ ენაზეა: ისწავლი შენ მიერ არჩეულ სიტყვებს, დონეების (A1–C2) სიტყვებს და პროგრამირების ინგლისურს.'],
-  ['English Quest უფასოა?', 'დიახ, ყველა ფუნქცია უფასოა და რეკლამა არ არის.'],
+  ['English Quest უფასოა?', 'დიახ, ყველა ფუნქცია უფასოა. გვერდის ბოლოში მხოლოდ ჩვენი პარტნიორის, CodeQuest-ის პატარა ბანერი ჩანს.'],
   ['რეგისტრაცია საჭიროა?', 'ანგარიში (ელფოსტით ან Google-ით) საჭიროა, რომ გაკვეთილები და პროგრესი შეინახოს და ყველა მოწყობილობაზე გამოჩნდეს.'],
   ['რომელი დონისთვისაა?', 'დამწყებიდან (A1) მაღალ დონემდე (C2). საკუთარი სიტყვებიც შეგიძლია დაამატო, ნებისმიერი თემით.'],
   ['მუშაობს ტელეფონზე და Windows-ზე?', 'დიახ, ნებისმიერ თანამედროვე ბრაუზერში. Windows-ზე აპადაც დაყენდება: გახსენი საიტი Microsoft Edge-ში ან Google Chrome-ში და მთავარი გვერდის ბოლოში დააჭირე „Windows აპის დაყენება“.'],
@@ -166,7 +164,7 @@ const about = {
 <p><a class="btn red" href="./">▶ დაიწყე სწავლა</a></p>
 <h2>📝 სამი ნაბიჯი</h2>
 <ol>
-<li><b>✍️ გადაწერა.</b> სიტყვა ეკრანზე ჩანს და ზემოდან გადაწერ. შეცდომა წითლად გამოჩნდება.</li>
+<li><b>✍️ გადაწერა.</b> სიტყვა ფირფიტებზე ჩანს და ასო-ასო გადაწერ: სწორი ასო თეთრდება, შეცდომა წითლდება.</li>
 <li><b>🧠 შენით დაწერა.</b> ხედავ ქართულ თარგმანს და ინგლისურ სიტყვას თვითონ წერ. არასწორი პასუხი წითლად გამოჩნდება.</li>
 <li><b>📝 ჩაბარება.</b> ყველა სიტყვას ერთად წერ, აჭერ „ჩაბარებას“ და ხედავ, რა დაწერე სწორად და რა არა.</li>
 </ol>
@@ -178,7 +176,7 @@ const about = {
 <li>🎓 <a href="levels">დონეები A1–C2</a>, 💻 <a href="course">პროგრამირების ინგლისური</a> და 📖 <a href="words">სიტყვები თემებით</a></li>
 <li>☁️ ანგარიში ელფოსტით ან Google-ით: პროგრესი ყველა მოწყობილობაზე ჩანს</li>
 <li>💾 გაკვეთილიდან გასვლისას პროგრესი ინახება და შემდეგ იქიდან გააგრძელებ</li>
-<li>📰 რამდენიმე სტილი, მათ შორის ღამის რეჟიმი</li>
+<li>🚉 8 სტილი, მათ შორის ნათელი და ღამის რეჟიმი</li>
 </ul>
 <h2>💻 Windows აპი</h2>
 <p>English Quest კომპიუტერზე აპად დააყენე: გახსენი საიტი Microsoft Edge-ში ან Google Chrome-ში და მთავარი გვერდის ბოლოში

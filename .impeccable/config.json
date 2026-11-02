@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font",
+        "value": "segoe ui emoji",
+        "createdAt": "2026-11-02T14:49:20.259Z",
+        "reason": "agent: emoji fallback stack for .emo spans; user required emojis to stay (PRODUCT.md)"
+      }
+    ]
+  }
+}

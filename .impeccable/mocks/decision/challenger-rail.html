@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ka"><head><meta charset="utf-8"><meta name="viewport" content="width=390">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wdth,wght@62.5..100,100..900&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#141414; --red:#d62828; --hair:#d9d9d9; --mute:#6a6a6a; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 390px; height: 844px; overflow: hidden; background: #fff; color: var(--ink); font-family: "Noto Sans Georgian", system-ui, sans-serif; }
+  .emo { font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif; }
+  header { height: 54px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid var(--ink); }
+  .brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; font-stretch: 85%; }
+  .brand svg { width: 28px; height: 28px; }
+  .stats { display: flex; gap: 12px; font-size: 13px; font-weight: 700; }
+  .step { padding: 14px 16px 10px; border-bottom: 1px solid var(--hair); }
+  .step small { font-size: 11px; letter-spacing: .14em; color: var(--mute); font-weight: 700; text-transform: uppercase; }
+  .step h1 { font-size: 21px; font-weight: 800; margin-top: 2px; }
+  .step p { font-size: 13px; color: var(--mute); margin-top: 2px; }
+  .cols { display: grid; grid-template-columns: 1fr 34px 1fr; padding: 0 16px; }
+  .cols .h { font-size: 11px; letter-spacing: .14em; color: var(--mute); font-weight: 700; padding: 10px 0 6px; border-bottom: 1px solid var(--ink); }
+  .cols .h.r { text-align: left; padding-left: 10px; } .cols .h.c { border-bottom-color: var(--red); }
+  .en, .ka { padding: 9px 0; border-bottom: 1px solid var(--hair); font-size: 17px; line-height: 22px; }
+  .en { font-weight: 700; text-align: right; padding-right: 10px; } .ka { padding-left: 10px; }
+  .rail { border-left: 1px solid var(--red); border-right: 1px solid var(--red); display: grid; place-items: center; border-bottom: 1px solid var(--hair); }
+  .k { width: 16px; height: 16px; border: 1px solid var(--ink); }
+  .k.ok { background: var(--ink); } .k.bad { background: var(--red); border-color: var(--red); } .k.now { border: 2px solid var(--red); }
+  .cur { background: #fbeaea; }
+  .go { display: block; margin: 16px 16px 0; padding: 14px; background: var(--red); color: #fff; text-align: center; font-size: 17px; font-weight: 800; font-stretch: 85%; }
+  .other { margin: 18px 16px 0; font-size: 13px; color: var(--mute); line-height: 22px; }
+  .other b { color: var(--ink); }
+  nav { position: absolute; left: 0; right: 0; bottom: 0; height: 66px; display: grid; grid-template-columns: repeat(4, 1fr); background: #fff; border-top: 1px solid var(--ink); }
+  nav a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 700; color: var(--mute); }
+  nav a .emo { font-size: 20px; } nav a.on { color: var(--ink); box-shadow: inset 0 2px 0 var(--red); }
+</style></head><body>
+<header>
+  <div class="brand"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="2" y="2" width="44" height="44" rx="7" fill="#d62828" stroke="#111" stroke-width="3"/><path d="M24 15c-4-3-9-3.5-14-2v21c5-1.5 10-1 14 2z" fill="#fff" stroke="#111" stroke-width="2.6" stroke-linejoin="round"/><path d="M24 15c4-3 9-3.5 14-2v21c-5-1.5-10-1-14 2z" fill="#fff" stroke="#111" stroke-width="2.6" stroke-linejoin="round"/><path d="M30 12.2V22l2.5-2 2.5 2v-9.6" fill="#d62828" stroke="#111" stroke-width="2" stroke-linejoin="round"/></svg>English Quest</div>
+  <div class="stats"><span><span class="emo">🔥</span> 5</span><span><span class="emo">⭐</span> 120</span><span>A2</span></div>
+</header>
+<section class="step">
+  <small>ნაბიჯი 2 · შენით დაწერა</small>
+  <h1><span class="emo">🐶</span> ცხოველები</h1>
+  <p>6 / 10 ნასწავლია · დღის მიზანი 18 / 30 XP</p>
+</section>
+<div class="cols">
+  <div class="h">ENGLISH</div><div class="h c"></div><div class="h r">ქართული</div>
+  <div class="en">dog</div><div class="rail"><i class="k ok"></i></div><div class="ka">ძაღლი</div>
+  <div class="en">cat</div><div class="rail"><i class="k ok"></i></div><div class="ka">კატა</div>
+  <div class="en">horse</div><div class="rail"><i class="k ok"></i></div><div class="ka">ცხენი</div>
+  <div class="en">cow</div><div class="rail"><i class="k bad"></i></div><div class="ka">ძროხა</div>
+  <div class="en">bird</div><div class="rail"><i class="k ok"></i></div><div class="ka">ჩიტი</div>
+  <div class="en">fish</div><div class="rail"><i class="k ok"></i></div><div class="ka">თევზი</div>
+  <div class="en cur">elephant</div><div class="rail cur"><i class="k now"></i></div><div class="ka cur">სპილო</div>
+  <div class="en">lion</div><div class="rail"><i class="k"></i></div><div class="ka">ლომი</div>
+</div>
+<a class="go">▶ გაგრძელება</a>
+<p class="other">სხვა გაკვეთილები: <b><span class="emo">💻</span> 01 · საფუძვლები</b> 4/20 · <b><span class="emo">🎓</span> A1</b> 12/20 · <b><span class="emo">🎨</span> ფერები</b> ✔</p>
+<nav>
+  <a class="on"><span class="emo">📚</span>გაკვეთილები</a><a><span class="emo">💻</span>კურსი</a>
+  <a><span class="emo">📊</span>სტატისტიკა</a><a><span class="emo">⚙️</span>პარამეტრები</a>
+</nav>
+</body></html>

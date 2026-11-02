@@ -15,15 +15,13 @@
 <meta property="og:image" content="https://www.englishquest.space/icon-512.png">
 <meta name="twitter:card" content="summary">
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#f4f4f1">
+<meta name="theme-color" content="#25262a">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect x='2' y='2' width='44' height='44' rx='7' fill='%23d62828' stroke='%23111' stroke-width='3'/%3E%3Cpath d='M24 15c-4-3-9-3.5-14-2v21c5-1.5 10-1 14 2z' fill='%23fff' stroke='%23111' stroke-width='2.6' stroke-linejoin='round'/%3E%3Cpath d='M24 15c4-3 9-3.5 14-2v21c-5-1.5-10-1-14 2z' fill='%23fff' stroke='%23111' stroke-width='2.6' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <!-- Vercel Web Analytics: ანონიმური ვიზიტების სტატისტიკა (cookie-ების გარეშე) -->
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;600;800&family=Noto+Serif+Georgian:wght@900&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/noto-sans-georgian-1.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="site.css">
 <script type="application/ld+json">{"@context":"https://schema.org","url":"https://www.englishquest.space/levels","@type":"WebPage","name":"ინგლისურის დონეები A1–C2","inLanguage":"ka"}</script>
 </head>
@@ -43,7 +41,7 @@
       <feFuncB type="table" tableValues="0.067 0.078 0.157 0.639 1"/>
     </feComponentTransfer>
     <feMorphology in="SourceAlpha" operator="dilate" radius="0.45" result="fat"/>
-    <feFlood flood-color="#111" flood-opacity=".45"/>
+    <feFlood style="flood-color: var(--emo-edge); flood-opacity: var(--emo-edge-a)"/>
     <feComposite in2="fat" operator="in" result="outline"/>
     <feMerge><feMergeNode in="outline"/><feMergeNode in="tone"/></feMerge>
   </filter>
@@ -55,15 +53,15 @@
         <path d="M24 15c4-3 9-3.5 14-2v21c-5-1.5-10-1-14 2z" fill="#fff" stroke="#111" stroke-width="2.6" stroke-linejoin="round"/>
         <path d="M30 12.2V22l2.5-2 2.5 2v-9.6" fill="#d62828" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
         <path d="M14 20h6M14 25h6M28 26h6" stroke="#111" stroke-width="2" stroke-linecap="round"/>
-      </svg><span><span class="px">LEARN ENGLISH</span><b>ისწავლე ინგლისური</b></span></a>
-  <a class="btn red" href="./"><span class="emo">▶</span> დაიწყე სწავლა</a>
+      </svg><span><span class="en">LEARN ENGLISH</span><b>ისწავლე ინგლისური</b></span></a>
+  <a class="btn red" href="./">▶ დაიწყე სწავლა</a>
 </header>
-<nav class="nav"><a href="./"><span class="emo">🏠</span> მთავარი</a><a href="course"><span class="emo">💻</span> პროგრამირება</a><a href="levels" aria-current="page"><span class="emo">🎓</span> დონეები</a><a href="words"><span class="emo">📖</span> სიტყვები</a><a href="about"><span class="emo">ℹ️</span> როგორ მუშაობს</a></nav>
+<nav class="tabs" aria-label="გვერდები"><a href="./"><span class="emo">🏠</span> მთავარი</a><a href="course"><span class="emo">💻</span> პროგრამირება</a><a href="levels" aria-current="page"><span class="emo">🎓</span> დონეები</a><a href="words"><span class="emo">📖</span> სიტყვები</a><a href="about"><span class="emo">ℹ️</span> როგორ მუშაობს</a></nav>
 <main>
 <h1><span class="emo">🎓</span> ინგლისურის დონეები A1–C2</h1>
 <p class="lead">ინგლისურის ცოდნას ექვს დონედ ყოფენ (CEFR, ევროპული სტანდარტი): A1 და A2 დამწყებისთვისაა, B1 და B2 საშუალო დონეა,
 C1 და C2 კი მაღალი. აქ თითო დონეს 20 დამახასიათებელი სიტყვა აქვს ქართული თარგმანით.</p>
-<p><a class="btn red" href="./"><span class="emo">▶</span> აირჩიე შენი დონე</a></p>
+<p><a class="btn red" href="./">▶ აირჩიე შენი დონე</a></p>
 <p class="muted">აპში ზედა ზოლზე დააჭირე „<span class="emo">🎓</span> დონე“-ს: აირჩიე დონე და მისი სიტყვები გაკვეთილად დაგემატება.</p>
 <p class="toc"><a href="#a1">A1 · დამწყები</a> <a href="#a2">A2 · საბაზისო</a> <a href="#b1">B1 · საშუალო</a> <a href="#b2">B2 · საშუალოზე მაღალი</a> <a href="#c1">C1 · მაღალი</a> <a href="#c2">C2 · ფლობა</a></p>
 <section id="a1">
@@ -98,7 +96,7 @@ C1 და C2 კი მაღალი. აქ თითო დონეს 20 �
 </section>
 <p lang="en" class="muted">English levels A1–C2 (CEFR) explained in Georgian, with 20 typical words for each level.</p>
 </main>
-<footer class="foot"><div class="pt"><p class="pt-h">ჩვენი პარტნიორები</p><a class="pt-ad" href="https://codequest.space/?utm_source=englishquest&amp;utm_medium=partner&amp;utm_campaign=pages" target="_blank" rel="noopener"><svg viewBox="0 0 305 290" width="46" height="44" aria-hidden="true"><circle cx="152" cy="24" r="18" fill="#FF8A00"/><rect x="146" y="38" width="12" height="30" fill="#13163A"/><rect x="9" y="142" width="34" height="67" rx="10" fill="#13163A"/><rect x="262" y="142" width="34" height="67" rx="10" fill="#13163A"/><rect x="32" y="63" width="240" height="219" rx="68" fill="#3D5AFE"/><rect x="64" y="105" width="177" height="125" rx="40" fill="#13163A"/><polyline points="94,142 122,167 94,192" fill="none" stroke="#3DDC97" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><line x1="146" y1="193" x2="200" y2="193" stroke="#3DDC97" stroke-width="14" stroke-linecap="round"/></svg><span class="pt-t"><small>CODEQUEST</small><b>ისწავლე პროგრამირება</b><em>თამაშით, ქართულად: 19 ენა, რობოტი ბიტი და სკოლა „ისწავლე კოდინგი“</em></span><span class="pt-tag">პარტნიორი</span></a></div>Powered by codequest
+<footer class="foot"><div class="pt"><a class="pt-ad" href="https://codequest.space/?utm_source=englishquest&amp;utm_medium=partner&amp;utm_campaign=pages" target="_blank" rel="noopener"><svg viewBox="0 0 305 290" width="46" height="44" aria-hidden="true"><circle cx="152" cy="24" r="18" fill="#FF8A00"/><rect x="146" y="38" width="12" height="30" fill="#13163A"/><rect x="9" y="142" width="34" height="67" rx="10" fill="#13163A"/><rect x="262" y="142" width="34" height="67" rx="10" fill="#13163A"/><rect x="32" y="63" width="240" height="219" rx="68" fill="#3D5AFE"/><rect x="64" y="105" width="177" height="125" rx="40" fill="#13163A"/><polyline points="94,142 122,167 94,192" fill="none" stroke="#3DDC97" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><line x1="146" y1="193" x2="200" y2="193" stroke="#3DDC97" stroke-width="14" stroke-linecap="round"/></svg><span class="pt-t"><b>CodeQuest: ისწავლე პროგრამირება</b><em>თამაშით, ქართულად: 19 ენა, რობოტი ბიტი და სკოლა „ისწავლე კოდინგი“</em></span><span class="pt-tag">პარტნიორი</span></a></div><div class="by">Powered by codequest</div>
   <div class="legal"><a href="privacy">კონფიდენციალურობა</a> · <a href="terms">წესები</a> · <a href="https://codequest.space/?utm_source=englishquest&amp;utm_medium=partner&amp;utm_campaign=pages" target="_blank" rel="noopener"><span class="emo">🤝</span> პარტნიორი: CodeQuest</a></div></footer>
 </body>
 </html>

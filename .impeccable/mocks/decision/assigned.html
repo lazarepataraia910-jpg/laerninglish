@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ka"><head><meta charset="utf-8"><meta name="viewport" content="width=390">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wdth,wght@62.5..100,100..900&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#111; --red:#d62828; --line:#e3e3e3; --mute:#6b6b6b; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 390px; height: 844px; overflow: hidden; background: #fff; color: var(--ink);
+    font-family: "Noto Sans Georgian", system-ui, sans-serif; }
+  .emo { font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif; }
+  header { height: 56px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px;
+    border-bottom: 1px solid var(--ink); }
+  .brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-stretch: 75%; font-size: 17px; letter-spacing: .01em; }
+  .brand svg { width: 30px; height: 30px; }
+  .stats { display: flex; font-size: 14px; font-weight: 700; }
+  .stats span { padding: 0 9px; border-left: 1px solid var(--line); } .stats span:first-child { border: 0; }
+  .goal { padding: 12px 16px 0; display: flex; justify-content: space-between; font-size: 13px; color: var(--mute); }
+  .goalbar { margin: 6px 16px 0; height: 4px; background: var(--line); } .goalbar i { display: block; width: 60%; height: 4px; background: var(--ink); }
+  .lesson { padding: 20px 16px 0; }
+  .lesson h1 { font-size: 22px; font-weight: 800; font-stretch: 80%; }
+  .lesson p { font-size: 13px; color: var(--mute); margin-top: 2px; }
+  /* ხაზი: სადგურები = სიტყვები */
+  .metro { position: relative; margin: 18px 16px 0; height: 34px; }
+  .metro::before { content: ""; position: absolute; left: 6px; right: 6px; top: 11px; height: 6px; background: var(--red); }
+  .metro .done { position: absolute; left: 6px; width: 55%; top: 11px; height: 6px; background: var(--ink); }
+  .st { position: absolute; top: 5px; width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 4px solid var(--ink); transform: translateX(-9px); }
+  .st.l { background: var(--ink); } .st.now { border-color: var(--red); width: 26px; height: 26px; top: 1px; transform: translateX(-13px); border-width: 6px; }
+  .here { position: absolute; top: -18px; font-size: 11px; font-weight: 800; color: var(--red); transform: translateX(-50%); white-space: nowrap; }
+  /* სადგურის დაფა */
+  .plate { margin: 20px 16px 0; border: 2px solid var(--ink); display: grid; grid-template-columns: 14px 1fr; }
+  .plate .bar { background: var(--red); }
+  .plate .txt { padding: 16px 16px 14px; }
+  .plate .no { font-size: 12px; font-weight: 700; color: var(--mute); letter-spacing: .08em; }
+  .plate .en { font-size: 52px; line-height: 1; font-weight: 800; font-stretch: 70%; margin-top: 6px; letter-spacing: -.01em; }
+  .plate .ka { font-size: 22px; font-weight: 500; margin-top: 6px; padding-top: 8px; border-top: 1px solid var(--ink); }
+  .go { display: block; margin: 16px 16px 0; padding: 15px; background: var(--red); color: #fff; text-align: center;
+    font-size: 18px; font-weight: 800; font-stretch: 80%; }
+  h2 { margin: 24px 16px 6px; font-size: 13px; font-weight: 700; color: var(--mute); letter-spacing: .06em; }
+  .row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 6px 10px; padding: 11px 16px; border-top: 1px solid var(--line); }
+  .row b { font-size: 16px; font-weight: 700; } .row small { font-size: 13px; color: var(--mute); }
+  .mini { grid-column: 1 / -1; height: 3px; background: var(--line); position: relative; }
+  .mini i { position: absolute; left: 0; top: 0; height: 3px; background: var(--ink); }
+  nav { position: absolute; left: 0; right: 0; bottom: 0; height: 68px; display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--ink); background: #fff; }
+  nav a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 700; color: var(--mute); }
+  nav a .emo { font-size: 20px; } nav a.on { color: var(--ink); box-shadow: inset 0 3px 0 var(--red); }
+</style></head><body>
+<header>
+  <div class="brand"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="2" y="2" width="44" height="44" rx="7" fill="#d62828" stroke="#111" stroke-width="3"/><path d="M24 15c-4-3-9-3.5-14-2v21c5-1.5 10-1 14 2z" fill="#fff" stroke="#111" stroke-width="2.6" stroke-linejoin="round"/><path d="M24 15c4-3 9-3.5 14-2v21c-5-1.5-10-1-14 2z" fill="#fff" stroke="#111" stroke-width="2.6" stroke-linejoin="round"/><path d="M30 12.2V22l2.5-2 2.5 2v-9.6" fill="#d62828" stroke="#111" stroke-width="2" stroke-linejoin="round"/></svg>English Quest</div>
+  <div class="stats"><span><span class="emo">🔥</span> 5</span><span><span class="emo">⭐</span> 120</span><span>A2</span></div>
+</header>
+<div class="goal"><span>დღის მიზანი</span><span>18 / 30 XP</span></div>
+<div class="goalbar"><i></i></div>
+<section class="lesson">
+  <h1><span class="emo">🐶</span> ცხოველები</h1>
+  <p>ნაბიჯი 2 · შენით დაწერა · 6 / 10 სიტყვა</p>
+</section>
+<div class="metro">
+  <div class="done"></div>
+  <i class="st l" style="left:2%"></i><i class="st l" style="left:12.5%"></i><i class="st l" style="left:23%"></i>
+  <i class="st l" style="left:33.5%"></i><i class="st l" style="left:44%"></i><i class="st l" style="left:54.5%"></i>
+  <i class="st now" style="left:65%"></i><span class="here" style="left:65%">შენ აქ ხარ</span>
+  <i class="st" style="left:75.5%"></i><i class="st" style="left:86%"></i><i class="st" style="left:96.5%"></i>
+</div>
+<div class="plate"><div class="bar"></div><div class="txt">
+  <div class="no">სადგური 7 / 10</div>
+  <div class="en">elephant</div>
+  <div class="ka">სპილო</div>
+</div></div>
+<a class="go">▶ გაგრძელება</a>
+<h2>ჩემი გაკვეთილები</h2>
+<div class="row"><b><span class="emo">💻</span> 01 · საფუძვლები</b><small>4 / 20</small><div class="mini"><i style="width:20%"></i></div></div>
+<div class="row"><b><span class="emo">🎓</span> A1 სიტყვები</b><small>12 / 20</small><div class="mini"><i style="width:60%"></i></div></div>
+<div class="row"><b><span class="emo">🎨</span> ფერები</b><small>✔ 10 / 10</small><div class="mini"><i style="width:100%"></i></div></div>
+<nav>
+  <a class="on"><span class="emo">📚</span>გაკვეთილები</a><a><span class="emo">💻</span>კურსი</a>
+  <a><span class="emo">📊</span>სტატისტიკა</a><a><span class="emo">⚙️</span>პარამეტრები</a>
+</nav>
+</body></html>
