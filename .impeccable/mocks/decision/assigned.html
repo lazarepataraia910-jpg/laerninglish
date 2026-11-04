@@ -1,78 +1,76 @@
-<!doctype html>
-<html lang="ka"><head><meta charset="utf-8"><meta name="viewport" content="width=390">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wdth,wght@62.5..100,100..900&display=swap" rel="stylesheet">
+<!doctype html><html lang="ka"><head><meta charset="utf-8"><meta name="viewport" content="width=390">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root { --ink:#111; --red:#d62828; --line:#e3e3e3; --mute:#6b6b6b; }
-  * { box-sizing: border-box; margin: 0; }
-  html, body { width: 390px; height: 844px; overflow: hidden; background: #fff; color: var(--ink);
-    font-family: "Noto Sans Georgian", system-ui, sans-serif; }
-  .emo { font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif; }
-  header { height: 56px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px;
-    border-bottom: 1px solid var(--ink); }
-  .brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-stretch: 75%; font-size: 17px; letter-spacing: .01em; }
-  .brand svg { width: 30px; height: 30px; }
-  .stats { display: flex; font-size: 14px; font-weight: 700; }
-  .stats span { padding: 0 9px; border-left: 1px solid var(--line); } .stats span:first-child { border: 0; }
-  .goal { padding: 12px 16px 0; display: flex; justify-content: space-between; font-size: 13px; color: var(--mute); }
-  .goalbar { margin: 6px 16px 0; height: 4px; background: var(--line); } .goalbar i { display: block; width: 60%; height: 4px; background: var(--ink); }
-  .lesson { padding: 20px 16px 0; }
-  .lesson h1 { font-size: 22px; font-weight: 800; font-stretch: 80%; }
-  .lesson p { font-size: 13px; color: var(--mute); margin-top: 2px; }
-  /* ხაზი: სადგურები = სიტყვები */
-  .metro { position: relative; margin: 18px 16px 0; height: 34px; }
-  .metro::before { content: ""; position: absolute; left: 6px; right: 6px; top: 11px; height: 6px; background: var(--red); }
-  .metro .done { position: absolute; left: 6px; width: 55%; top: 11px; height: 6px; background: var(--ink); }
-  .st { position: absolute; top: 5px; width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 4px solid var(--ink); transform: translateX(-9px); }
-  .st.l { background: var(--ink); } .st.now { border-color: var(--red); width: 26px; height: 26px; top: 1px; transform: translateX(-13px); border-width: 6px; }
-  .here { position: absolute; top: -18px; font-size: 11px; font-weight: 800; color: var(--red); transform: translateX(-50%); white-space: nowrap; }
-  /* სადგურის დაფა */
-  .plate { margin: 20px 16px 0; border: 2px solid var(--ink); display: grid; grid-template-columns: 14px 1fr; }
-  .plate .bar { background: var(--red); }
-  .plate .txt { padding: 16px 16px 14px; }
-  .plate .no { font-size: 12px; font-weight: 700; color: var(--mute); letter-spacing: .08em; }
-  .plate .en { font-size: 52px; line-height: 1; font-weight: 800; font-stretch: 70%; margin-top: 6px; letter-spacing: -.01em; }
-  .plate .ka { font-size: 22px; font-weight: 500; margin-top: 6px; padding-top: 8px; border-top: 1px solid var(--ink); }
-  .go { display: block; margin: 16px 16px 0; padding: 15px; background: var(--red); color: #fff; text-align: center;
-    font-size: 18px; font-weight: 800; font-stretch: 80%; }
-  h2 { margin: 24px 16px 6px; font-size: 13px; font-weight: 700; color: var(--mute); letter-spacing: .06em; }
-  .row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 6px 10px; padding: 11px 16px; border-top: 1px solid var(--line); }
-  .row b { font-size: 16px; font-weight: 700; } .row small { font-size: 13px; color: var(--mute); }
-  .mini { grid-column: 1 / -1; height: 3px; background: var(--line); position: relative; }
-  .mini i { position: absolute; left: 0; top: 0; height: 3px; background: var(--ink); }
-  nav { position: absolute; left: 0; right: 0; bottom: 0; height: 68px; display: grid; grid-template-columns: repeat(4, 1fr);
-    border-top: 1px solid var(--ink); background: #fff; }
-  nav a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 700; color: var(--mute); }
-  nav a .emo { font-size: 20px; } nav a.on { color: var(--ink); box-shadow: inset 0 3px 0 var(--red); }
+*{box-sizing:border-box;margin:0}
+body{width:390px;height:844px;overflow:hidden;background:#f2f3f6;color:#16181d;font:400 15px/1.45 "Noto Sans Georgian",system-ui,sans-serif}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.top{display:flex;align-items:center;gap:10px;padding:14px 16px;background:#fff}
+.top b{font-size:16px;font-weight:800;line-height:1.1}.top small{display:block;font-size:10px;font-weight:800;letter-spacing:.14em;color:#e0262b}
+.stats{margin-left:auto;display:flex;gap:6px}
+.pill{display:flex;align-items:center;gap:4px;height:32px;padding:0 10px;border-radius:16px;background:#f2f3f6;font-weight:800;font-size:14px}
+.pill.y svg{color:#e6a700}.pill.b svg{color:#2f6fde}
+.page{margin:12px;padding:16px;background:#fff;border-radius:20px}
+.cap{font-size:12px;font-weight:600;color:#6b7080}
+.word{display:flex;align-items:center;gap:10px;margin:6px 0 2px}
+.word h1{font-size:40px;font-weight:800;letter-spacing:-.01em}
+.spk{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#eaf1fd;color:#2f6fde}
+.ka{font-size:17px;color:#4a4f5c}
+.slots{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin:16px 0 6px}
+.s{aspect-ratio:3/4;border-radius:8px;display:grid;place-items:center;font-size:11px;font-weight:800;color:#a2a7b4;border:1.5px dashed #c9cdd6}
+.s.f{border:3px solid #fff;color:#fff;box-shadow:0 1px 3px rgb(0 0 0/.22);transform:rotate(-2deg)}
+.s.f:nth-child(2n){transform:rotate(2deg)}
+.s.r{background:#e0262b}.s.bl{background:#2f6fde}.s.yl{background:#f5c400;color:#16181d}.s.g{background:#1a9d5a}
+.s.now{border:2px solid #16181d;color:#16181d}
+.meta{display:flex;justify-content:space-between;font-size:13px;color:#6b7080}
+.go{display:flex;align-items:center;justify-content:center;gap:10px;margin:0 12px;height:56px;border-radius:16px;background:#e0262b;color:#fff;font-size:18px;font-weight:800}
+.go svg{fill:#fff;stroke:none;width:18px;height:18px}
+h2{display:flex;align-items:center;justify-content:space-between;margin:20px 16px 8px;font-size:18px;font-weight:800}
+.add{display:flex;align-items:center;gap:4px;font-size:14px;font-weight:600;color:#2f6fde}
+.list{margin:0 12px;background:#fff;border-radius:20px;overflow:hidden}
+.row{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:12px 14px;border-bottom:1px solid #eceef2}
+.ic{display:grid;place-items:center;width:44px;height:44px;border-radius:12px}
+.ic svg{width:24px;height:24px}
+.n{font-weight:600;font-size:16px}.bar{display:flex;gap:2px;margin-top:6px}.bar i{width:10px;height:6px;border-radius:2px;background:#dfe2e8}.bar i.on{background:#16181d}
+.cnt{font-size:14px;font-weight:800;color:#6b7080}
+.tabs{position:absolute;left:0;right:0;top:772px;height:72px;display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-top:1px solid #e4e6eb}
+.tabs a{display:grid;justify-items:center;align-content:center;gap:3px;font-size:11px;font-weight:600;color:#7a7f8c}
+.tabs a svg{width:24px;height:24px}.tabs a.on{color:#16181d}.tabs a.on svg{color:#e0262b}
 </style></head><body>
-<header>
-  <div class="brand"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="2" y="2" width="44" height="44" rx="7" fill="#d62828" stroke="#111" stroke-width="3"/><path d="M24 15c-4-3-9-3.5-14-2v21c5-1.5 10-1 14 2z" fill="#fff" stroke="#111" stroke-width="2.6" stroke-linejoin="round"/><path d="M24 15c4-3 9-3.5 14-2v21c-5-1.5-10-1-14 2z" fill="#fff" stroke="#111" stroke-width="2.6" stroke-linejoin="round"/><path d="M30 12.2V22l2.5-2 2.5 2v-9.6" fill="#d62828" stroke="#111" stroke-width="2" stroke-linejoin="round"/></svg>English Quest</div>
-  <div class="stats"><span><span class="emo">🔥</span> 5</span><span><span class="emo">⭐</span> 120</span><span>A2</span></div>
-</header>
-<div class="goal"><span>დღის მიზანი</span><span>18 / 30 XP</span></div>
-<div class="goalbar"><i></i></div>
-<section class="lesson">
-  <h1><span class="emo">🐶</span> ცხოველები</h1>
-  <p>ნაბიჯი 2 · შენით დაწერა · 6 / 10 სიტყვა</p>
-</section>
-<div class="metro">
-  <div class="done"></div>
-  <i class="st l" style="left:2%"></i><i class="st l" style="left:12.5%"></i><i class="st l" style="left:23%"></i>
-  <i class="st l" style="left:33.5%"></i><i class="st l" style="left:44%"></i><i class="st l" style="left:54.5%"></i>
-  <i class="st now" style="left:65%"></i><span class="here" style="left:65%">შენ აქ ხარ</span>
-  <i class="st" style="left:75.5%"></i><i class="st" style="left:86%"></i><i class="st" style="left:96.5%"></i>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1-2.1-.2-4 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3 0 1.4.5 2.5 1.5 3.5z"/></symbol>
+<symbol id="star" viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></symbol>
+<symbol id="book" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2zM22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></symbol>
+<symbol id="cap" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5zM6 12v5c3 3 9 3 12 0v-5"/></symbol>
+<symbol id="chart" viewBox="0 0 24 24"><path d="M3 3v18h18M8 17v-4M13 17V7M18 17v-7"/></symbol>
+<symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></symbol>
+<symbol id="vol" viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></symbol>
+<symbol id="paw" viewBox="0 0 24 24"><circle cx="5" cy="10" r="2"/><circle cx="9" cy="5" r="2"/><circle cx="15" cy="5" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12 12c-3 0-6 4-6 7 0 2 2 2 3 2s2-1 3-1 2 1 3 1 3 0 3-2c0-3-3-7-6-7z"/></symbol>
+<symbol id="code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></symbol>
+<symbol id="plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
+<symbol id="play" viewBox="0 0 24 24"><path d="M6 3l14 9-14 9z"/></symbol>
+</defs></svg>
+<div class="top">
+  <svg width="38" height="38" viewBox="0 0 40 40"><rect width="40" height="40" rx="9" fill="#e0262b"/><path d="M8 12h9a3 3 0 0 1 3 3v15a2 2 0 0 0-2-2H8zM32 12h-9a3 3 0 0 0-3 3v15a2 2 0 0 1 2-2h10z" fill="#fff"/><path d="M25 12h4v9l-2-1.5-2 1.5z" fill="#e0262b"/></svg>
+  <div><small>LEARN ENGLISH</small><b>ისწავლე ინგლისური</b></div>
+  <div class="stats"><span class="pill y"><svg class="i"><use href="#flame"/></svg>5</span><span class="pill b"><svg class="i"><use href="#star"/></svg>186</span></div>
 </div>
-<div class="plate"><div class="bar"></div><div class="txt">
-  <div class="no">სადგური 7 / 10</div>
-  <div class="en">elephant</div>
-  <div class="ka">სპილო</div>
-</div></div>
-<a class="go">▶ გაგრძელება</a>
-<h2>ჩემი გაკვეთილები</h2>
-<div class="row"><b><span class="emo">💻</span> 01 · საფუძვლები</b><small>4 / 20</small><div class="mini"><i style="width:20%"></i></div></div>
-<div class="row"><b><span class="emo">🎓</span> A1 სიტყვები</b><small>12 / 20</small><div class="mini"><i style="width:60%"></i></div></div>
-<div class="row"><b><span class="emo">🎨</span> ფერები</b><small>✔ 10 / 10</small><div class="mini"><i style="width:100%"></i></div></div>
-<nav>
-  <a class="on"><span class="emo">📚</span>გაკვეთილები</a><a><span class="emo">💻</span>კურსი</a>
-  <a><span class="emo">📊</span>სტატისტიკა</a><a><span class="emo">⚙️</span>პარამეტრები</a>
-</nav>
+<section class="page">
+  <p class="cap">ცხოველები · გადაწერა · 9 / 12</p>
+  <div class="word"><h1>elephant</h1><span class="spk"><svg class="i"><use href="#vol"/></svg></span></div>
+  <p class="ka">სპილო</p>
+  <div class="slots">
+    <span class="s f r">1</span><span class="s f bl">2</span><span class="s f yl">3</span><span class="s f g">4</span>
+    <span class="s f bl">5</span><span class="s f r">6</span><span class="s f g">7</span><span class="s f yl">8</span>
+    <span class="s now">9</span><span class="s">10</span><span class="s">11</span><span class="s">12</span>
+  </div>
+  <div class="meta"><span>დღის მიზანი 18 / 30 XP</span><span>8 სტიკერი</span></div>
+</section>
+<a class="go"><svg><use href="#play"/></svg>გაგრძელება</a>
+<h2>ჩემი გაკვეთილები <span class="add"><svg class="i"><use href="#plus"/></svg>ახალი</span></h2>
+<div class="list">
+  <div class="row"><span class="ic" style="background:#fdecec;color:#e0262b"><svg class="i"><use href="#paw"/></svg></span><div><div class="n">ცხოველები</div><div class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div></div><span class="cnt">8/12</span></div>
+  <div class="row"><span class="ic" style="background:#eaf1fd;color:#2f6fde"><svg class="i"><use href="#code"/></svg></span><div><div class="n">1. საფუძვლები</div><div class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div></div><span class="cnt">20/20</span></div>
+  <div class="row"><span class="ic" style="background:#fff6cc;color:#a67c00"><svg class="i"><use href="#cap"/></svg></span><div><div class="n">A2 სიტყვები</div><div class="bar"><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><span class="cnt">4/20</span></div>
+</div>
+<nav class="tabs"><a class="on"><svg class="i"><use href="#book"/></svg>გაკვეთილები</a><a><svg class="i"><use href="#cap"/></svg>კურსი</a><a><svg class="i"><use href="#chart"/></svg>სტატისტიკა</a><a><svg class="i"><use href="#user"/></svg>პროფილი</a></nav>
 </body></html>

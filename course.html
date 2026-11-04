@@ -15,7 +15,7 @@
 <meta property="og:image" content="https://www.englishquest.space/icon-512.png">
 <meta name="twitter:card" content="summary">
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#25262a">
+<meta name="theme-color" content="#f6f7fb">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect x='2' y='2' width='44' height='44' rx='7' fill='%23d62828' stroke='%23111' stroke-width='3'/%3E%3Cpath d='M24 15c-4-3-9-3.5-14-2v21c5-1.5 10-1 14 2z' fill='%23fff' stroke='%23111' stroke-width='2.6' stroke-linejoin='round'/%3E%3Cpath d='M24 15c4-3 9-3.5 14-2v21c-5-1.5-10-1-14 2z' fill='%23fff' stroke='%23111' stroke-width='2.6' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <!-- Vercel Web Analytics: ანონიმური ვიზიტების სტატისტიკა (cookie-ების გარეშე) -->
@@ -26,26 +26,82 @@
 <script type="application/ld+json">{"@context":"https://schema.org","url":"https://www.englishquest.space/course","@type":"Course","name":"პროგრამირების ინგლისური","inLanguage":"ka","isAccessibleForFree":true,"timeRequired":"PT3H","description":"პროგრამირების 240 ინგლისური სიტყვა ქართული თარგმანით, 12 მოდულად.","provider":{"@type":"Organization","name":"English Quest","url":"https://www.englishquest.space/"}}</script>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <filter id="rbw" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
-    <feColorMatrix in="SourceGraphic" type="matrix" result="gray"
-      values="0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0 0 0 1 0"/>
-    <feComponentTransfer in="gray" result="gray">
-      <feFuncR type="linear" slope="1.3" intercept="-0.15"/>
-      <feFuncG type="linear" slope="1.3" intercept="-0.15"/>
-      <feFuncB type="linear" slope="1.3" intercept="-0.15"/>
-    </feComponentTransfer>
-    <feComponentTransfer in="gray" result="tone">
-      <feFuncR type="table" tableValues="0.067 0.541 0.839 0.949 1"/>
-      <feFuncG type="table" tableValues="0.067 0.078 0.157 0.639 1"/>
-      <feFuncB type="table" tableValues="0.067 0.078 0.157 0.639 1"/>
-    </feComponentTransfer>
-    <feMorphology in="SourceAlpha" operator="dilate" radius="0.45" result="fat"/>
-    <feFlood style="flood-color: var(--emo-edge); flood-opacity: var(--emo-edge-a)"/>
-    <feComposite in2="fat" operator="in" result="outline"/>
-    <feMerge><feMergeNode in="outline"/><feMergeNode in="tone"/></feMerge>
-  </filter>
-</svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="5.5"/><circle cx="12" cy="12" r="1.5"/></symbol>
+  <symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></symbol>
+  <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="4" y="4.5" width="16" height="11" rx="2"/><path d="M2 19.5h20"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5zM6 12v5c3 3 9 3 12 0v-5M22 10v6"/></symbol>
+  <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="m8 12.5 2.8 2.8L16 9.5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="8.5" y="2.5" width="7" height="4" rx="1"/><path d="M8.5 4.5H6a1.5 1.5 0 0 0-1.5 1.5v14A1.5 1.5 0 0 0 6 21.5h12a1.5 1.5 0 0 0 1.5-1.5V6A1.5 1.5 0 0 0 18 4.5h-2.5M8.5 13.5l2.5 2.5 4.5-4.5"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H7a5 5 0 1 1 1.4-9.8A6 6 0 0 1 20 11.5a3.8 3.8 0 0 1-2.5 7.5z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4.5 19V5.5a3 3 0 0 1 3-3h12v15h-12a3 3 0 0 0-3 3 1.5 1.5 0 0 0 1.5 1.5h13.5M9 7h6"/></symbol>
+  <symbol id="i-book-open" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2zM22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="12.5" height="12.5" rx="2"/><path d="M15.5 8.5V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8.5a2 2 0 0 0 2 2h3.5"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M16.5 3.5a2.6 2.6 0 0 1 3.7 3.7L7.5 20 2.5 21.5 4 16.5zM14.5 5.5l4 4"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8.5 6V4h7v2M18.5 6l-1 14.5h-11L5.5 6M10 10.5v6M14 10.5v6"/></symbol>
+  <symbol id="i-cards" viewBox="0 0 24 24"><rect x="3" y="6.5" width="13" height="15" rx="2"/><path d="M7.5 3h11A2.5 2.5 0 0 1 21 5.5v12"/></symbol>
+  <symbol id="i-headphones" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1-2.1-.2-4 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3 0 1.4.5 2.5 1.5 3.5z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="7.5" r="3.5"/><path d="M2.5 20.5v-1a5.5 5.5 0 0 1 11 0v1M16 4.2a3.5 3.5 0 0 1 0 6.6M21.5 20.5v-1a5.5 5.5 0 0 0-3.5-5.1"/></symbol>
+  <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M11 3l1.8 5.2L18 10l-5.2 1.8L11 17l-1.8-5.2L4 10l5.2-1.8zM18.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8zM18 3v4M16 5h4"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 3.5 14h8l-1 8L20 10h-8z"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 21h8M12 16.5V21M7 3.5h10v5.5a5 5 0 0 1-10 0zM7 5.5H4.5a3 3 0 0 0 3 4.5M17 5.5h2.5a3 3 0 0 1-3 4.5"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18M8 17v-4M13 17V7M18 17v-7"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="M22 7l-8.5 8.5-5-5L2 17M16 7h6v6"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></symbol>
+  <symbol id="i-keyboard" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M6 9h.01M10 9h.01M14 9h.01M18 9h.01M6 12.5h.01M18 12.5h.01M8 15.5h8"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 7 22l5-3 5 3-1.5-8"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15.5 6.2L3 15.5M3 12a9 9 0 0 1 15.5-6.2L21 8.5M21 3.5v5h-5M3 20.5v-5h5"/></symbol>
+  <symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="8"/><path d="M12 9.5v4l2.5 2M9.5 2.5h5"/></symbol>
+  <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 21.5a9.5 9.5 0 1 1 9.5-9.5c0 2.8-1.9 4-4 4h-2.2a1.8 1.8 0 0 0-1.3 3.1A1.5 1.5 0 0 1 12 21.5z"/><path d="M7.5 11h.01M10 7h.01M14.5 7h.01M17 11h.01"/></symbol>
+  <symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="m21.5 6.5-9.5 7-9.5-7"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M5 3h11l5 5v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM7.5 3v5h8M7.5 21v-7h9v7"/></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M12 14l-3.5-3.5M3.3 19a10 10 0 1 1 17.4 0"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 21V9M7 14l5-5 5 5M5 3h14"/></symbol>
+  <symbol id="i-x-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M15 9l-6 6M9 9l6 6"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 16.5v-5M12 8h.01"/></symbol>
+  <symbol id="i-paw" viewBox="0 0 24 24"><circle cx="5" cy="10" r="2"/><circle cx="9" cy="5" r="2"/><circle cx="15" cy="5" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12 12c-3 0-6 4-6 7 0 2 2 2 3 2s2-1 3-1 2 1 3 1 3 0 3-2c0-3-3-7-6-7z"/></symbol>
+  <symbol id="i-hash" viewBox="0 0 24 24"><path d="M4 9h16M4 15h16M10 3 8 21M16 3l-2 18"/></symbol>
+  <symbol id="i-apple" viewBox="0 0 24 24"><path d="M12 7c-1.5-1-3-1.4-4.5-1C4.5 6.8 3.3 10 4 14c.8 4 3.5 7 5.5 7 1 0 1.5-.5 2.5-.5s1.5.5 2.5.5c2 0 4.7-3 5.5-7 .7-4-.5-7.2-3.5-8-1.5-.4-3 0-4.5 1zM12 7c0-2.5 1-4 3-4.5"/></symbol>
+  <symbol id="i-activity" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></symbol>
+  <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1zM12 15l-3-3a22 22 0 0 1 2-4A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22.4 22.4 0 0 1-4 2zM9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/></symbol>
+  <symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M4 7.5h4a2.2 2.2 0 1 1 4.4 0H16v4a2.2 2.2 0 1 1 0 4.4V20H4z"/></symbol>
+  <symbol id="i-package" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5zM3 8l9 5 9-5M12 13v8M7.5 5.5l9 5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
+  <symbol id="i-shuffle" viewBox="0 0 24 24"><path d="M2 18h3.5a4 4 0 0 0 3.3-1.7l6.4-8.6A4 4 0 0 1 18.5 6H22M2 6h3.5a4 4 0 0 1 3 1.4M22 18h-3.5a4 4 0 0 1-3-1.4M18 2l4 4-4 4M18 14l4 4-4 4"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><path d="M3 21.5h18M6 18v-7M10 18v-7M14 18v-7M18 18v-7M12 2.5l9 5H3z"/></symbol>
+  <symbol id="i-bug" viewBox="0 0 24 24"><rect x="7.5" y="6.5" width="9" height="14" rx="4.5"/><path d="M12 20.5v-9M7.5 11H3.5M20.5 11h-4M7.5 15.5H3M21 15.5h-4.5M9.5 6.5 8 3.5M14.5 6.5 16 3.5"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5a14.5 14.5 0 0 1 0 19M12 2.5a14.5 14.5 0 0 0 0 19"/></symbol>
+  <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8.5" ry="3"/><path d="M3.5 5v14c0 1.7 3.8 3 8.5 3s8.5-1.3 8.5-3V5M3.5 12c0 1.7 3.8 3 8.5 3s8.5-1.3 8.5-3"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10zM2 21c0-3 1.9-5.4 5.1-6"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21.5h4M12 2.5a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2.5z"/></symbol>
+  <symbol id="i-thumbs" viewBox="0 0 24 24"><path d="M7 10v11M15 5.9 14 10h5.8a2 2 0 0 1 2 2.3l-1.4 7a2 2 0 0 1-2 1.7H7V10l4-8a3 3 0 0 1 4 3.9zM3 10h4v11H3z"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></symbol>
+  <symbol id="i-contrast" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 2.5v19a9.5 9.5 0 0 0 0-19z" fill="currentColor"/></symbol>
+  <symbol id="i-notebook" viewBox="0 0 24 24"><rect x="5" y="2.5" width="15" height="19" rx="2"/><path d="M2.5 7h4M2.5 12h4M2.5 17h4M10 7.5h6M10 11h4"/></symbol>
+  <symbol id="i-wave" viewBox="0 0 24 24"><path d="M2 7c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2M2 13c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2M2 19c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></symbol>
+  <symbol id="i-kraft" viewBox="0 0 24 24"><path d="M6 2.5h9l4 4v15H6zM15 2.5v4h4M9 12h7M9 16h7"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1.5 1.5 0 0 1-1.5 1.5h-5v-6h-5v6h-5A1.5 1.5 0 0 1 3 20z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><path d="M6 12h.01M12 12h.01M18 12h.01" stroke-width="3"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></symbol>
+</defs></svg>
 <header class="top">
   <a class="logo" href="./"><svg class="logo-mark" viewBox="0 0 48 48" aria-hidden="true">
         <rect x="2" y="2" width="44" height="44" rx="7" fill="#d62828" stroke="#111" stroke-width="3"/>
@@ -54,25 +110,25 @@
         <path d="M30 12.2V22l2.5-2 2.5 2v-9.6" fill="#d62828" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
         <path d="M14 20h6M14 25h6M28 26h6" stroke="#111" stroke-width="2" stroke-linecap="round"/>
       </svg><span><span class="en">LEARN ENGLISH</span><b>ისწავლე ინგლისური</b></span></a>
-  <a class="btn red" href="./">▶ დაიწყე სწავლა</a>
+  <a class="btn red" href="./"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg> დაიწყე სწავლა</a>
 </header>
-<nav class="tabs" aria-label="გვერდები"><a href="./"><span class="emo">🏠</span> მთავარი</a><a href="course" aria-current="page"><span class="emo">💻</span> პროგრამირება</a><a href="levels"><span class="emo">🎓</span> დონეები</a><a href="words"><span class="emo">📖</span> სიტყვები</a><a href="about"><span class="emo">ℹ️</span> როგორ მუშაობს</a></nav>
+<nav class="tabs" aria-label="გვერდები"><a href="./"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg> მთავარი</a><a href="course" aria-current="page"><svg class="i" aria-hidden="true"><use href="#i-laptop"/></svg> პროგრამირება</a><a href="levels"><svg class="i" aria-hidden="true"><use href="#i-cap"/></svg> დონეები</a><a href="words"><svg class="i" aria-hidden="true"><use href="#i-book-open"/></svg> სიტყვები</a><a href="about"><svg class="i" aria-hidden="true"><use href="#i-info"/></svg> როგორ მუშაობს</a></nav>
 <main>
-<h1><span class="emo">💻</span> პროგრამირების ინგლისური</h1>
+<h1><span class="mk"><svg class="i" aria-hidden="true"><use href="#i-laptop"/></svg> პროგრამირების ინგლისური</span></h1>
 <p class="lead">სრული უფასო კურსი ქართულად: ყველა ის ინგლისური სიტყვა, რომელიც პროგრამირებაში დაგჭირდება.
 <b>12 მოდული · 240 სიტყვა · ≈ 3 საათი</b>. თითო სიტყვას აქვს ქართული თარგმანი, თითო მოდულს კი კოდის მაგალითი.</p>
-<p><a class="btn red" href="./#course">▶ დაიწყე კურსი</a></p>
+<p><a class="btn red" href="./#course"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg> დაიწყე კურსი</a></p>
 <p class="muted">აპში ამ სიტყვებს ისწავლი გადაწერით, შენით დაწერით, ბარათებით, ვიქტორინით და ტესტით, პროგრესი კი შენს ანგარიშზე შეინახება.</p>
-<p class="toc"><a href="#m1">01 <span class="emo">🧩</span> საფუძვლები</a> <a href="#m2">02 <span class="emo">📦</span> ცვლადები და მონაცემთა ტიპები</a> <a href="#m3">03 <span class="emo">➕</span> ოპერატორები</a> <a href="#m4">04 <span class="emo">🔀</span> პირობები და ციკლები</a> <a href="#m5">05 <span class="emo">🧮</span> ფუნქციები</a> <a href="#m6">06 <span class="emo">🏛️</span> ობიექტზე ორიენტირებული პროგრამირება</a> <a href="#m7">07 <span class="emo">🐞</span> შეცდომები და დებაგი</a> <a href="#m8">08 <span class="emo">🌐</span> ვები</a> <a href="#m9">09 <span class="emo">🗄️</span> მონაცემთა ბაზები</a> <a href="#m10">10 <span class="emo">🌿</span> Git და გუნდური მუშაობა</a> <a href="#m11">11 <span class="emo">🛠️</span> ხელსაწყოები და ბრძანებები</a> <a href="#m12">12 <span class="emo">⌨️</span> სიმბოლოები კლავიატურაზე</a></p>
+<p class="toc"><a href="#m1">01 <svg class="i" aria-hidden="true"><use href="#i-puzzle"/></svg> საფუძვლები</a> <a href="#m2">02 <svg class="i" aria-hidden="true"><use href="#i-package"/></svg> ცვლადები და მონაცემთა ტიპები</a> <a href="#m3">03 <svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> ოპერატორები</a> <a href="#m4">04 <svg class="i" aria-hidden="true"><use href="#i-shuffle"/></svg> პირობები და ციკლები</a> <a href="#m5">05 <svg class="i" aria-hidden="true"><use href="#i-hash"/></svg> ფუნქციები</a> <a href="#m6">06 <svg class="i" aria-hidden="true"><use href="#i-building"/></svg> ობიექტზე ორიენტირებული პროგრამირება</a> <a href="#m7">07 <svg class="i" aria-hidden="true"><use href="#i-bug"/></svg> შეცდომები და დებაგი</a> <a href="#m8">08 <svg class="i" aria-hidden="true"><use href="#i-globe"/></svg> ვები</a> <a href="#m9">09 <svg class="i" aria-hidden="true"><use href="#i-database"/></svg> მონაცემთა ბაზები</a> <a href="#m10">10 <svg class="i" aria-hidden="true"><use href="#i-leaf"/></svg> Git და გუნდური მუშაობა</a> <a href="#m11">11 <svg class="i" aria-hidden="true"><use href="#i-wrench"/></svg> ხელსაწყოები და ბრძანებები</a> <a href="#m12">12 <svg class="i" aria-hidden="true"><use href="#i-keyboard"/></svg> სიმბოლოები კლავიატურაზე</a></p>
 <section id="m1">
-<h2>01 <span class="emo">🧩</span> საფუძვლები</h2>
+<h2><span class="mk">01 <svg class="i" aria-hidden="true"><use href="#i-puzzle"/></svg> საფუძვლები</span></h2>
 <p class="muted">რა არის კოდი, პროგრამა და როგორ ეშვება. · 20 სიტყვა · ≈ 15 წთ</p>
 <table><tr><th>English</th><th>ქართული</th></tr><tr><td><b>code</b></td><td>კოდი</td></tr><tr><td><b>program</b></td><td>პროგრამა</td></tr><tr><td><b>programming</b></td><td>პროგრამირება</td></tr><tr><td><b>programmer</b></td><td>პროგრამისტი</td></tr><tr><td><b>language</b></td><td>ენა</td></tr><tr><td><b>software</b></td><td>პროგრამული უზრუნველყოფა</td></tr><tr><td><b>hardware</b></td><td>აპარატურა</td></tr><tr><td><b>file</b></td><td>ფაილი</td></tr><tr><td><b>folder</b></td><td>საქაღალდე</td></tr><tr><td><b>line</b></td><td>ხაზი</td></tr><tr><td><b>comment</b></td><td>კომენტარი</td></tr><tr><td><b>syntax</b></td><td>სინტაქსი</td></tr><tr><td><b>keyword</b></td><td>საკვანძო სიტყვა</td></tr><tr><td><b>run</b></td><td>გაშვება</td></tr><tr><td><b>execute</b></td><td>შესრულება</td></tr><tr><td><b>compile</b></td><td>კომპილირება</td></tr><tr><td><b>source code</b></td><td>საწყისი კოდი</td></tr><tr><td><b>editor</b></td><td>რედაქტორი</td></tr><tr><td><b>terminal</b></td><td>ტერმინალი</td></tr><tr><td><b>instruction</b></td><td>ინსტრუქცია</td></tr></table>
 <pre><code>// ეს კომენტარია (comment) — პროგრამა მას არ ასრულებს
 console.log(&quot;Hello, world!&quot;); // გაშვებისას (run) ეკრანზე დაიბეჭდება ტექსტი</code></pre>
 </section>
 <section id="m2">
-<h2>02 <span class="emo">📦</span> ცვლადები და მონაცემთა ტიპები</h2>
+<h2><span class="mk">02 <svg class="i" aria-hidden="true"><use href="#i-package"/></svg> ცვლადები და მონაცემთა ტიპები</span></h2>
 <p class="muted">როგორ ინახება მონაცემები: რიცხვი, ტექსტი, სია… · 20 სიტყვა · ≈ 15 წთ</p>
 <table><tr><th>English</th><th>ქართული</th></tr><tr><td><b>variable</b></td><td>ცვლადი</td></tr><tr><td><b>constant</b></td><td>მუდმივა</td></tr><tr><td><b>value</b></td><td>მნიშვნელობა</td></tr><tr><td><b>type</b></td><td>ტიპი</td></tr><tr><td><b>data</b></td><td>მონაცემები</td></tr><tr><td><b>number</b></td><td>რიცხვი</td></tr><tr><td><b>integer</b></td><td>მთელი რიცხვი</td></tr><tr><td><b>float</b></td><td>ათწილადი რიცხვი</td></tr><tr><td><b>string</b></td><td>სტრიქონი</td></tr><tr><td><b>character</b></td><td>სიმბოლო</td></tr><tr><td><b>boolean</b></td><td>ლოგიკური მნიშვნელობა</td></tr><tr><td><b>true</b></td><td>ჭეშმარიტი</td></tr><tr><td><b>false</b></td><td>მცდარი</td></tr><tr><td><b>null</b></td><td>ცარიელი მნიშვნელობა</td></tr><tr><td><b>undefined</b></td><td>განუსაზღვრელი</td></tr><tr><td><b>array</b></td><td>მასივი</td></tr><tr><td><b>list</b></td><td>სია</td></tr><tr><td><b>object</b></td><td>ობიექტი</td></tr><tr><td><b>assign</b></td><td>მინიჭება</td></tr><tr><td><b>declare</b></td><td>გამოცხადება</td></tr></table>
 <pre><code>let age = 25;                 // ცვლადი (variable), რიცხვი (number)
@@ -81,7 +137,7 @@ let isStudent = true;         // ლოგიკური (boolean)
 let colors = [&quot;red&quot;, &quot;blue&quot;]; // მასივი (array)</code></pre>
 </section>
 <section id="m3">
-<h2>03 <span class="emo">➕</span> ოპერატორები</h2>
+<h2><span class="mk">03 <svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> ოპერატორები</span></h2>
 <p class="muted">გამოთვლა, შედარება და ლოგიკა. · 20 სიტყვა · ≈ 15 წთ</p>
 <table><tr><th>English</th><th>ქართული</th></tr><tr><td><b>operator</b></td><td>ოპერატორი</td></tr><tr><td><b>addition</b></td><td>შეკრება</td></tr><tr><td><b>subtraction</b></td><td>გამოკლება</td></tr><tr><td><b>multiply</b></td><td>გამრავლება</td></tr><tr><td><b>divide</b></td><td>გაყოფა</td></tr><tr><td><b>remainder</b></td><td>ნაშთი</td></tr><tr><td><b>equal</b></td><td>ტოლი</td></tr><tr><td><b>not equal</b></td><td>არატოლი</td></tr><tr><td><b>greater than</b></td><td>მეტია</td></tr><tr><td><b>less than</b></td><td>ნაკლებია</td></tr><tr><td><b>and</b></td><td>და</td></tr><tr><td><b>or</b></td><td>ან</td></tr><tr><td><b>not</b></td><td>არა</td></tr><tr><td><b>increment</b></td><td>ერთით გაზრდა</td></tr><tr><td><b>decrement</b></td><td>ერთით შემცირება</td></tr><tr><td><b>expression</b></td><td>გამოსახულება</td></tr><tr><td><b>calculate</b></td><td>გამოთვლა</td></tr><tr><td><b>compare</b></td><td>შედარება</td></tr><tr><td><b>result</b></td><td>შედეგი</td></tr><tr><td><b>negative</b></td><td>უარყოფითი</td></tr></table>
 <pre><code>let total = 10 + 5 * 2;            // 20 (გამრავლება ჯერ ხდება)
@@ -89,7 +145,7 @@ let rest = 10 % 3;                 // ნაშთი (remainder) = 1
 let ok = total &gt; 15 &amp;&amp; rest === 1; // და (and) → true</code></pre>
 </section>
 <section id="m4">
-<h2>04 <span class="emo">🔀</span> პირობები და ციკლები</h2>
+<h2><span class="mk">04 <svg class="i" aria-hidden="true"><use href="#i-shuffle"/></svg> პირობები და ციკლები</span></h2>
 <p class="muted">როგორ იღებს პროგრამა გადაწყვეტილებას და იმეორებს მოქმედებას. · 20 სიტყვა · ≈ 15 წთ</p>
 <table><tr><th>English</th><th>ქართული</th></tr><tr><td><b>condition</b></td><td>პირობა</td></tr><tr><td><b>if</b></td><td>თუ</td></tr><tr><td><b>else</b></td><td>სხვა შემთხვევაში</td></tr><tr><td><b>switch</b></td><td>გადამრთველი</td></tr><tr><td><b>case</b></td><td>შემთხვევა</td></tr><tr><td><b>loop</b></td><td>ციკლი</td></tr><tr><td><b>iteration</b></td><td>იტერაცია</td></tr><tr><td><b>while</b></td><td>სანამ</td></tr><tr><td><b>break</b></td><td>შეწყვეტა</td></tr><tr><td><b>continue</b></td><td>გაგრძელება</td></tr><tr><td><b>repeat</b></td><td>გამეორება</td></tr><tr><td><b>nested</b></td><td>ჩადგმული</td></tr><tr><td><b>infinite loop</b></td><td>უსასრულო ციკლი</td></tr><tr><td><b>counter</b></td><td>მთვლელი</td></tr><tr><td><b>range</b></td><td>დიაპაზონი</td></tr><tr><td><b>index</b></td><td>ინდექსი</td></tr><tr><td><b>step</b></td><td>ნაბიჯი</td></tr><tr><td><b>skip</b></td><td>გამოტოვება</td></tr><tr><td><b>exit</b></td><td>გასვლა</td></tr><tr><td><b>branch</b></td><td>განშტოება</td></tr></table>
 <pre><code>if (score &gt;= 50) {             // თუ (if) პირობა სრულდება
@@ -102,7 +158,7 @@ for (let i = 0; i &lt; 3; i++) {  // ციკლი (loop): 3 იტერა�
 }</code></pre>
 </section>
 <section id="m5">
-<h2>05 <span class="emo">🧮</span> ფუნქციები</h2>
+<h2><span class="mk">05 <svg class="i" aria-hidden="true"><use href="#i-hash"/></svg> ფუნქციები</span></h2>
 <p class="muted">კოდის ნაწილი, რომელსაც სახელს ვარქმევთ და ბევრჯერ ვიძახებთ. · 20 სიტყვა · ≈ 15 წთ</p>
 <table><tr><th>English</th><th>ქართული</th></tr><tr><td><b>function</b></td><td>ფუნქცია</td></tr><tr><td><b>method</b></td><td>მეთოდი</td></tr><tr><td><b>parameter</b></td><td>პარამეტრი</td></tr><tr><td><b>argument</b></td><td>არგუმენტი</td></tr><tr><td><b>return</b></td><td>დაბრუნება</td></tr><tr><td><b>call</b></td><td>გამოძახება</td></tr><tr><td><b>define</b></td><td>განსაზღვრა</td></tr><tr><td><b>scope</b></td><td>ხილვადობის არე</td></tr><tr><td><b>local</b></td><td>ლოკალური</td></tr><tr><td><b>global</b></td><td>გლობალური</td></tr><tr><td><b>callback</b></td><td>უკუგამოძახება</td></tr><tr><td><b>recursion</b></td><td>რეკურსია</td></tr><tr><td><b>default</b></td><td>ნაგულისხმევი</td></tr><tr><td><b>output</b></td><td>გამოტანა</td></tr><tr><td><b>input</b></td><td>შეტანა</td></tr><tr><td><b>reusable</b></td><td>მრავალჯერადი გამოყენების</td></tr><tr><td><b>module</b></td><td>მოდული</td></tr><tr><td><b>import</b></td><td>იმპორტი</td></tr><tr><td><b>export</b></td><td>ექსპორტი</td></tr><tr><td><b>name</b></td><td>სახელი</td></tr></table>
 <pre><code>function add(a, b) {   // a და b — პარამეტრები (parameters)
@@ -111,7 +167,7 @@ for (let i = 0; i &lt; 3; i++) {  // ციკლი (loop): 3 იტერა�
 let sum = add(2, 3);   // გამოძახება (call); 2 და 3 — არგუმენტები</code></pre>
 </section>
 <section id="m6">
-<h2>06 <span class="emo">🏛️</span> ობიექტზე ორიენტირებული პროგრამირება</h2>
+<h2><span class="mk">06 <svg class="i" aria-hidden="true"><use href="#i-building"/></svg> ობიექტზე ორიენტირებული პროგრამირება</span></h2>
 <p class="muted">კლასები, ობიექტები და მემკვიდრეობა. · 20 სიტყვა · ≈ 15 წთ</p>
 <table><tr><th>English</th><th>ქართული</th></tr><tr><td><b>class</b></td><td>კლასი</td></tr><tr><td><b>instance</b></td><td>ეგზემპლარი</td></tr><tr><td><b>property</b></td><td>თვისება</td></tr><tr><td><b>attribute</b></td><td>ატრიბუტი</td></tr><tr><td><b>constructor</b></td><td>კონსტრუქტორი</td></tr><tr><td><b>inheritance</b></td><td>მემკვიდრეობა</td></tr><tr><td><b>parent class</b></td><td>მშობელი კლასი</td></tr><tr><td><b>child class</b></td><td>შვილობილი კლასი</td></tr><tr><td><b>interface</b></td><td>ინტერფეისი</td></tr><tr><td><b>encapsulation</b></td><td>ინკაფსულაცია</td></tr><tr><td><b>polymorphism</b></td><td>პოლიმორფიზმი</td></tr><tr><td><b>abstraction</b></td><td>აბსტრაქცია</td></tr><tr><td><b>private</b></td><td>დახურული</td></tr><tr><td><b>public</b></td><td>საჯარო</td></tr><tr><td><b>static</b></td><td>სტატიკური</td></tr><tr><td><b>override</b></td><td>გადაფარვა</td></tr><tr><td><b>extend</b></td><td>გაფართოება</td></tr><tr><td><b>create</b></td><td>შექმნა</td></tr><tr><td><b>delete</b></td><td>წაშლა</td></tr><tr><td><b>update</b></td><td>განახლება</td></tr></table>
 <pre><code>class Animal {
@@ -124,7 +180,7 @@ class Dog extends Animal {                       // მემკვიდრე�
 const rex = new Dog(&quot;Rex&quot;);                     // ეგზემპლარი (instance)</code></pre>
 </section>
 <section id="m7">
-<h2>07 <span class="emo">🐞</span> შეცდომები და დებაგი</h2>
+<h2><span class="mk">07 <svg class="i" aria-hidden="true"><use href="#i-bug"/></svg> შეცდომები და დებაგი</span></h2>
 <p class="muted">შეცდომის პოვნა, გაგება და გასწორება. · 20 სიტყვა · ≈ 15 წთ</p>
 <table><tr><th>English</th><th>ქართული</th></tr><tr><td><b>error</b></td><td>შეცდომა</td></tr><tr><td><b>bug</b></td><td>ბაგი</td></tr><tr><td><b>debug</b></td><td>გამართვა</td></tr><tr><td><b>exception</b></td><td>გამონაკლისი</td></tr><tr><td><b>warning</b></td><td>გაფრთხილება</td></tr><tr><td><b>crash</b></td><td>ავარია</td></tr><tr><td><b>fix</b></td><td>გასწორება</td></tr><tr><td><b>test</b></td><td>ტესტი</td></tr><tr><td><b>breakpoint</b></td><td>გაჩერების წერტილი</td></tr><tr><td><b>log</b></td><td>ჟურნალი</td></tr><tr><td><b>stack trace</b></td><td>გამოძახებების კვალი</td></tr><tr><td><b>try</b></td><td>ცდა</td></tr><tr><td><b>catch</b></td><td>დაჭერა</td></tr><tr><td><b>throw</b></td><td>გამოგდება</td></tr><tr><td><b>handle</b></td><td>დამუშავება</td></tr><tr><td><b>invalid</b></td><td>არასწორი</td></tr><tr><td><b>missing</b></td><td>აკლია</td></tr><tr><td><b>unexpected</b></td><td>მოულოდნელი</td></tr><tr><td><b>timeout</b></td><td>დროის ამოწურვა</td></tr><tr><td><b>fail</b></td><td>ჩავარდნა</td></tr></table>
 <pre><code>try {                                      // ცდა (try)
@@ -134,7 +190,7 @@ const rex = new Dog(&quot;Rex&quot;);                     // ეგზემპ�
 }</code></pre>
 </section>
 <section id="m8">
-<h2>08 <span class="emo">🌐</span> ვები</h2>
+<h2><span class="mk">08 <svg class="i" aria-hidden="true"><use href="#i-globe"/></svg> ვები</span></h2>
 <p class="muted">ვებსაიტები, ბრაუზერი, სერვერი და API. · 20 სიტყვა · ≈ 15 წთ</p>
 <table><tr><th>English</th><th>ქართული</th></tr><tr><td><b>website</b></td><td>ვებსაიტი</td></tr><tr><td><b>web page</b></td><td>ვებგვერდი</td></tr><tr><td><b>browser</b></td><td>ბრაუზერი</td></tr><tr><td><b>server</b></td><td>სერვერი</td></tr><tr><td><b>client</b></td><td>კლიენტი</td></tr><tr><td><b>request</b></td><td>მოთხოვნა</td></tr><tr><td><b>response</b></td><td>პასუხი</td></tr><tr><td><b>link</b></td><td>ბმული</td></tr><tr><td><b>domain</b></td><td>დომენი</td></tr><tr><td><b>frontend</b></td><td>ფრონტენდი</td></tr><tr><td><b>backend</b></td><td>ბექენდი</td></tr><tr><td><b>element</b></td><td>ელემენტი</td></tr><tr><td><b>tag</b></td><td>ტეგი</td></tr><tr><td><b>style</b></td><td>სტილი</td></tr><tr><td><b>layout</b></td><td>განლაგება</td></tr><tr><td><b>button</b></td><td>ღილაკი</td></tr><tr><td><b>form</b></td><td>ფორმა</td></tr><tr><td><b>deploy</b></td><td>განთავსება</td></tr><tr><td><b>hosting</b></td><td>ჰოსტინგი</td></tr><tr><td><b>API</b></td><td>პროგრამული ინტერფეისი</td></tr></table>
 <pre><code>const response = await fetch(&quot;https://api.example.com/users&quot;); // მოთხოვნა (request) სერვერზე
@@ -142,7 +198,7 @@ const users = await response.json();                           // პასუ�
 document.querySelector(&quot;button&quot;).textContent = &quot;Click me&quot;;      // ელემენტი: ღილაკი (button)</code></pre>
 </section>
 <section id="m9">
-<h2>09 <span class="emo">🗄️</span> მონაცემთა ბაზები</h2>
+<h2><span class="mk">09 <svg class="i" aria-hidden="true"><use href="#i-database"/></svg> მონაცემთა ბაზები</span></h2>
 <p class="muted">ცხრილები, ჩანაწერები და მოთხოვნები (SQL). · 20 სიტყვა · ≈ 15 წთ</p>
 <table><tr><th>English</th><th>ქართული</th></tr><tr><td><b>database</b></td><td>მონაცემთა ბაზა</td></tr><tr><td><b>table</b></td><td>ცხრილი</td></tr><tr><td><b>row</b></td><td>მწკრივი</td></tr><tr><td><b>column</b></td><td>სვეტი</td></tr><tr><td><b>record</b></td><td>ჩანაწერი</td></tr><tr><td><b>query</b></td><td>მოთხოვნა</td></tr><tr><td><b>key</b></td><td>გასაღები</td></tr><tr><td><b>primary key</b></td><td>პირველადი გასაღები</td></tr><tr><td><b>foreign key</b></td><td>გარე გასაღები</td></tr><tr><td><b>insert</b></td><td>ჩასმა</td></tr><tr><td><b>select</b></td><td>არჩევა</td></tr><tr><td><b>schema</b></td><td>სქემა</td></tr><tr><td><b>relation</b></td><td>კავშირი</td></tr><tr><td><b>backup</b></td><td>სარეზერვო ასლი</td></tr><tr><td><b>storage</b></td><td>საცავი</td></tr><tr><td><b>cache</b></td><td>ქეში</td></tr><tr><td><b>sort</b></td><td>დალაგება</td></tr><tr><td><b>filter</b></td><td>ფილტრაცია</td></tr><tr><td><b>count</b></td><td>დათვლა</td></tr><tr><td><b>unique</b></td><td>უნიკალური</td></tr></table>
 <pre><code>SELECT name, email FROM users WHERE age &gt; 18 ORDER BY name;    -- არჩევა, ფილტრაცია, დალაგება
@@ -150,7 +206,7 @@ INSERT INTO users (name, email) VALUES (&#39;Ana&#39;, &#39;ana@mail.com&#39;); 
 SELECT COUNT(*) FROM users;                                      -- დათვლა (count)</code></pre>
 </section>
 <section id="m10">
-<h2>10 <span class="emo">🌿</span> Git და გუნდური მუშაობა</h2>
+<h2><span class="mk">10 <svg class="i" aria-hidden="true"><use href="#i-leaf"/></svg> Git და გუნდური მუშაობა</span></h2>
 <p class="muted">ვერსიების კონტროლი და კოდზე ერთად მუშაობა. · 20 სიტყვა · ≈ 15 წთ</p>
 <table><tr><th>English</th><th>ქართული</th></tr><tr><td><b>version control</b></td><td>ვერსიების კონტროლი</td></tr><tr><td><b>repository</b></td><td>რეპოზიტორი</td></tr><tr><td><b>commit</b></td><td>კომიტი</td></tr><tr><td><b>branch</b></td><td>განშტოება</td></tr><tr><td><b>merge</b></td><td>შერწყმა</td></tr><tr><td><b>pull request</b></td><td>შერწყმის მოთხოვნა</td></tr><tr><td><b>push</b></td><td>ატვირთვა</td></tr><tr><td><b>pull</b></td><td>ჩამოტვირთვა</td></tr><tr><td><b>clone</b></td><td>კლონირება</td></tr><tr><td><b>conflict</b></td><td>კონფლიქტი</td></tr><tr><td><b>history</b></td><td>ისტორია</td></tr><tr><td><b>change</b></td><td>ცვლილება</td></tr><tr><td><b>review</b></td><td>განხილვა</td></tr><tr><td><b>issue</b></td><td>პრობლემა</td></tr><tr><td><b>release</b></td><td>გამოშვება</td></tr><tr><td><b>version</b></td><td>ვერსია</td></tr><tr><td><b>team</b></td><td>გუნდი</td></tr><tr><td><b>task</b></td><td>დავალება</td></tr><tr><td><b>deadline</b></td><td>ვადა</td></tr><tr><td><b>feature</b></td><td>ფუნქციონალი</td></tr></table>
 <pre><code>git clone https://github.com/user/project.git  # კლონირება (clone)
@@ -159,7 +215,7 @@ git commit -m &quot;Add login page&quot;                  # კომიტი (
 git push origin new-feature                     # ატვირთვა (push)</code></pre>
 </section>
 <section id="m11">
-<h2>11 <span class="emo">🛠️</span> ხელსაწყოები და ბრძანებები</h2>
+<h2><span class="mk">11 <svg class="i" aria-hidden="true"><use href="#i-wrench"/></svg> ხელსაწყოები და ბრძანებები</span></h2>
 <p class="muted">ინსტალაცია, პაკეტები და ტერმინალის ბრძანებები. · 20 სიტყვა · ≈ 15 წთ</p>
 <table><tr><th>English</th><th>ქართული</th></tr><tr><td><b>install</b></td><td>ინსტალაცია</td></tr><tr><td><b>package</b></td><td>პაკეტი</td></tr><tr><td><b>library</b></td><td>ბიბლიოთეკა</td></tr><tr><td><b>framework</b></td><td>ფრეიმვორკი</td></tr><tr><td><b>dependency</b></td><td>დამოკიდებულება</td></tr><tr><td><b>command</b></td><td>ბრძანება</td></tr><tr><td><b>command line</b></td><td>ბრძანების სტრიქონი</td></tr><tr><td><b>path</b></td><td>გზა</td></tr><tr><td><b>directory</b></td><td>დირექტორია</td></tr><tr><td><b>download</b></td><td>ჩამოტვირთვა</td></tr><tr><td><b>upload</b></td><td>ატვირთვა</td></tr><tr><td><b>build</b></td><td>აწყობა</td></tr><tr><td><b>configure</b></td><td>კონფიგურაცია</td></tr><tr><td><b>settings</b></td><td>პარამეტრები</td></tr><tr><td><b>environment</b></td><td>გარემო</td></tr><tr><td><b>shortcut</b></td><td>მალსახმობი</td></tr><tr><td><b>copy</b></td><td>კოპირება</td></tr><tr><td><b>paste</b></td><td>ჩასმა</td></tr><tr><td><b>save</b></td><td>შენახვა</td></tr><tr><td><b>open</b></td><td>გახსნა</td></tr></table>
 <pre><code>npm install express     # პაკეტის (package) ინსტალაცია (install)
@@ -167,7 +223,7 @@ cd projects/my-app      # დირექტორიაში (directory) გ�
 npm run build           # აწყობა (build)</code></pre>
 </section>
 <section id="m12">
-<h2>12 <span class="emo">⌨️</span> სიმბოლოები კლავიატურაზე</h2>
+<h2><span class="mk">12 <svg class="i" aria-hidden="true"><use href="#i-keyboard"/></svg> სიმბოლოები კლავიატურაზე</span></h2>
 <p class="muted">როგორ ჰქვია ინგლისურად კოდში გამოყენებულ ნიშნებს. · 20 სიტყვა · ≈ 15 წთ</p>
 <table><tr><th>English</th><th>ქართული</th></tr><tr><td><b>parentheses</b></td><td>მრგვალი ფრჩხილები</td></tr><tr><td><b>brackets</b></td><td>კვადრატული ფრჩხილები</td></tr><tr><td><b>curly braces</b></td><td>ფიგურული ფრჩხილები</td></tr><tr><td><b>angle brackets</b></td><td>კუთხოვანი ფრჩხილები</td></tr><tr><td><b>semicolon</b></td><td>წერტილმძიმე</td></tr><tr><td><b>colon</b></td><td>ორწერტილი</td></tr><tr><td><b>comma</b></td><td>მძიმე</td></tr><tr><td><b>dot</b></td><td>წერტილი</td></tr><tr><td><b>quotation mark</b></td><td>ბრჭყალი</td></tr><tr><td><b>slash</b></td><td>დახრილი ხაზი</td></tr><tr><td><b>backslash</b></td><td>უკუდახრილი ხაზი</td></tr><tr><td><b>underscore</b></td><td>ქვედა ტირე</td></tr><tr><td><b>dash</b></td><td>ტირე</td></tr><tr><td><b>asterisk</b></td><td>ვარსკვლავი</td></tr><tr><td><b>hash sign</b></td><td>დიეზი</td></tr><tr><td><b>at sign</b></td><td>ძაღლუკა</td></tr><tr><td><b>ampersand</b></td><td>ამპერსანდი</td></tr><tr><td><b>pipe</b></td><td>ვერტიკალური ხაზი</td></tr><tr><td><b>tilde</b></td><td>ტილდა</td></tr><tr><td><b>exclamation mark</b></td><td>ძახილის ნიშანი</td></tr></table>
 <pre><code>let list = [1, 2, 3];        // [ ] კვადრატული ფრჩხილები, მძიმე (comma), წერტილმძიმე (semicolon)
@@ -179,6 +235,6 @@ let file = &quot;docs/notes.txt&quot;; // / დახრილი ხაზი (
 with Georgian translations and code examples. Free.</p>
 </main>
 <footer class="foot"><div class="pt"><a class="pt-ad" href="https://codequest.space/?utm_source=englishquest&amp;utm_medium=partner&amp;utm_campaign=pages" target="_blank" rel="noopener"><svg viewBox="0 0 305 290" width="46" height="44" aria-hidden="true"><circle cx="152" cy="24" r="18" fill="#FF8A00"/><rect x="146" y="38" width="12" height="30" fill="#13163A"/><rect x="9" y="142" width="34" height="67" rx="10" fill="#13163A"/><rect x="262" y="142" width="34" height="67" rx="10" fill="#13163A"/><rect x="32" y="63" width="240" height="219" rx="68" fill="#3D5AFE"/><rect x="64" y="105" width="177" height="125" rx="40" fill="#13163A"/><polyline points="94,142 122,167 94,192" fill="none" stroke="#3DDC97" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><line x1="146" y1="193" x2="200" y2="193" stroke="#3DDC97" stroke-width="14" stroke-linecap="round"/></svg><span class="pt-t"><b>CodeQuest: ისწავლე პროგრამირება</b><em>თამაშით, ქართულად: 19 ენა, რობოტი ბიტი და სკოლა „ისწავლე კოდინგი“</em></span><span class="pt-tag">პარტნიორი</span></a></div><div class="by">Powered by codequest</div>
-  <div class="legal"><a href="privacy">კონფიდენციალურობა</a> · <a href="terms">წესები</a> · <a href="https://codequest.space/?utm_source=englishquest&amp;utm_medium=partner&amp;utm_campaign=pages" target="_blank" rel="noopener"><span class="emo">🤝</span> პარტნიორი: CodeQuest</a></div></footer>
+  <div class="legal"><a href="privacy">კონფიდენციალურობა</a> · <a href="terms">წესები</a> · <a href="https://codequest.space/?utm_source=englishquest&amp;utm_medium=partner&amp;utm_campaign=pages" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-link"/></svg> პარტნიორი: CodeQuest</a></div></footer>
 </body>
 </html>

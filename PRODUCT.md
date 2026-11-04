@@ -35,9 +35,9 @@ Free (the only promotion is a small footer banner for the partner CodeQuest), en
 
 - Name: English Quest / ისწავლე ინგლისური; footer "Powered by codequest" and the CodeQuest partner banner (codequest.space, own logo colours, labelled პარტნიორი).
 - Logo stays: red square with a white open book and a red bookmark.
-- Main colours stay red, black and white.
-- The 8 selectable styles stay as variants of the departure board. The stored id 'paper' is kept for saved data but is now the default board style (🚉 დაფა: graphite, black flaps, white, red); then auto, light, dark, terminal, ocean, forest, rose.
-- Emojis stay as the small icons, tinted red/black/white.
+- The logo red stays as the main accent; the rest of the palette is free (2026-11 redesign: study-notes notebook, white dot-grid paper, gel-pen ink, pastel highlighters).
+- The 8 selectable styles stay as notebook variants. Stored ids stay for saved data: paper is the default notebook, then auto, light, dark, terminal, ocean, forest, rose.
+- One line-icon set replaces emojis in the interface (small in buttons, large on cards). Emojis remain only as stickers: avatars and names people type.
 
 ## Evidence on Hand
 

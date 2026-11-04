@@ -15,7 +15,7 @@
 <meta property="og:image" content="https://www.englishquest.space/icon-512.png">
 <meta name="twitter:card" content="summary">
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#25262a">
+<meta name="theme-color" content="#f6f7fb">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect x='2' y='2' width='44' height='44' rx='7' fill='%23d62828' stroke='%23111' stroke-width='3'/%3E%3Cpath d='M24 15c-4-3-9-3.5-14-2v21c5-1.5 10-1 14 2z' fill='%23fff' stroke='%23111' stroke-width='2.6' stroke-linejoin='round'/%3E%3Cpath d='M24 15c4-3 9-3.5 14-2v21c-5-1.5-10-1-14 2z' fill='%23fff' stroke='%23111' stroke-width='2.6' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <!-- Vercel Web Analytics: ანონიმური ვიზიტების სტატისტიკა (cookie-ების გარეშე) -->
@@ -26,26 +26,82 @@
 <script type="application/ld+json">{"@context":"https://schema.org","url":"https://www.englishquest.space/levels","@type":"WebPage","name":"ინგლისურის დონეები A1–C2","inLanguage":"ka"}</script>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <filter id="rbw" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
-    <feColorMatrix in="SourceGraphic" type="matrix" result="gray"
-      values="0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0 0 0 1 0"/>
-    <feComponentTransfer in="gray" result="gray">
-      <feFuncR type="linear" slope="1.3" intercept="-0.15"/>
-      <feFuncG type="linear" slope="1.3" intercept="-0.15"/>
-      <feFuncB type="linear" slope="1.3" intercept="-0.15"/>
-    </feComponentTransfer>
-    <feComponentTransfer in="gray" result="tone">
-      <feFuncR type="table" tableValues="0.067 0.541 0.839 0.949 1"/>
-      <feFuncG type="table" tableValues="0.067 0.078 0.157 0.639 1"/>
-      <feFuncB type="table" tableValues="0.067 0.078 0.157 0.639 1"/>
-    </feComponentTransfer>
-    <feMorphology in="SourceAlpha" operator="dilate" radius="0.45" result="fat"/>
-    <feFlood style="flood-color: var(--emo-edge); flood-opacity: var(--emo-edge-a)"/>
-    <feComposite in2="fat" operator="in" result="outline"/>
-    <feMerge><feMergeNode in="outline"/><feMergeNode in="tone"/></feMerge>
-  </filter>
-</svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="5.5"/><circle cx="12" cy="12" r="1.5"/></symbol>
+  <symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></symbol>
+  <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="4" y="4.5" width="16" height="11" rx="2"/><path d="M2 19.5h20"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5zM6 12v5c3 3 9 3 12 0v-5M22 10v6"/></symbol>
+  <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="m8 12.5 2.8 2.8L16 9.5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="8.5" y="2.5" width="7" height="4" rx="1"/><path d="M8.5 4.5H6a1.5 1.5 0 0 0-1.5 1.5v14A1.5 1.5 0 0 0 6 21.5h12a1.5 1.5 0 0 0 1.5-1.5V6A1.5 1.5 0 0 0 18 4.5h-2.5M8.5 13.5l2.5 2.5 4.5-4.5"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H7a5 5 0 1 1 1.4-9.8A6 6 0 0 1 20 11.5a3.8 3.8 0 0 1-2.5 7.5z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4.5 19V5.5a3 3 0 0 1 3-3h12v15h-12a3 3 0 0 0-3 3 1.5 1.5 0 0 0 1.5 1.5h13.5M9 7h6"/></symbol>
+  <symbol id="i-book-open" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2zM22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="12.5" height="12.5" rx="2"/><path d="M15.5 8.5V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8.5a2 2 0 0 0 2 2h3.5"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M16.5 3.5a2.6 2.6 0 0 1 3.7 3.7L7.5 20 2.5 21.5 4 16.5zM14.5 5.5l4 4"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8.5 6V4h7v2M18.5 6l-1 14.5h-11L5.5 6M10 10.5v6M14 10.5v6"/></symbol>
+  <symbol id="i-cards" viewBox="0 0 24 24"><rect x="3" y="6.5" width="13" height="15" rx="2"/><path d="M7.5 3h11A2.5 2.5 0 0 1 21 5.5v12"/></symbol>
+  <symbol id="i-headphones" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1-2.1-.2-4 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3 0 1.4.5 2.5 1.5 3.5z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="7.5" r="3.5"/><path d="M2.5 20.5v-1a5.5 5.5 0 0 1 11 0v1M16 4.2a3.5 3.5 0 0 1 0 6.6M21.5 20.5v-1a5.5 5.5 0 0 0-3.5-5.1"/></symbol>
+  <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M11 3l1.8 5.2L18 10l-5.2 1.8L11 17l-1.8-5.2L4 10l5.2-1.8zM18.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8zM18 3v4M16 5h4"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 3.5 14h8l-1 8L20 10h-8z"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 21h8M12 16.5V21M7 3.5h10v5.5a5 5 0 0 1-10 0zM7 5.5H4.5a3 3 0 0 0 3 4.5M17 5.5h2.5a3 3 0 0 1-3 4.5"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18M8 17v-4M13 17V7M18 17v-7"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="M22 7l-8.5 8.5-5-5L2 17M16 7h6v6"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></symbol>
+  <symbol id="i-keyboard" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M6 9h.01M10 9h.01M14 9h.01M18 9h.01M6 12.5h.01M18 12.5h.01M8 15.5h8"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 7 22l5-3 5 3-1.5-8"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15.5 6.2L3 15.5M3 12a9 9 0 0 1 15.5-6.2L21 8.5M21 3.5v5h-5M3 20.5v-5h5"/></symbol>
+  <symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="8"/><path d="M12 9.5v4l2.5 2M9.5 2.5h5"/></symbol>
+  <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 21.5a9.5 9.5 0 1 1 9.5-9.5c0 2.8-1.9 4-4 4h-2.2a1.8 1.8 0 0 0-1.3 3.1A1.5 1.5 0 0 1 12 21.5z"/><path d="M7.5 11h.01M10 7h.01M14.5 7h.01M17 11h.01"/></symbol>
+  <symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="m21.5 6.5-9.5 7-9.5-7"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M5 3h11l5 5v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM7.5 3v5h8M7.5 21v-7h9v7"/></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M12 14l-3.5-3.5M3.3 19a10 10 0 1 1 17.4 0"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 21V9M7 14l5-5 5 5M5 3h14"/></symbol>
+  <symbol id="i-x-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M15 9l-6 6M9 9l6 6"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 16.5v-5M12 8h.01"/></symbol>
+  <symbol id="i-paw" viewBox="0 0 24 24"><circle cx="5" cy="10" r="2"/><circle cx="9" cy="5" r="2"/><circle cx="15" cy="5" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12 12c-3 0-6 4-6 7 0 2 2 2 3 2s2-1 3-1 2 1 3 1 3 0 3-2c0-3-3-7-6-7z"/></symbol>
+  <symbol id="i-hash" viewBox="0 0 24 24"><path d="M4 9h16M4 15h16M10 3 8 21M16 3l-2 18"/></symbol>
+  <symbol id="i-apple" viewBox="0 0 24 24"><path d="M12 7c-1.5-1-3-1.4-4.5-1C4.5 6.8 3.3 10 4 14c.8 4 3.5 7 5.5 7 1 0 1.5-.5 2.5-.5s1.5.5 2.5.5c2 0 4.7-3 5.5-7 .7-4-.5-7.2-3.5-8-1.5-.4-3 0-4.5 1zM12 7c0-2.5 1-4 3-4.5"/></symbol>
+  <symbol id="i-activity" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></symbol>
+  <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1zM12 15l-3-3a22 22 0 0 1 2-4A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22.4 22.4 0 0 1-4 2zM9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/></symbol>
+  <symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M4 7.5h4a2.2 2.2 0 1 1 4.4 0H16v4a2.2 2.2 0 1 1 0 4.4V20H4z"/></symbol>
+  <symbol id="i-package" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5zM3 8l9 5 9-5M12 13v8M7.5 5.5l9 5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
+  <symbol id="i-shuffle" viewBox="0 0 24 24"><path d="M2 18h3.5a4 4 0 0 0 3.3-1.7l6.4-8.6A4 4 0 0 1 18.5 6H22M2 6h3.5a4 4 0 0 1 3 1.4M22 18h-3.5a4 4 0 0 1-3-1.4M18 2l4 4-4 4M18 14l4 4-4 4"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><path d="M3 21.5h18M6 18v-7M10 18v-7M14 18v-7M18 18v-7M12 2.5l9 5H3z"/></symbol>
+  <symbol id="i-bug" viewBox="0 0 24 24"><rect x="7.5" y="6.5" width="9" height="14" rx="4.5"/><path d="M12 20.5v-9M7.5 11H3.5M20.5 11h-4M7.5 15.5H3M21 15.5h-4.5M9.5 6.5 8 3.5M14.5 6.5 16 3.5"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5a14.5 14.5 0 0 1 0 19M12 2.5a14.5 14.5 0 0 0 0 19"/></symbol>
+  <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8.5" ry="3"/><path d="M3.5 5v14c0 1.7 3.8 3 8.5 3s8.5-1.3 8.5-3V5M3.5 12c0 1.7 3.8 3 8.5 3s8.5-1.3 8.5-3"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10zM2 21c0-3 1.9-5.4 5.1-6"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21.5h4M12 2.5a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2.5z"/></symbol>
+  <symbol id="i-thumbs" viewBox="0 0 24 24"><path d="M7 10v11M15 5.9 14 10h5.8a2 2 0 0 1 2 2.3l-1.4 7a2 2 0 0 1-2 1.7H7V10l4-8a3 3 0 0 1 4 3.9zM3 10h4v11H3z"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></symbol>
+  <symbol id="i-contrast" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 2.5v19a9.5 9.5 0 0 0 0-19z" fill="currentColor"/></symbol>
+  <symbol id="i-notebook" viewBox="0 0 24 24"><rect x="5" y="2.5" width="15" height="19" rx="2"/><path d="M2.5 7h4M2.5 12h4M2.5 17h4M10 7.5h6M10 11h4"/></symbol>
+  <symbol id="i-wave" viewBox="0 0 24 24"><path d="M2 7c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2M2 13c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2M2 19c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></symbol>
+  <symbol id="i-kraft" viewBox="0 0 24 24"><path d="M6 2.5h9l4 4v15H6zM15 2.5v4h4M9 12h7M9 16h7"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1.5 1.5 0 0 1-1.5 1.5h-5v-6h-5v6h-5A1.5 1.5 0 0 1 3 20z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><path d="M6 12h.01M12 12h.01M18 12h.01" stroke-width="3"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></symbol>
+</defs></svg>
 <header class="top">
   <a class="logo" href="./"><svg class="logo-mark" viewBox="0 0 48 48" aria-hidden="true">
         <rect x="2" y="2" width="44" height="44" rx="7" fill="#d62828" stroke="#111" stroke-width="3"/>
@@ -54,49 +110,49 @@
         <path d="M30 12.2V22l2.5-2 2.5 2v-9.6" fill="#d62828" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
         <path d="M14 20h6M14 25h6M28 26h6" stroke="#111" stroke-width="2" stroke-linecap="round"/>
       </svg><span><span class="en">LEARN ENGLISH</span><b>ისწავლე ინგლისური</b></span></a>
-  <a class="btn red" href="./">▶ დაიწყე სწავლა</a>
+  <a class="btn red" href="./"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg> დაიწყე სწავლა</a>
 </header>
-<nav class="tabs" aria-label="გვერდები"><a href="./"><span class="emo">🏠</span> მთავარი</a><a href="course"><span class="emo">💻</span> პროგრამირება</a><a href="levels" aria-current="page"><span class="emo">🎓</span> დონეები</a><a href="words"><span class="emo">📖</span> სიტყვები</a><a href="about"><span class="emo">ℹ️</span> როგორ მუშაობს</a></nav>
+<nav class="tabs" aria-label="გვერდები"><a href="./"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg> მთავარი</a><a href="course"><svg class="i" aria-hidden="true"><use href="#i-laptop"/></svg> პროგრამირება</a><a href="levels" aria-current="page"><svg class="i" aria-hidden="true"><use href="#i-cap"/></svg> დონეები</a><a href="words"><svg class="i" aria-hidden="true"><use href="#i-book-open"/></svg> სიტყვები</a><a href="about"><svg class="i" aria-hidden="true"><use href="#i-info"/></svg> როგორ მუშაობს</a></nav>
 <main>
-<h1><span class="emo">🎓</span> ინგლისურის დონეები A1–C2</h1>
+<h1><span class="mk"><svg class="i" aria-hidden="true"><use href="#i-cap"/></svg> ინგლისურის დონეები A1–C2</span></h1>
 <p class="lead">ინგლისურის ცოდნას ექვს დონედ ყოფენ (CEFR, ევროპული სტანდარტი): A1 და A2 დამწყებისთვისაა, B1 და B2 საშუალო დონეა,
 C1 და C2 კი მაღალი. აქ თითო დონეს 20 დამახასიათებელი სიტყვა აქვს ქართული თარგმანით.</p>
-<p><a class="btn red" href="./">▶ აირჩიე შენი დონე</a></p>
-<p class="muted">აპში ზედა ზოლზე დააჭირე „<span class="emo">🎓</span> დონე“-ს: აირჩიე დონე და მისი სიტყვები გაკვეთილად დაგემატება.</p>
+<p><a class="btn red" href="./"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg> აირჩიე შენი დონე</a></p>
+<p class="muted">აპში ზედა ზოლზე დააჭირე „<svg class="i" aria-hidden="true"><use href="#i-cap"/></svg> დონე“-ს: აირჩიე დონე და მისი სიტყვები გაკვეთილად დაგემატება.</p>
 <p class="toc"><a href="#a1">A1 · დამწყები</a> <a href="#a2">A2 · საბაზისო</a> <a href="#b1">B1 · საშუალო</a> <a href="#b2">B2 · საშუალოზე მაღალი</a> <a href="#c1">C1 · მაღალი</a> <a href="#c2">C2 · ფლობა</a></p>
 <section id="a1">
-<h2>A1: დამწყები</h2>
+<h2><span class="mk">A1: დამწყები</span></h2>
 <p class="muted">უმარტივესი სიტყვები და ფრაზები</p>
 <table><tr><th>English</th><th>ქართული</th></tr><tr><td><b>hello</b></td><td>გამარჯობა</td></tr><tr><td><b>goodbye</b></td><td>ნახვამდის</td></tr><tr><td><b>thank you</b></td><td>მადლობა</td></tr><tr><td><b>please</b></td><td>გთხოვთ</td></tr><tr><td><b>yes</b></td><td>კი</td></tr><tr><td><b>no</b></td><td>არა</td></tr><tr><td><b>water</b></td><td>წყალი</td></tr><tr><td><b>house</b></td><td>სახლი</td></tr><tr><td><b>book</b></td><td>წიგნი</td></tr><tr><td><b>friend</b></td><td>მეგობარი</td></tr><tr><td><b>school</b></td><td>სკოლა</td></tr><tr><td><b>day</b></td><td>დღე</td></tr><tr><td><b>night</b></td><td>ღამე</td></tr><tr><td><b>big</b></td><td>დიდი</td></tr><tr><td><b>small</b></td><td>პატარა</td></tr><tr><td><b>good</b></td><td>კარგი</td></tr><tr><td><b>bad</b></td><td>ცუდი</td></tr><tr><td><b>morning</b></td><td>დილა</td></tr><tr><td><b>name</b></td><td>სახელი</td></tr><tr><td><b>city</b></td><td>ქალაქი</td></tr></table>
 </section>
 <section id="a2">
-<h2>A2: საბაზისო</h2>
+<h2><span class="mk">A2: საბაზისო</span></h2>
 <p class="muted">ყოველდღიური სიტუაციები</p>
 <table><tr><th>English</th><th>ქართული</th></tr><tr><td><b>weather</b></td><td>ამინდი</td></tr><tr><td><b>holiday</b></td><td>არდადეგები</td></tr><tr><td><b>kitchen</b></td><td>სამზარეულო</td></tr><tr><td><b>shop</b></td><td>მაღაზია</td></tr><tr><td><b>ticket</b></td><td>ბილეთი</td></tr><tr><td><b>money</b></td><td>ფული</td></tr><tr><td><b>cheap</b></td><td>იაფი</td></tr><tr><td><b>expensive</b></td><td>ძვირი</td></tr><tr><td><b>early</b></td><td>ადრე</td></tr><tr><td><b>late</b></td><td>გვიან</td></tr><tr><td><b>always</b></td><td>ყოველთვის</td></tr><tr><td><b>never</b></td><td>არასდროს</td></tr><tr><td><b>tired</b></td><td>დაღლილი</td></tr><tr><td><b>hungry</b></td><td>მშიერი</td></tr><tr><td><b>journey</b></td><td>მოგზაურობა</td></tr><tr><td><b>neighbour</b></td><td>მეზობელი</td></tr><tr><td><b>answer</b></td><td>პასუხი</td></tr><tr><td><b>question</b></td><td>კითხვა</td></tr><tr><td><b>forget</b></td><td>დავიწყება</td></tr><tr><td><b>healthy</b></td><td>ჯანმრთელი</td></tr></table>
 </section>
 <section id="b1">
-<h2>B1: საშუალო</h2>
+<h2><span class="mk">B1: საშუალო</span></h2>
 <p class="muted">ნაცნობ თემებზე თავისუფალი საუბარი</p>
 <table><tr><th>English</th><th>ქართული</th></tr><tr><td><b>experience</b></td><td>გამოცდილება</td></tr><tr><td><b>opportunity</b></td><td>შესაძლებლობა</td></tr><tr><td><b>advice</b></td><td>რჩევა</td></tr><tr><td><b>decision</b></td><td>გადაწყვეტილება</td></tr><tr><td><b>improve</b></td><td>გაუმჯობესება</td></tr><tr><td><b>environment</b></td><td>გარემო</td></tr><tr><td><b>government</b></td><td>მთავრობა</td></tr><tr><td><b>knowledge</b></td><td>ცოდნა</td></tr><tr><td><b>behaviour</b></td><td>ქცევა</td></tr><tr><td><b>career</b></td><td>კარიერა</td></tr><tr><td><b>compare</b></td><td>შედარება</td></tr><tr><td><b>describe</b></td><td>აღწერა</td></tr><tr><td><b>explain</b></td><td>ახსნა</td></tr><tr><td><b>suggest</b></td><td>შეთავაზება</td></tr><tr><td><b>achieve</b></td><td>მიღწევა</td></tr><tr><td><b>success</b></td><td>წარმატება</td></tr><tr><td><b>relationship</b></td><td>ურთიერთობა</td></tr><tr><td><b>purpose</b></td><td>მიზანი</td></tr><tr><td><b>average</b></td><td>საშუალო</td></tr><tr><td><b>reliable</b></td><td>საიმედო</td></tr></table>
 </section>
 <section id="b2">
-<h2>B2: საშუალოზე მაღალი</h2>
+<h2><span class="mk">B2: საშუალოზე მაღალი</span></h2>
 <p class="muted">რთული ტექსტები და დისკუსია</p>
 <table><tr><th>English</th><th>ქართული</th></tr><tr><td><b>consequence</b></td><td>შედეგი</td></tr><tr><td><b>approach</b></td><td>მიდგომა</td></tr><tr><td><b>significant</b></td><td>მნიშვნელოვანი</td></tr><tr><td><b>evidence</b></td><td>მტკიცებულება</td></tr><tr><td><b>assume</b></td><td>დაშვება</td></tr><tr><td><b>maintain</b></td><td>შენარჩუნება</td></tr><tr><td><b>require</b></td><td>მოთხოვნა</td></tr><tr><td><b>sufficient</b></td><td>საკმარისი</td></tr><tr><td><b>challenge</b></td><td>გამოწვევა</td></tr><tr><td><b>influence</b></td><td>გავლენა</td></tr><tr><td><b>contribute</b></td><td>წვლილის შეტანა</td></tr><tr><td><b>efficient</b></td><td>ეფექტიანი</td></tr><tr><td><b>ensure</b></td><td>უზრუნველყოფა</td></tr><tr><td><b>obvious</b></td><td>აშკარა</td></tr><tr><td><b>persuade</b></td><td>დარწმუნება</td></tr><tr><td><b>reluctant</b></td><td>უხალისო</td></tr><tr><td><b>previous</b></td><td>წინა</td></tr><tr><td><b>recover</b></td><td>გამოჯანმრთელება</td></tr><tr><td><b>threat</b></td><td>საფრთხე</td></tr><tr><td><b>widespread</b></td><td>გავრცელებული</td></tr></table>
 </section>
 <section id="c1">
-<h2>C1: მაღალი</h2>
+<h2><span class="mk">C1: მაღალი</span></h2>
 <p class="muted">თავისუფალი და ზუსტი ენა</p>
 <table><tr><th>English</th><th>ქართული</th></tr><tr><td><b>ambiguous</b></td><td>ორაზროვანი</td></tr><tr><td><b>comprehensive</b></td><td>ყოვლისმომცველი</td></tr><tr><td><b>diminish</b></td><td>შემცირება</td></tr><tr><td><b>inevitable</b></td><td>გარდაუვალი</td></tr><tr><td><b>meticulous</b></td><td>ზედმიწევნით ზუსტი</td></tr><tr><td><b>notion</b></td><td>ცნება</td></tr><tr><td><b>plausible</b></td><td>სარწმუნო</td></tr><tr><td><b>scrutiny</b></td><td>გულდასმით შემოწმება</td></tr><tr><td><b>subtle</b></td><td>დახვეწილი</td></tr><tr><td><b>undermine</b></td><td>შესუსტება</td></tr><tr><td><b>versatile</b></td><td>მრავალმხრივი</td></tr><tr><td><b>profound</b></td><td>ღრმა</td></tr><tr><td><b>coherent</b></td><td>თანმიმდევრული</td></tr><tr><td><b>discrepancy</b></td><td>შეუსაბამობა</td></tr><tr><td><b>endeavour</b></td><td>მცდელობა</td></tr><tr><td><b>feasible</b></td><td>განხორციელებადი</td></tr><tr><td><b>hinder</b></td><td>ხელის შეშლა</td></tr><tr><td><b>implicit</b></td><td>ნაგულისხმევი</td></tr><tr><td><b>prevalent</b></td><td>გაბატონებული</td></tr><tr><td><b>advocate</b></td><td>მომხრე</td></tr></table>
 </section>
 <section id="c2">
-<h2>C2: ფლობა</h2>
+<h2><span class="mk">C2: ფლობა</span></h2>
 <p class="muted">თითქმის მშობლიური ენასავით</p>
 <table><tr><th>English</th><th>ქართული</th></tr><tr><td><b>ubiquitous</b></td><td>ყველგანმყოფი</td></tr><tr><td><b>ephemeral</b></td><td>წარმავალი</td></tr><tr><td><b>pragmatic</b></td><td>პრაგმატული</td></tr><tr><td><b>juxtaposition</b></td><td>შეპირისპირება</td></tr><tr><td><b>conundrum</b></td><td>დილემა</td></tr><tr><td><b>magnanimous</b></td><td>სულგრძელი</td></tr><tr><td><b>obfuscate</b></td><td>გაბუნდოვანება</td></tr><tr><td><b>perfunctory</b></td><td>ზერელე</td></tr><tr><td><b>sanguine</b></td><td>ოპტიმისტური</td></tr><tr><td><b>recalcitrant</b></td><td>ჯიუტი</td></tr><tr><td><b>ineffable</b></td><td>გამოუთქმელი</td></tr><tr><td><b>idiosyncratic</b></td><td>თავისებური</td></tr><tr><td><b>cogent</b></td><td>დამაჯერებელი</td></tr><tr><td><b>vicissitude</b></td><td>ცვალებადობა</td></tr><tr><td><b>equivocal</b></td><td>ბუნდოვანი</td></tr><tr><td><b>pernicious</b></td><td>მავნე</td></tr><tr><td><b>serendipity</b></td><td>ბედნიერი შემთხვევითობა</td></tr><tr><td><b>ameliorate</b></td><td>შემსუბუქება</td></tr><tr><td><b>ostensibly</b></td><td>ერთი შეხედვით</td></tr><tr><td><b>lugubrious</b></td><td>პირქუში</td></tr></table>
 </section>
 <p lang="en" class="muted">English levels A1–C2 (CEFR) explained in Georgian, with 20 typical words for each level.</p>
 </main>
 <footer class="foot"><div class="pt"><a class="pt-ad" href="https://codequest.space/?utm_source=englishquest&amp;utm_medium=partner&amp;utm_campaign=pages" target="_blank" rel="noopener"><svg viewBox="0 0 305 290" width="46" height="44" aria-hidden="true"><circle cx="152" cy="24" r="18" fill="#FF8A00"/><rect x="146" y="38" width="12" height="30" fill="#13163A"/><rect x="9" y="142" width="34" height="67" rx="10" fill="#13163A"/><rect x="262" y="142" width="34" height="67" rx="10" fill="#13163A"/><rect x="32" y="63" width="240" height="219" rx="68" fill="#3D5AFE"/><rect x="64" y="105" width="177" height="125" rx="40" fill="#13163A"/><polyline points="94,142 122,167 94,192" fill="none" stroke="#3DDC97" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><line x1="146" y1="193" x2="200" y2="193" stroke="#3DDC97" stroke-width="14" stroke-linecap="round"/></svg><span class="pt-t"><b>CodeQuest: ისწავლე პროგრამირება</b><em>თამაშით, ქართულად: 19 ენა, რობოტი ბიტი და სკოლა „ისწავლე კოდინგი“</em></span><span class="pt-tag">პარტნიორი</span></a></div><div class="by">Powered by codequest</div>
-  <div class="legal"><a href="privacy">კონფიდენციალურობა</a> · <a href="terms">წესები</a> · <a href="https://codequest.space/?utm_source=englishquest&amp;utm_medium=partner&amp;utm_campaign=pages" target="_blank" rel="noopener"><span class="emo">🤝</span> პარტნიორი: CodeQuest</a></div></footer>
+  <div class="legal"><a href="privacy">კონფიდენციალურობა</a> · <a href="terms">წესები</a> · <a href="https://codequest.space/?utm_source=englishquest&amp;utm_medium=partner&amp;utm_campaign=pages" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-link"/></svg> პარტნიორი: CodeQuest</a></div></footer>
 </body>
 </html>

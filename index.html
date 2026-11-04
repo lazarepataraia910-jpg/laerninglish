@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary">
 <!-- Windows/ტელეფონის აპი: manifest + აპის ფანჯრის ზოლის ფერი (applyTheme სტილის მიხედვით ცვლის) -->
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#25262a">
+<meta name="theme-color" content="#f6f7fb">
 <!-- Google-ისა და AI ასისტენტებისთვის: რა არის ეს საიტი -->
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@graph": [
@@ -42,231 +42,269 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect x='2' y='2' width='44' height='44' rx='7' fill='%23d62828' stroke='%23111' stroke-width='3'/%3E%3Cpath d='M24 15c-4-3-9-3.5-14-2v21c5-1.5 10-1 14 2z' fill='%23fff' stroke='%23111' stroke-width='2.6' stroke-linejoin='round'/%3E%3Cpath d='M24 15c4-3 9-3.5 14-2v21c-5-1.5-10-1-14 2z' fill='%23fff' stroke='%23111' stroke-width='2.6' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <style>
-  /* „გასვლების დაფა“: ფოლადისფერი ფონი, შავი ფირფიტები (flap) თეთრი ასოებით. წითელი = შეცდომა ან მთავარი ღილაკი,
-     თეთრი (ინვერსიული) = აქტიური, ჩამქრალი = ჯერ დასაწერი. ერთი შრიფტი: ვიწრო ფირფიტებსა და წარწერებზე, ჩვეულებრივი საკითხავ ტექსტზე */
+  /* „რვეული“: წერტილოვანი ფურცელი, გელის კალმის მელანი, ფერადი მარკერები, სტიკერი და წებოვანი ლენტი.
+     წითელი = მთავარი ღილაკი და მასწავლებლის წითელი კალამი (შეცდომა), მწვანე/პიტნისფერი მარკერი = სწორი. ხატულები ერთი ხაზოვანი ნაკრებიდანაა (#i-*) */
   @font-face { font-family: "Noto Sans Georgian"; src: url(fonts/noto-sans-georgian-1.woff2) format("woff2");
                font-weight: 400 800; font-stretch: 62.5% 100%; font-display: swap; } /* SIL Open Font License */
-  /* მთავარი სტილი (paper): წითელი, შავი, თეთრი */
+  /* მთავარი სტილი (paper): თეთრი წერტილოვანი რვეული, ვარდისფერი და ყვითელი მარკერები */
   :root {
-    --ground:#25262a; --panel:#111113; --raise:#1d1e21; --rule:#323439; --edge:#6a6c73; --field:#0b0b0c;
-    --ink:#f2f2ef; --mute:#a3a4a8; --hi:#f2f2ef; --on-hi:#111113; --red:#d62828; --on-red:#fff; --red-ink:#ff6b5e;
-    --flap:#1a1a1d; --flap-ink:#f4f4f1; --flap-ghost:#8c8d91; --emo-edge:#fff; --emo-edge-a:.35; color-scheme: dark;
+    --paper:#fff; --dot:#d5dae5; --card:#fff; --line:#e3e6ee; --field:#fff; --ink:#1c2333; --mute:#5b6476;
+    --red:#e0262b; --on-red:#fff; --red-ink:#c81e24; --green:#13804f;
+    --hl:#ffc6dc; --hl2:#fff09a; --hl3:#bff0d8; --hl4:#cfe3ff; --hl5:#e5d8ff; --mark:#ff6fa4;
+    --note:#fff3a6; --note-ink:#3a3110; --tape:rgb(255 150 190 / .55); --lift:rgb(28 35 51 / .08); color-scheme: light;
   }
-  :root[data-theme="dark"] {
-    --ground:#0d0d0e; --panel:#000; --raise:#161618; --rule:#26262a; --edge:#5c5c61; --field:#060606;
-    --ink:#e8e8e5; --mute:#9b9ba0; --hi:#e8e8e5; --on-hi:#000; --flap:#141416; --flap-ghost:#85858a;
+  :root, :root[data-theme] { --wash: color-mix(in srgb, var(--ink) 5%, var(--card)); } /* ჩიპების, რაოდენობის და hover-ის ღია ფონი */
+  :root[data-theme="light"] { /* სუფთა ფურცელი: წერტილების გარეშე, ცისფერი მარკერი */
+    --paper:#fff; --dot:transparent; --hl:#cfe3ff; --hl2:#fff3b0; --mark:#4a8dff; --tape:rgb(120 170 255 / .5);
   }
-  :root[data-theme="light"] {
-    --ground:#e3e3df; --panel:#fbfbf9; --raise:#efefec; --rule:#d3d3ce; --edge:#8a8a85; --field:#fff;
-    --ink:#141415; --mute:#5a5a5e; --hi:#141415; --on-hi:#fbfbf9; --red-ink:#c11f1f; --emo-edge:#111; --emo-edge-a:.45; color-scheme: light;
+  :root[data-theme="dark"] { /* შავი რვეული და პასტელის გელის კალმები */
+    --paper:#14161c; --dot:#2a2e39; --card:#1d2029; --line:#2f3340; --field:#171a22; --ink:#eef0f6; --mute:#a3aabb;
+    --red:#e0262b; --red-ink:#ff7a7f; --green:#5fe0a3; --hl:#7a2f4f; --hl2:#6a5a17; --hl3:#1f5a43; --hl4:#28426e; --hl5:#47386e;
+    --mark:#ff8ab6; --note:#4d4419; --note-ink:#fff6cc; --tape:rgb(255 138 182 / .35); --lift:rgb(0 0 0 / .35); color-scheme: dark;
   }
-  @media (prefers-color-scheme: light) { /* „ავტო“: სისტემის ნათელ რეჟიმში ნათელი დაფა */
+  @media (prefers-color-scheme: dark) { /* „ავტო“: სისტემის მუქ რეჟიმში შავი რვეული */
     :root:not([data-theme]) {
-      --ground:#e3e3df; --panel:#fbfbf9; --raise:#efefec; --rule:#d3d3ce; --edge:#8a8a85; --field:#fff;
-      --ink:#141415; --mute:#5a5a5e; --hi:#141415; --on-hi:#fbfbf9; --red-ink:#c11f1f; --emo-edge:#111; --emo-edge-a:.45; color-scheme: light;
+      --paper:#14161c; --dot:#2a2e39; --card:#1d2029; --line:#2f3340; --field:#171a22; --ink:#eef0f6; --mute:#a3aabb;
+      --red:#e0262b; --red-ink:#ff7a7f; --green:#5fe0a3; --hl:#7a2f4f; --hl2:#6a5a17; --hl3:#1f5a43; --hl4:#28426e; --hl5:#47386e;
+      --mark:#ff8ab6; --note:#4d4419; --note-ink:#fff6cc; --tape:rgb(255 138 182 / .35); --lift:rgb(0 0 0 / .35); color-scheme: dark;
     }
   }
-  :root[data-theme="terminal"] {
-    --ground:#07130b; --panel:#020905; --raise:#0b1b10; --rule:#173b22; --edge:#2f7a3d; --field:#010502;
-    --ink:#8cf58c; --mute:#5fb85f; --hi:#8cf58c; --on-hi:#020905; --red:#c8321f; --red-ink:#ff7a5a;
-    --flap:#0a180e; --flap-ink:#a8ff9e; --flap-ghost:#4f9a56;
+  :root[data-theme="terminal"] { /* კრაფტის ქაღალდი */
+    --paper:#d8c19c; --dot:#c2a77d; --card:#fbf6ec; --line:#e4d6bd; --field:#fffdf8; --ink:#2b2117; --mute:#6a5743;
+    --hl:#ffd0a8; --hl2:#ffe58a; --hl3:#cde8b5; --hl4:#cbe0f0; --hl5:#e6d2f0; --mark:#e07a2e; --note:#fff1a0; --tape:rgb(255 255 255 / .55);
   }
-  :root[data-theme="ocean"] {
-    --ground:#16303a; --panel:#0a1b21; --raise:#10262e; --rule:#23404a; --edge:#4d7380; --field:#061318;
-    --ink:#eaf4f6; --mute:#93b5be; --hi:#eaf4f6; --on-hi:#0a1b21; --flap:#0c2128; --flap-ghost:#7f9ea6;
+  :root[data-theme="ocean"] { /* ცისფერი რვეული */
+    --paper:#eef5fc; --dot:#c6d8ea; --hl:#bfe0ff; --hl2:#c8f3f0; --hl4:#d9e6ff; --mark:#2f86e8; --note:#d6ecff; --note-ink:#0f2f52; --tape:rgb(90 160 240 / .45);
   }
-  :root[data-theme="forest"] {
-    --ground:#1c291b; --panel:#0e160d; --raise:#162115; --rule:#2b3b29; --edge:#567052; --field:#081007;
-    --ink:#eef3e8; --mute:#a3b898; --hi:#eef3e8; --on-hi:#0e160d; --flap:#121d11; --flap-ghost:#8da283;
+  :root[data-theme="forest"] { /* მწვანე რვეული */
+    --paper:#f0f7f1; --dot:#c9ddcd; --hl:#c4efcf; --hl2:#e9f5a8; --hl4:#d3eadf; --mark:#2f9e5a; --note:#e3f6c8; --note-ink:#1d3a12; --tape:rgb(110 200 140 / .45);
   }
-  :root[data-theme="rose"] {
-    --ground:#efe1e2; --panel:#fffafa; --raise:#f7ebec; --rule:#e7d2d5; --edge:#a8818a; --field:#fff;
-    --ink:#2a1418; --mute:#7a5560; --hi:#2a1418; --on-hi:#fffafa; --red:#c41f3a; --red-ink:#b01a33;
-    --flap:#2a1418; --flap-ink:#fff6f6; --flap-ghost:#b48d95; --emo-edge:#2a1418; --emo-edge-a:.45; color-scheme: light;
+  :root[data-theme="rose"] { /* ვარდისფერი რვეული */
+    --paper:#fff2f5; --dot:#f0cbd6; --line:#f3dbe2; --hl:#ffc2d6; --hl2:#ffe1ea; --hl5:#f3d4ff; --mark:#ff4f8b; --note:#ffd8e5; --note-ink:#4a1426; --tape:rgb(255 120 160 / .45);
   }
   * { box-sizing: border-box; }
-  html { background: var(--ground); scrollbar-color: var(--edge) var(--ground); }
-  body { margin: 0; min-height: 100vh; color: var(--ink); background: var(--ground); -webkit-tap-highlight-color: transparent;
-         font: 400 16px/1.5 "Noto Sans Georgian", system-ui, sans-serif; }
+  html { background: var(--paper); scrollbar-color: var(--line) var(--paper); }
+  body { margin: 0; min-height: 100vh; color: var(--ink); -webkit-tap-highlight-color: transparent;
+         background: var(--paper) radial-gradient(var(--dot) 1.1px, transparent 1.6px) 0 0 / 22px 22px;
+         font: 400 16px/1.55 "Noto Sans Georgian", system-ui, sans-serif; }
   button, input, textarea, select { font: inherit; color: inherit; }
-  ::selection { background: var(--red); color: var(--on-red); }
-  :focus-visible { outline: 2px solid var(--hi); outline-offset: 2px; }
+  ::selection { background: var(--hl); color: var(--ink); }
+  :focus-visible { outline: 2.5px solid var(--mark); outline-offset: 2px; }
   input, textarea { caret-color: var(--red); }
-  a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-  h1, h2 { font-weight: 800; font-stretch: 75%; line-height: 1.15; text-wrap: balance; }
-  h2 { margin: 0 0 6px; font-size: 22px; }
+  a { color: inherit; text-decoration-color: var(--mark); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  h1, h2 { font-weight: 800; line-height: 1.2; text-wrap: balance; }
+  /* სათაური მარკერით: ფერადი ზოლი ტექსტის ქვედა ნახევარში, მარცხნიდან გადაისმება */
+  h2 { position: relative; isolation: isolate; width: fit-content; margin: 0 0 6px; font-size: 21px; }
+  h2::after { content: ""; position: absolute; z-index: -1; left: -5px; right: -7px; bottom: .1em; height: .55em; background: var(--hl);
+              border-radius: .35em .6em .45em .25em; transform: skewX(-14deg) rotate(-1deg); transform-origin: left;
+              animation: marker .6s cubic-bezier(.3, .7, .2, 1) .1s both; }
+  @keyframes marker { from { transform: skewX(-14deg) rotate(-1deg) scaleX(0); } }
+  @keyframes swipe { from { background-size: 0 100%; } }
   p { margin: 6px 0; }
-  .app { max-width: 760px; margin: 0 auto; padding: 0 12px 32px; }
+  .app { max-width: 760px; margin: 0 auto; padding: 0 14px 32px; }
   .muted { color: var(--mute); } .sm { font-size: 14px; } .center { text-align: center; }
-  .ok { color: var(--ink); font-weight: 700; } .bad { color: var(--red-ink); }
+  .ok { color: var(--green); font-weight: 700; } .bad { color: var(--red-ink); }
   .hidden { display: none !important; }
   .row-between { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; }
   .n, .mono, table { font-variant-numeric: tabular-nums; }
-  .mono { font-weight: 700; font-stretch: 80%; }
-  /* ემოჯები: საკუთარი შრიფტით და წითელ-შავ-თეთრად (ფილტრი #rbw body-ს დასაწყისშია) */
-  .emo { font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif; font-weight: 400; filter: url(#rbw); }
-  /* პატარა წარწერები: ვიწრო, მთავრული, ფართო ინტერვალით */
-  .cap, th { font-size: 12px; font-weight: 700; font-stretch: 75%; letter-spacing: .1em; text-transform: uppercase; color: var(--mute); }
-  /* ფირფიტა: ზედა ნახევარი ოდნავ ნათელია, შუაზე თხელი ნაპრალი */
-  .chip, .flaps b, .face, .count, .dep .ic, .mod-num, .lvl .code, .avatar-big, .badge .ic, .opt .key, .timer {
-    --c: var(--flap); color: var(--flap-ink); border-radius: 3px;
-    background: linear-gradient(color-mix(in srgb, var(--c) 93%, #fff) calc(50% - .5px), rgb(0 0 0 / .55) 0 calc(50% + .5px), var(--c) 0); }
+  .mono { font-weight: 700; }
+  /* ხაზოვანი ხატულა ტექსტის ზომით: პატარა ღილაკში პატარაა, დიდ წრეში დიდი */
+  .i { width: 1.2em; height: 1.2em; flex: none; vertical-align: -.22em; fill: none; stroke: currentColor; stroke-width: 1.8;
+       stroke-linecap: round; stroke-linejoin: round; }
+  /* დარჩენილი ემოჯოები (ავატარები, მომხმარებლის დაწერილი სახელები) სტიკერებივითაა, ჩვეულებრივი ფერებით */
+  .emo { font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif; font-weight: 400; }
+  .cap, th { font-size: 13px; font-weight: 700; letter-spacing: .02em; color: var(--mute); }
 
   /* ---- ზედა ზოლი და მენიუ ---- */
-  .top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 -12px 12px; padding: 10px 12px;
-         background: var(--panel); border-bottom: 1px solid var(--rule); }
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 -14px 14px; padding: 10px 14px;
+         background: var(--card); border-bottom: 1px solid var(--line); }
   .logo { display: flex; align-items: center; gap: 10px; min-width: 0; }
-  .logo-mark { width: 38px; height: 38px; flex: none; }
-  .logo .en { display: block; font-size: 11px; font-weight: 700; font-stretch: 75%; letter-spacing: .2em; line-height: 1.3; color: var(--red-ink); }
-  .logo b { display: block; font-size: 17px; font-weight: 800; font-stretch: 75%; line-height: 1.15; white-space: nowrap; }
-  .chips { display: flex; gap: 4px; align-items: center; }
-  .chip { display: inline-flex; align-items: center; gap: 5px; height: 34px; padding: 0 9px; border: 0; white-space: nowrap;
-          font-size: 15px; font-weight: 700; font-stretch: 75%; font-variant-numeric: tabular-nums; }
+  .logo-mark { width: 40px; height: 40px; flex: none; }
+  .logo .en { display: block; font-size: 11px; font-weight: 800; letter-spacing: .16em; line-height: 1.3; color: var(--red-ink); }
+  .logo b { display: block; font-size: 17px; font-weight: 800; line-height: 1.15; white-space: nowrap; }
+  .chips { display: flex; gap: 6px; align-items: center; }
+  .chip { display: inline-flex; align-items: center; gap: 5px; height: 36px; padding: 0 11px; white-space: nowrap; border-radius: 999px;
+          background: var(--wash); border: 1px solid var(--line); font-size: 15px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  #cStreak .i { color: var(--red); } #cXp .i { color: #e5a300; } #cLvl .i { color: var(--mark); }
   .chip .nm { margin-left: 2px; }
   button.chip { cursor: pointer; }
-  button.chip:hover { --c: color-mix(in srgb, var(--flap) 82%, var(--flap-ink)); }
-  .tabs { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0 0 12px; background: var(--panel); border: 1px solid var(--rule); }
-  .tab { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 6px 8px; cursor: pointer;
-         border: 0; border-left: 1px solid var(--rule); background: none; color: var(--mute); font-size: 15px; font-weight: 700; font-stretch: 80%; }
-  .tab:first-child { border-left: 0; }
-  .tab:hover { color: var(--ink); }
-  .tab.on { background: var(--hi); color: var(--on-hi); }
+  button.chip:hover { border-color: var(--ink); }
+  .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin: 0 0 14px; padding: 4px;
+          background: var(--card); border: 1px solid var(--line); border-radius: 16px; }
+  .tab { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 6px 8px; cursor: pointer;
+         border: 0; border-radius: 12px; background: none; color: var(--mute); font-size: 15px; font-weight: 700; }
+  .tab .i { font-size: 20px; }
+  .tab:hover { color: var(--ink); background: var(--wash); }
+  .tab.on { position: relative; color: var(--red-ink); }
+  .tab.on::after { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--mark); }
   .out .tabs, .out .chips { display: none; } /* გასულ მომხმარებელს მენიუ და ქულები არ უჩანს */
 
-  /* ---- პანელები, ღილაკები, ველები ---- */
-  .box { background: var(--panel); border: 1px solid var(--rule); padding: 16px; margin: 0 0 12px; }
+  /* ---- ფურცლები, ღილაკები, ველები ---- */
+  .box { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 18px; margin: 0 0 14px;
+         box-shadow: 0 1px 2px var(--lift), 0 8px 24px -12px var(--lift); }
   .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 8px 16px; cursor: pointer;
-         font-size: 16px; font-weight: 700; font-stretch: 85%; line-height: 1.2; text-decoration: none; color: var(--ink);
-         background: var(--raise); border: 1px solid var(--edge); border-radius: 2px; transition: background-color .15s, border-color .15s, color .15s; }
+         font-size: 16px; font-weight: 700; line-height: 1.2; text-decoration: none; color: var(--ink);
+         background: var(--card); border: 1.5px solid var(--line); border-radius: 12px; transition: background-color .15s, border-color .15s, color .15s, transform .1s; }
   .btn:hover { border-color: var(--ink); }
   .btn:active { transform: translateY(1px); }
-  .btn:disabled { opacity: .5; cursor: default; transform: none; border-color: var(--edge); }
+  .btn:disabled { opacity: .55; cursor: default; transform: none; border-color: var(--line); }
   .btn.pink, .btn.red { background: var(--red); border-color: var(--red); color: var(--on-red); }
-  .btn.pink:hover, .btn.red:hover { background: color-mix(in srgb, var(--red) 85%, #000); }
-  .btn.mint, .btn.dark { background: var(--hi); border-color: var(--hi); color: var(--on-hi); }
-  .btn.mint:hover, .btn.dark:hover { background: color-mix(in srgb, var(--hi) 85%, var(--panel)); }
+  .btn.pink:hover, .btn.red:hover { background: color-mix(in srgb, var(--red) 86%, #000); border-color: color-mix(in srgb, var(--red) 86%, #000); }
+  .btn.mint, .btn.dark { background: var(--ink); border-color: var(--ink); color: var(--card); }
+  .btn.mint:hover, .btn.dark:hover { background: color-mix(in srgb, var(--ink) 82%, var(--card)); }
+  .btn.blue { background: var(--hl4); border-color: var(--hl4); }
   .btn.white { background: transparent; }
-  .btn.sm { min-height: 36px; padding: 5px 11px; font-size: 14px; }
+  .btn.sm { min-height: 38px; padding: 5px 12px; font-size: 14px; border-radius: 10px; }
   .btns { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 14px; }
   .seg { display: flex; gap: 6px; flex-wrap: wrap; }
-  input, textarea, select { width: 100%; padding: 11px 12px; font-size: 17px; background: var(--field); border: 1px solid var(--edge); border-radius: 2px; }
-  input::placeholder, textarea::placeholder { color: var(--mute); opacity: 1; }
-  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--hi); box-shadow: 0 0 0 1px var(--hi); }
-  textarea { min-height: 160px; resize: vertical; margin: 10px 0 4px; line-height: 1.5; }
-  input.good { border-color: var(--hi); box-shadow: 0 0 0 1px var(--hi); }
-  input.bad { border-color: var(--red); background: color-mix(in srgb, var(--red) 22%, var(--field)); }
+  input, textarea, select { width: 100%; padding: 11px 13px; font-size: 17px; background: var(--field); border: 1.5px solid var(--line); border-radius: 12px; }
+  input::placeholder, textarea::placeholder { color: var(--mute); opacity: .85; }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--ink); box-shadow: 0 0 0 4px var(--hl4); }
+  /* ჩასაწერი ფურცელი: რვეულის ხაზებით */
+  textarea { min-height: 170px; resize: vertical; margin: 10px 0 4px; line-height: 28px; padding-top: 6px;
+             background: var(--field) repeating-linear-gradient(transparent 0 27px, var(--line) 27px 28px) 0 5px / 100% 28px local; }
+  input.good { border-color: var(--green); background: color-mix(in srgb, var(--hl3) 55%, var(--field)); }
+  input.bad { border-color: var(--red); background: color-mix(in srgb, var(--red) 9%, var(--field)); }
   input[type="checkbox"], input[type="range"] { width: auto; accent-color: var(--red); }
   input[type="checkbox"] { width: 24px; height: 24px; }
-  .bar { height: 6px; margin: 12px 0 6px; background: var(--rule); }
-  .bar div { height: 100%; width: 0; background: var(--hi); transition: width .4s cubic-bezier(.16, 1, .3, 1); }
-  .bar.thin { height: 4px; }
+  .bar { height: 10px; margin: 12px 0 6px; background: var(--wash); border-radius: 99px; overflow: hidden; }
+  .bar div { height: 100%; width: 0; background: var(--mark); border-radius: 99px; transition: width .5s cubic-bezier(.16, 1, .3, 1); }
+  .bar.thin { height: 8px; }
   details summary { cursor: pointer; font-weight: 700; margin-top: 12px; }
   details[open] summary { margin-bottom: 8px; }
   table { width: 100%; border-collapse: collapse; }
-  th { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--edge); }
-  td { text-align: left; padding: 9px 6px; font-size: 15px; border-bottom: 1px solid var(--rule); }
+  th { text-align: left; padding: 8px 6px; border-bottom: 1.5px solid var(--line); }
+  td { text-align: left; padding: 9px 6px; font-size: 15px; border-bottom: 1px solid var(--line); }
 
-  /* ---- ფირფიტების რიგი: თითო ასო თავის უჯრაში. ასოები 30 მწ-ის დაშორებით ჩამოიშლება ---- */
-  .flaps { --n: 8; display: flex; align-items: flex-start; justify-content: center; gap: 4px; container-type: inline-size; perspective: 500px; }
-  .flaps b { flex: 0 1 calc((100% - (var(--n) - 1) * 4px) / var(--n)); max-width: 50px; aspect-ratio: 5 / 7; display: grid; place-items: center;
-             font-size: min(36px, 100cqi / var(--n) * 1.1); font-weight: 800; font-stretch: 62.5%; line-height: 1; text-transform: uppercase; }
-  .flaps b.g { color: var(--flap-ghost); }
-  .flaps b.bad { --c: var(--red); color: var(--on-red); }
-  .flaps b.on, .trace:focus-within .flaps b.cur { --c: var(--flap-ink); color: var(--flap); }
-  .flaps b.sp { background: none; }
-  .flaps b.f { animation: flap .34s cubic-bezier(.16, 1, .3, 1) calc(var(--i, 0) * 30ms) both; }
-  @keyframes flap { from { transform: rotateX(-80deg); filter: brightness(1.8); } }
+  /* ---- ასოების უჯრები (როგორც უჯრედიან რვეულში): ჯერ დასაწერი ღიაა, სწორს მარკერი გადაესმება, შეცდომას წითელი კალამი ---- */
+  .flaps { --n: 8; display: flex; align-items: flex-start; justify-content: center; gap: 5px; container-type: inline-size; }
+  .flaps b { flex: 0 1 calc((100% - (var(--n) - 1) * 5px) / var(--n)); max-width: 50px; aspect-ratio: 4 / 5; display: grid; place-items: center;
+             font-size: min(32px, 100cqi / var(--n) * 1.05); font-weight: 800; line-height: 1;
+             color: var(--ink); background: var(--field) no-repeat 0 0 / 100% 100%; border: 1.5px solid var(--line); border-radius: 9px; }
+  .flaps b.g { color: color-mix(in srgb, var(--mute) 80%, var(--card)); border-style: dashed; }
+  .flaps b.ok, .flaps b.on { color: var(--green); border-color: transparent; background-image: linear-gradient(var(--hl3) 0 0); animation: swipe .25s ease-out both; }
+  .flaps b.bad { color: var(--red-ink); border-color: var(--red); background-color: color-mix(in srgb, var(--red) 9%, var(--field));
+                 text-decoration: underline wavy var(--red) 2px; text-underline-offset: 5px; }
+  .trace:focus-within .flaps b.cur { border: 2px solid var(--ink); }
+  .flaps b.sp { background: none; border-color: transparent; }
+  .flaps b.f:not(.ok):not(.on) { animation: ink .3s ease-out calc(var(--i, 0) * 30ms) both; }
+  @keyframes ink { from { opacity: 0; transform: translateY(4px); } }
 
-  /* ---- გაკვეთილები: დაფა, გაგრძელება, სია ---- */
-  .board { padding: 14px; }
-  .board .cap { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
-  .board .flaps { justify-content: flex-start; }
-  .board .ka { margin: 10px 0 0; font-size: 20px; font-weight: 600; }
+  /* ---- გაკვეთილები: დღის ფურცელი სტიკერით, გაგრძელება, სია ---- */
+  .sheet { background: radial-gradient(var(--dot) 1px, transparent 1.5px) 11px 11px / 22px 22px var(--card); } /* ფურცელი რვეულიდან */
+  .board { padding-top: 22px; }
+  .board::before { content: ""; position: absolute; top: -9px; left: 50%; width: 92px; height: 22px; transform: translateX(-50%) rotate(-3deg);
+                   background: var(--tape) repeating-linear-gradient(45deg, rgb(255 255 255 / .25) 0 4px, transparent 4px 8px); }
+  .board .cap { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+  /* შემდეგი სიტყვა ყვითელ სტიკერზე */
+  .board .flaps { justify-content: flex-start; gap: 0; padding: 16px 14px; background: var(--note); color: var(--note-ink); border-radius: 4px 4px 14px 4px;
+                  transform: rotate(-.6deg); box-shadow: 0 6px 14px -8px var(--lift), 0 1px 2px var(--lift); }
+  .board .flaps b { flex: none; aspect-ratio: auto; height: 1.25em; background: none; border: 0; color: var(--note-ink);
+                    font-size: min(44px, 100cqi / var(--n) * 1.6); }
+  .board .flaps b:empty { width: .5em; height: 1.05em; margin-right: .12em; border-radius: 0; border-bottom: 3px solid color-mix(in srgb, var(--note-ink) 35%, var(--note)); }
+  .board .ka { margin: 14px 0 0; font-size: 20px; font-weight: 600; }
   .goal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; margin-top: 14px; font-size: 14px; color: var(--mute); }
   .goal b { color: var(--ink); }
-  .btn.go { width: 100%; min-height: 56px; margin: 0 0 12px; font-size: 19px; font-stretch: 75%; letter-spacing: .02em; }
-  .search { margin: 10px 0 2px; }
-  /* გასვლების ცხრილი: ემოჯო ფირფიტაზე | სახელი და სტატუსი | რაოდენობა. მთელი ხაზი ხსნის გაკვეთილს, ⋯ აჩენს დანარჩენ მოქმედებებს */
-  .dep-head { display: flex; justify-content: space-between; margin-top: 10px; padding: 0 52px 6px 4px; border-bottom: 1px solid var(--edge); }
-  .dep { display: grid; grid-template-columns: 1fr auto; align-items: center; border-bottom: 1px solid var(--rule); }
-  .dep-go { display: grid; grid-template-columns: 40px 1fr auto; gap: 12px; align-items: center; padding: 10px 4px; text-align: left;
-            background: none; border: 0; cursor: pointer; }
-  .dep-go:hover { background: var(--raise); }
-  .dep .ic { display: grid; place-items: center; width: 40px; height: 40px; font-size: 22px; }
-  .lname { display: block; font-size: 17px; font-weight: 800; font-stretch: 80%; overflow-wrap: anywhere; }
+  .btn.go { width: 100%; min-height: 58px; margin: 0 0 14px; font-size: 19px; border-radius: 16px; box-shadow: 0 8px 18px -10px var(--red); }
+  .btn.go .i { fill: currentColor; stroke-width: 1.4; }
+  .search { margin: 12px 0 2px; }
+  /* გაკვეთილების სია: ხატულა ფერად წრეში | სახელი და სტატუსი | რაოდენობა. ⋯ აჩენს დანარჩენ მოქმედებებს */
+  .dep-head { display: flex; justify-content: space-between; margin-top: 12px; padding: 0 56px 6px 4px; border-bottom: 1.5px solid var(--line); }
+  .dep { display: grid; grid-template-columns: 1fr auto; align-items: center; border-bottom: 1px solid var(--line); }
+  .dep:last-child { border-bottom: 0; }
+  .dep-go { display: grid; grid-template-columns: 46px 1fr auto; gap: 12px; align-items: center; padding: 10px 6px; margin: 2px 0; text-align: left;
+            background: none; border: 0; border-radius: 12px; cursor: pointer; }
+  .dep-go:hover { background: var(--wash); }
+  .dep .ic { display: grid; place-items: center; width: 46px; height: 46px; font-size: 22px; border-radius: 50%; background: var(--hl); }
+  .dep:nth-child(4n+2) .ic { background: var(--hl4); } .dep:nth-child(4n+3) .ic { background: var(--hl3); } .dep:nth-child(4n) .ic { background: var(--hl2); }
+  .lname { display: block; font-size: 17px; font-weight: 700; overflow-wrap: anywhere; }
   .meta { display: block; font-size: 13px; color: var(--mute); overflow-wrap: anywhere; }
-  .count { display: grid; place-items: center; min-width: 44px; height: 36px; padding: 0 6px; font-size: 20px; font-weight: 800; font-stretch: 62.5%; font-variant-numeric: tabular-nums; }
-  .dep.on .dep-go { background: var(--hi); color: var(--on-hi); } /* გაჩერებული = აქტიური ხაზი */
-  .dep.on .meta { color: inherit; }
-  .dep.done .lname, .dep.done .meta { color: var(--mute); } /* ჩაბარებული ყველა სიტყვით = ჩამქრალი */
-  .dep-more { margin-left: 8px; min-width: 40px; padding-inline: 8px; }
-  .lact { grid-column: 1 / -1; display: none; gap: 6px; flex-wrap: wrap; padding: 0 0 12px 56px; }
+  /* მარკერის ხაზი: რამდენი ნაწილი გაიარა (ფონის ზოლის გარეშე, დახრილი და არათანაბარი ბოლოებით) */
+  .stroke { display: block; height: 7px; margin: 7px 0 0 3px; max-width: 220px; }
+  .stroke i { display: block; height: 100%; background: var(--mark); opacity: .8; border-radius: 4px 7px 5px 3px; transform: skewX(-14deg); }
+  .count { display: grid; place-items: center; min-width: 46px; height: 32px; padding: 0 9px; font-size: 15px; font-weight: 800; font-variant-numeric: tabular-nums;
+           background: var(--wash); border-radius: 99px; }
+  .dep.on .dep-go { background: color-mix(in srgb, var(--hl2) 70%, var(--card)); } /* გაჩერებული = მარკერით მონიშნული */
+  .dep.on .meta { color: var(--ink); }
+  .dep.done .count { background: var(--hl3); } /* ყველა სიტყვა სწორად ჩააბარა */
+  .dep-more { margin-left: 6px; min-width: 40px; padding-inline: 8px; }
+  .lact { grid-column: 1 / -1; display: none; gap: 6px; flex-wrap: wrap; padding: 0 0 12px 64px; }
   .dep.open .lact { display: flex; }
   .nw { white-space: nowrap; }
-  .packs { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .packs { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
 
   /* ---- სწავლა ---- */
-  .modes { display: flex; gap: 6px; overflow-x: auto; margin: 12px 0 0; padding: 2px 2px 6px; scrollbar-width: thin; }
+  .modes { display: flex; gap: 6px; overflow-x: auto; margin: 12px 0 0; padding: 2px 2px 6px; scrollbar-width: none; }
+  .modes::-webkit-scrollbar { display: none; }
+  .modes .btn.dark, .seg .btn.dark { background: var(--hl); border-color: color-mix(in srgb, var(--hl) 70%, var(--ink)); color: var(--ink); }
   .modes .btn { flex: none; white-space: nowrap; }
   .stage { min-height: 300px; padding-top: 8px; }
-  .word { margin: 6px 0 12px; font-size: clamp(30px, 8vw, 46px); font-weight: 800; font-stretch: 75%; line-height: 1.15; overflow-wrap: anywhere; }
+  .word { margin: 6px 0 12px; font-size: clamp(30px, 8vw, 46px); font-weight: 800; line-height: 1.15; overflow-wrap: anywhere; }
   .trace { position: relative; max-width: 600px; margin: 10px auto 14px; }
   .trace input { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; opacity: 0; font-size: 16px; cursor: text; }
   .answer { display: block; max-width: 440px; margin: 8px auto; font-size: 22px; font-weight: 700; text-align: center; }
   .hint { max-width: 440px; margin: 12px auto 0; }
   .shake { animation: shake .35s; }
-  /* ბარათი: ერთი დიდი ფირფიტა, რომელიც ქვემოთ გადმოიშლება */
+  /* ბარათი: ხაზებიანი საბარათე ფურცელი წითელი ზედა ხაზით; უკანა მხარე სტიკერია */
   .flip { perspective: 1000px; width: min(100%, 420px); height: 220px; margin: 8px auto 16px; cursor: pointer; }
   .flip .in { position: relative; height: 100%; transition: transform .55s cubic-bezier(.16, 1, .3, 1); transform-style: preserve-3d; }
-  .flip.on .in { transform: rotateX(-180deg); }
+  .flip.on .in { transform: rotateY(180deg); }
   .face { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 16px;
-          text-align: center; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-  .face.back { transform: rotateX(180deg); }
+          text-align: center; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 14px; border: 1px solid var(--line);
+          background: linear-gradient(var(--red) 0 0) 0 40px / 100% 1.5px no-repeat, repeating-linear-gradient(transparent 0 31px, var(--hl4) 31px 32px) 0 40px / 100% 100% no-repeat var(--card);
+          box-shadow: 0 10px 24px -14px var(--lift); }
+  .face.back { transform: rotateY(180deg); background: var(--note); color: var(--note-ink); }
   .face .word { margin: 0; }
-  .face small { color: var(--flap-ghost); font-weight: 600; }
+  .face small { color: var(--mute); font-weight: 600; }
+  .face.back small { color: inherit; opacity: .75; }
   .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
   .opt { justify-content: flex-start; gap: 12px; min-height: 56px; text-align: left; font-size: 18px; }
-  .opt .key { flex: none; display: inline-grid; place-items: center; width: 28px; height: 32px; font-weight: 800; font-stretch: 70%; }
-  .opt.right { background: var(--hi) !important; border-color: var(--hi) !important; color: var(--on-hi) !important; }
-  .opt.wrong { background: var(--red) !important; border-color: var(--red) !important; color: var(--on-red) !important; }
-  .test .row { display: grid; grid-template-columns: 32px minmax(90px, 1fr) 2fr; gap: 6px 10px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--rule); }
+  .opt .key { flex: none; display: inline-grid; place-items: center; width: 30px; height: 30px; font-size: 14px; font-weight: 800; border-radius: 50%; background: var(--wash); }
+  .opt.right { background: var(--hl3) !important; border-color: var(--green) !important; }
+  .opt.wrong { background: color-mix(in srgb, var(--red) 12%, var(--card)) !important; border-color: var(--red) !important; color: var(--red-ink) !important; }
+  .test .row { display: grid; grid-template-columns: 32px minmax(90px, 1fr) 2fr; gap: 6px 10px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); }
   .test .fix { grid-column: 3; font-size: 14px; font-weight: 700; }
   .test .fix:empty { display: none; }
-  .timer { flex: none; padding: 7px 10px; font-weight: 700; font-stretch: 75%; font-variant-numeric: tabular-nums; }
-  .score { margin: 18px 0; padding: 18px 0; text-align: center; border-block: 1px solid var(--rule); }
+  .timer { flex: none; padding: 6px 12px; font-weight: 800; font-variant-numeric: tabular-nums; background: var(--wash); border: 1px solid var(--line); border-radius: 99px; }
+  .score { margin: 18px 0; padding: 18px 0; text-align: center; border-block: 1.5px dashed var(--line); }
   .score .flaps { margin-bottom: 12px; }
   .score .flaps b { max-width: 56px; }
 
   /* ---- სტატისტიკა, პროფილი, პარამეტრები ---- */
   .figs { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; margin: 8px 0 0; }
-  .figs div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--rule); }
-  .figs dt { color: var(--mute); }
-  .figs dd { margin: 0; font-size: 22px; font-weight: 800; font-stretch: 70%; font-variant-numeric: tabular-nums; }
-  .chart { display: flex; align-items: flex-end; gap: 6px; height: 160px; margin-top: 12px; }
+  .figs div { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .figs dt { display: flex; align-items: center; gap: 10px; color: var(--mute); }
+  .figs dt .i { box-sizing: content-box; padding: 7px; font-size: 18px; border-radius: 50%; color: var(--ink); background: var(--hl4); }
+  .figs dd { margin: 0; font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .chart { display: flex; align-items: flex-end; gap: 8px; height: 160px; margin-top: 12px; padding-bottom: 2px; border-bottom: 1.5px solid var(--line); }
   .chart .col { flex: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 4px; }
-  .chart .v { width: 100%; min-height: 2px; background: repeating-linear-gradient(to top, var(--edge) 0 8px, transparent 8px 10px); }
-  .chart .today .v { background: repeating-linear-gradient(to top, var(--hi) 0 8px, transparent 8px 10px); }
+  .chart .v { width: 100%; min-height: 3px; background: var(--hl); border-radius: 8px 8px 3px 3px; }
+  .chart .today .v { background: var(--mark); }
   .chart small { font-size: 12px; color: var(--mute); font-weight: 600; font-variant-numeric: tabular-nums; }
-  .set { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+  .set { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); }
   .set:last-child { border-bottom: none; }
-  .levels { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin-top: 14px; }
-  .lvl { flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 2px; padding: 12px; text-align: left; }
-  .lvl .code { display: grid; place-items: center; min-width: 52px; height: 44px; margin-bottom: 8px; font-size: 26px; font-weight: 800; font-stretch: 62.5%; }
+  .levels { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: 14px; }
+  .lvl { flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 2px; padding: 14px; text-align: left; border-radius: 16px; }
+  .lvl .code { display: grid; place-items: center; min-width: 54px; height: 44px; margin-bottom: 8px; font-size: 22px; font-weight: 800; border-radius: 12px; background: var(--hl); }
+  .lvl:nth-child(6n+2) .code { background: var(--hl2); } .lvl:nth-child(6n+3) .code { background: var(--hl3); }
+  .lvl:nth-child(6n+4) .code { background: var(--hl4); } .lvl:nth-child(6n+5) .code { background: var(--hl5); }
   .lvl small { font-weight: 500; }
   .prof-head { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
   .prof-info { flex: 1; min-width: 200px; }
   .prof-info h2 { font-size: 26px; }
-  .avatar-big { width: 76px; height: 76px; display: grid; place-items: center; padding: 0; border: 0; font-size: 40px; cursor: pointer; }
+  .avatar-big { width: 84px; height: 84px; display: grid; place-items: center; padding: 0; font-size: 42px; cursor: pointer;
+                border: 3px solid var(--card); border-radius: 50%; background: var(--hl); box-shadow: 0 0 0 1.5px var(--line), 0 8px 18px -10px var(--lift); }
   .avatars { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
-  .avatars .btn { min-width: 52px; padding: 4px 8px; font-size: 24px; }
+  .avatars .btn { min-width: 52px; padding: 4px 8px; font-size: 24px; border-radius: 50%; }
   .badges { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0 24px; margin-top: 8px; }
-  .badge { display: grid; grid-template-columns: 44px 1fr; column-gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--rule); }
-  .badge .ic { grid-row: span 2; display: grid; place-items: center; width: 44px; height: 44px; font-size: 24px; }
+  .badge { display: grid; grid-template-columns: 48px 1fr; column-gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .badge .ic { grid-row: span 2; display: grid; place-items: center; width: 48px; height: 48px; font-size: 24px; border-radius: 50%; background: var(--hl2); }
   .badge small { color: var(--mute); }
   .badge.locked b { color: var(--mute); }
+  .badge.locked .ic { background: var(--wash); color: var(--mute); border: 1.5px dashed var(--line); }
   .badge.locked .ic .emo { opacity: .35; }
   .prof { gap: 8px; }
-  .av { display: inline-grid; place-items: center; width: 26px; height: 26px; background: var(--red); color: var(--on-red); font-weight: 800; border-radius: 2px; }
+  .av { display: inline-grid; place-items: center; width: 26px; height: 26px; background: var(--hl); color: var(--ink); font-weight: 800; border-radius: 50%; }
   .pw { position: relative; }
   .pw input { padding-right: 52px; }
   .eye { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); display: flex; padding: 6px 8px; background: none; border: none; cursor: pointer; color: var(--mute); }
@@ -276,84 +314,151 @@
   /* პროგრამირების კურსი */
   .mod-head { display: flex; gap: 12px; align-items: center; }
   .mod-head h2 { margin: 0; }
-  .mod-num { flex: none; display: grid; place-items: center; width: 44px; height: 48px; font-size: 26px; font-weight: 800; font-stretch: 62.5%; }
+  .mod-num { flex: none; display: grid; place-items: center; width: 46px; height: 46px; font-size: 22px; font-weight: 800; border-radius: 50%; background: var(--hl4); }
   .gloss td { padding: 6px; }
-  pre.code { margin: 12px 0 0; padding: 12px 14px; overflow-x: auto; white-space: pre; background: var(--field); color: var(--ink);
-             border: 1px solid var(--rule); font: 13px/1.55 ui-monospace, Consolas, "Courier New", monospace; }
+  pre.code { margin: 12px 0 0; padding: 12px 14px; overflow-x: auto; white-space: pre; background: var(--wash); color: var(--ink);
+             border: 1px solid var(--line); border-radius: 12px; font: 13px/1.55 ui-monospace, Consolas, "Courier New", monospace; }
 
   /* ---- შესავალი (სტუმრისთვის და Google-ისთვის), ქვედა ნაწილი, შეტყობინებები ---- */
   #intro { display: none; }
   .guest #intro { display: block; }
   #intro h1 { margin: 0 0 8px; font-size: 26px; }
   #intro ul { margin: 8px 0; padding-left: 22px; }
-  #intro a { font-weight: 700; text-decoration-color: var(--red); }
+  #intro a { font-weight: 700; }
   .foot { margin-top: 28px; text-align: center; font-size: 13px; color: var(--mute); }
   .foot a { color: var(--mute); }
   .foot .install { margin-bottom: 18px; } /* ჩანს მხოლოდ მაშინ, როცა ბრაუზერი აპის დაყენებას გვთავაზობს */
   @media (display-mode: standalone) { .foot .install { display: none; } } /* უკვე აპში ვართ */
-  .foot .by { font-size: 11px; font-weight: 700; font-stretch: 75%; letter-spacing: .18em; text-transform: uppercase; }
+  .foot .by { font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
   .foot .legal { margin-top: 8px; }
   /* პარტნიორის პატარა რეკლამა (CodeQuest) */
   .pt { max-width: 520px; margin: 0 auto 18px; text-align: left; }
-  .pt-ad { position: relative; display: flex; align-items: center; gap: 14px; padding: 12px 14px; background: var(--panel); color: var(--ink);
-           text-decoration: none; border: 1px solid var(--rule); transition: border-color .15s; }
+  .pt-ad { position: relative; display: flex; align-items: center; gap: 14px; padding: 12px 14px; background: var(--card); color: var(--ink);
+           text-decoration: none; border: 1px solid var(--line); border-radius: 16px; transition: border-color .15s; }
   .pt-ad:hover { border-color: #3d5afe; }
   .pt-ad svg { flex: none; }
   .pt-t { display: grid; min-width: 0; }
   .pt-t b { font-size: 17px; line-height: 1.25; }
   .pt-t em { font-style: normal; font-size: 13px; line-height: 1.4; color: var(--mute); }
-  .pt-tag { position: absolute; top: -9px; right: 10px; padding: 1px 7px; background: var(--hi); color: var(--on-hi); font-size: 11px; font-weight: 800; border-radius: 2px; }
+  .pt-tag { position: absolute; top: -10px; right: 12px; padding: 1px 8px; background: var(--hl2); color: var(--ink); font-size: 11px; font-weight: 800; border-radius: 99px; }
   #toasts { position: fixed; left: 50%; bottom: 20px; z-index: 50; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center;
-            gap: 6px; width: max-content; max-width: calc(100% - 24px); pointer-events: none; perspective: 500px; }
-  .toast { padding: 9px 14px; background: var(--flap); color: var(--flap-ink); font-weight: 700; font-size: 15px; text-align: center;
-           border: 1px solid var(--edge); border-radius: 3px; animation: flap .34s cubic-bezier(.16, 1, .3, 1) both; }
+            gap: 6px; width: max-content; max-width: calc(100% - 24px); pointer-events: none; }
+  .toast { padding: 10px 16px; background: var(--ink); color: var(--card); font-weight: 700; font-size: 15px; text-align: center;
+           border-radius: 14px; box-shadow: 0 10px 24px -10px rgb(0 0 0 / .4); animation: pop .3s cubic-bezier(.16, 1, .3, 1) both; }
+  @keyframes pop { from { opacity: 0; transform: translateY(10px) scale(.96); } }
   @keyframes shake { 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
 
   /* ---- ტელეფონი: მენიუ ქვემოთ, ქულები მოკლედ ---- */
   @media (max-width: 640px) {
-    .tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; margin: 0; border-width: 1px 0 0; padding-bottom: env(safe-area-inset-bottom); }
-    .tab { flex-direction: column; gap: 2px; min-height: 60px; padding: 6px 2px; font-size: 11px; }
-    .tab .emo { font-size: 20px; }
+    .tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; margin: 0; gap: 0; padding: 4px 4px env(safe-area-inset-bottom);
+            border-width: 1px 0 0; border-radius: 0; box-shadow: 0 -6px 18px -12px var(--lift); }
+    .tab { flex-direction: column; gap: 3px; min-height: 60px; padding: 6px 2px; font-size: 11px; background: none !important; }
+    .tab .i { font-size: 22px; box-sizing: content-box; padding: 3px 14px; border-radius: 99px; }
+    .tab.on .i { background: color-mix(in srgb, var(--hl) 60%, transparent); }
+    .tab.on::after { position: absolute; top: 6px; right: calc(50% - 26px); }
     body:not(.out) .app { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
-    body:not(.out) #toasts { bottom: calc(76px + env(safe-area-inset-bottom)); }
+    body:not(.out) #toasts { bottom: calc(80px + env(safe-area-inset-bottom)); }
   }
   @media (max-width: 520px) {
     body:not(.out) .logo div, .chip .nm { display: none; }
+    .chip { padding: 0 9px; }
     .opts, .figs { grid-template-columns: 1fr; }
     .test .row { grid-template-columns: 26px 1fr; }
     .test .row input, .test .fix { grid-column: 1 / -1; }
-    h2 { font-size: 20px; }
+    h2 { font-size: 19px; }
+    .box { padding: 16px 14px; }
+    .dep-go { grid-template-columns: 40px 1fr auto; gap: 10px; padding-inline: 2px; }
+    .dep .ic { width: 40px; height: 40px; font-size: 19px; }
+    .count { min-width: 40px; padding: 0 7px; font-size: 14px; }
+    .dep-more { margin-left: 4px; min-width: 36px; padding-inline: 4px; }
+    .dep-head { padding-right: 48px; }
+    .lact { padding-left: 52px; }
   }
   @media (min-width: 641px) {
-    .board .flaps b, .trace .flaps b { max-width: 64px; font-size: min(46px, 100cqi / var(--n) * 1.1); }
+    .flaps b { max-width: 60px; font-size: min(40px, 100cqi / var(--n) * 1.05); }
+    .board .flaps b { font-size: min(58px, 100cqi / var(--n) * 1.6); }
   }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
 <body>
-<!-- ემოჯების ფილტრი: ნაცრისფერი → კონტრასტის გაზრდა → რბილი გრადიენტი
-     შავი → მუქი წითელი → წითელი → ღია წითელი → თეთრი (რბილი გადასვლები ინარჩუნებს დეტალებს პატარა ზომაზეც),
-     და ძალიან თხელი, ნახევრად გამჭვირვალე კონტური: მუქ სტილებში ღია, ნათელში მუქი (--emo-edge), რომ ემოჯო ფონზე არ გაქრეს -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <filter id="rbw" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
-    <feColorMatrix in="SourceGraphic" type="matrix" result="gray"
-      values="0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0 0 0 1 0"/>
-    <feComponentTransfer in="gray" result="gray">
-      <feFuncR type="linear" slope="1.3" intercept="-0.15"/>
-      <feFuncG type="linear" slope="1.3" intercept="-0.15"/>
-      <feFuncB type="linear" slope="1.3" intercept="-0.15"/>
-    </feComponentTransfer>
-    <feComponentTransfer in="gray" result="tone">
-      <feFuncR type="table" tableValues="0.067 0.541 0.839 0.949 1"/>
-      <feFuncG type="table" tableValues="0.067 0.078 0.157 0.639 1"/>
-      <feFuncB type="table" tableValues="0.067 0.078 0.157 0.639 1"/>
-    </feComponentTransfer>
-    <feMorphology in="SourceAlpha" operator="dilate" radius="0.45" result="fat"/>
-    <feFlood style="flood-color: var(--emo-edge); flood-opacity: var(--emo-edge-a)"/>
-    <feComposite in2="fat" operator="in" result="outline"/>
-    <feMerge><feMergeNode in="outline"/><feMergeNode in="tone"/></feMerge>
-  </filter>
-</svg>
+<!-- ხაზოვანი ხატულები (24×24, ხაზის სისქე CSS-შია .i). ემოჯოები ტექსტში ავტომატურად ამათით იცვლება, იხ. ICONS -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="5.5"/><circle cx="12" cy="12" r="1.5"/></symbol>
+  <symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></symbol>
+  <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="4" y="4.5" width="16" height="11" rx="2"/><path d="M2 19.5h20"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5zM6 12v5c3 3 9 3 12 0v-5M22 10v6"/></symbol>
+  <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="m8 12.5 2.8 2.8L16 9.5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="8.5" y="2.5" width="7" height="4" rx="1"/><path d="M8.5 4.5H6a1.5 1.5 0 0 0-1.5 1.5v14A1.5 1.5 0 0 0 6 21.5h12a1.5 1.5 0 0 0 1.5-1.5V6A1.5 1.5 0 0 0 18 4.5h-2.5M8.5 13.5l2.5 2.5 4.5-4.5"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H7a5 5 0 1 1 1.4-9.8A6 6 0 0 1 20 11.5a3.8 3.8 0 0 1-2.5 7.5z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4.5 19V5.5a3 3 0 0 1 3-3h12v15h-12a3 3 0 0 0-3 3 1.5 1.5 0 0 0 1.5 1.5h13.5M9 7h6"/></symbol>
+  <symbol id="i-book-open" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2zM22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="12.5" height="12.5" rx="2"/><path d="M15.5 8.5V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8.5a2 2 0 0 0 2 2h3.5"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M16.5 3.5a2.6 2.6 0 0 1 3.7 3.7L7.5 20 2.5 21.5 4 16.5zM14.5 5.5l4 4"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8.5 6V4h7v2M18.5 6l-1 14.5h-11L5.5 6M10 10.5v6M14 10.5v6"/></symbol>
+  <symbol id="i-cards" viewBox="0 0 24 24"><rect x="3" y="6.5" width="13" height="15" rx="2"/><path d="M7.5 3h11A2.5 2.5 0 0 1 21 5.5v12"/></symbol>
+  <symbol id="i-headphones" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1-2.1-.2-4 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3 0 1.4.5 2.5 1.5 3.5z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="7.5" r="3.5"/><path d="M2.5 20.5v-1a5.5 5.5 0 0 1 11 0v1M16 4.2a3.5 3.5 0 0 1 0 6.6M21.5 20.5v-1a5.5 5.5 0 0 0-3.5-5.1"/></symbol>
+  <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M11 3l1.8 5.2L18 10l-5.2 1.8L11 17l-1.8-5.2L4 10l5.2-1.8zM18.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8zM18 3v4M16 5h4"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 3.5 14h8l-1 8L20 10h-8z"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 21h8M12 16.5V21M7 3.5h10v5.5a5 5 0 0 1-10 0zM7 5.5H4.5a3 3 0 0 0 3 4.5M17 5.5h2.5a3 3 0 0 1-3 4.5"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18M8 17v-4M13 17V7M18 17v-7"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="M22 7l-8.5 8.5-5-5L2 17M16 7h6v6"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></symbol>
+  <symbol id="i-keyboard" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M6 9h.01M10 9h.01M14 9h.01M18 9h.01M6 12.5h.01M18 12.5h.01M8 15.5h8"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 7 22l5-3 5 3-1.5-8"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15.5 6.2L3 15.5M3 12a9 9 0 0 1 15.5-6.2L21 8.5M21 3.5v5h-5M3 20.5v-5h5"/></symbol>
+  <symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="8"/><path d="M12 9.5v4l2.5 2M9.5 2.5h5"/></symbol>
+  <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 21.5a9.5 9.5 0 1 1 9.5-9.5c0 2.8-1.9 4-4 4h-2.2a1.8 1.8 0 0 0-1.3 3.1A1.5 1.5 0 0 1 12 21.5z"/><path d="M7.5 11h.01M10 7h.01M14.5 7h.01M17 11h.01"/></symbol>
+  <symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="m21.5 6.5-9.5 7-9.5-7"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M5 3h11l5 5v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM7.5 3v5h8M7.5 21v-7h9v7"/></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M12 14l-3.5-3.5M3.3 19a10 10 0 1 1 17.4 0"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 21V9M7 14l5-5 5 5M5 3h14"/></symbol>
+  <symbol id="i-x-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M15 9l-6 6M9 9l6 6"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 16.5v-5M12 8h.01"/></symbol>
+  <symbol id="i-paw" viewBox="0 0 24 24"><circle cx="5" cy="10" r="2"/><circle cx="9" cy="5" r="2"/><circle cx="15" cy="5" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12 12c-3 0-6 4-6 7 0 2 2 2 3 2s2-1 3-1 2 1 3 1 3 0 3-2c0-3-3-7-6-7z"/></symbol>
+  <symbol id="i-hash" viewBox="0 0 24 24"><path d="M4 9h16M4 15h16M10 3 8 21M16 3l-2 18"/></symbol>
+  <symbol id="i-apple" viewBox="0 0 24 24"><path d="M12 7c-1.5-1-3-1.4-4.5-1C4.5 6.8 3.3 10 4 14c.8 4 3.5 7 5.5 7 1 0 1.5-.5 2.5-.5s1.5.5 2.5.5c2 0 4.7-3 5.5-7 .7-4-.5-7.2-3.5-8-1.5-.4-3 0-4.5 1zM12 7c0-2.5 1-4 3-4.5"/></symbol>
+  <symbol id="i-activity" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></symbol>
+  <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1zM12 15l-3-3a22 22 0 0 1 2-4A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22.4 22.4 0 0 1-4 2zM9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/></symbol>
+  <symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M4 7.5h4a2.2 2.2 0 1 1 4.4 0H16v4a2.2 2.2 0 1 1 0 4.4V20H4z"/></symbol>
+  <symbol id="i-package" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5zM3 8l9 5 9-5M12 13v8M7.5 5.5l9 5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
+  <symbol id="i-shuffle" viewBox="0 0 24 24"><path d="M2 18h3.5a4 4 0 0 0 3.3-1.7l6.4-8.6A4 4 0 0 1 18.5 6H22M2 6h3.5a4 4 0 0 1 3 1.4M22 18h-3.5a4 4 0 0 1-3-1.4M18 2l4 4-4 4M18 14l4 4-4 4"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><path d="M3 21.5h18M6 18v-7M10 18v-7M14 18v-7M18 18v-7M12 2.5l9 5H3z"/></symbol>
+  <symbol id="i-bug" viewBox="0 0 24 24"><rect x="7.5" y="6.5" width="9" height="14" rx="4.5"/><path d="M12 20.5v-9M7.5 11H3.5M20.5 11h-4M7.5 15.5H3M21 15.5h-4.5M9.5 6.5 8 3.5M14.5 6.5 16 3.5"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5a14.5 14.5 0 0 1 0 19M12 2.5a14.5 14.5 0 0 0 0 19"/></symbol>
+  <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8.5" ry="3"/><path d="M3.5 5v14c0 1.7 3.8 3 8.5 3s8.5-1.3 8.5-3V5M3.5 12c0 1.7 3.8 3 8.5 3s8.5-1.3 8.5-3"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10zM2 21c0-3 1.9-5.4 5.1-6"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21.5h4M12 2.5a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2.5z"/></symbol>
+  <symbol id="i-thumbs" viewBox="0 0 24 24"><path d="M7 10v11M15 5.9 14 10h5.8a2 2 0 0 1 2 2.3l-1.4 7a2 2 0 0 1-2 1.7H7V10l4-8a3 3 0 0 1 4 3.9zM3 10h4v11H3z"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></symbol>
+  <symbol id="i-contrast" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 2.5v19a9.5 9.5 0 0 0 0-19z" fill="currentColor"/></symbol>
+  <symbol id="i-notebook" viewBox="0 0 24 24"><rect x="5" y="2.5" width="15" height="19" rx="2"/><path d="M2.5 7h4M2.5 12h4M2.5 17h4M10 7.5h6M10 11h4"/></symbol>
+  <symbol id="i-wave" viewBox="0 0 24 24"><path d="M2 7c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2M2 13c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2M2 19c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></symbol>
+  <symbol id="i-kraft" viewBox="0 0 24 24"><path d="M6 2.5h9l4 4v15H6zM15 2.5v4h4M9 12h7M9 16h7"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1.5 1.5 0 0 1-1.5 1.5h-5v-6h-5v6h-5A1.5 1.5 0 0 1 3 20z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><path d="M6 12h.01M12 12h.01M18 12h.01" stroke-width="3"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></symbol>
+</defs></svg>
 <div class="app">
   <header class="top">
     <div class="logo">
@@ -367,7 +472,7 @@
       </svg>
       <div><span class="en">LEARN ENGLISH</span><b>ისწავლე ინგლისური</b></div>
     </div>
-    <!-- სერია, XP, დონე და პროფილი პატარა ფირფიტებზე (გასვლა პროფილის გვერდზეა) -->
+    <!-- სერია, XP, დონე და პროფილი პატარა ბარათებზე (გასვლა პროფილის გვერდზეა) -->
     <div class="chips"><span class="chip" id="cStreak" title="სერია: რამდენი დღე ზედიზედ სწავლობ"></span><span class="chip" id="cXp" title="XP ქულები"></span>
       <button class="chip" id="cLvl" onclick="viewLevels()" title="ინგლისურის დონის არჩევა"></button>
       <button class="chip" id="cUser" onclick="viewProfile()" title="პროფილი" aria-label="პროფილი"></button></div>
@@ -403,9 +508,27 @@
 <input type="file" id="importFile" accept=".json,application/json" hidden>
 
 <script>
-// ემოჯები ოდნავ ჩამქრალი ფერით (.emo), რომ გვერდი ზედმეტად ჭრელი არ იყოს. ფერის სიძლიერე CSS-შია (.emo)
-// ▶ გამონაკლისია: ღილაკებზე უბრალო თეთრი სამკუთხედია და არა ემოჯო
-const EMO_RE = /(?!▶)\p{Extended_Pictographic}(?:️|‍\p{Extended_Pictographic})*️?/gu;
+// ემოჯოები ტექსტში ხაზოვან ხატულებად იცვლება (#i-* body-ს დასაწყისშია). რომელსაც ხატულა არ აქვს (ავატარები,
+// მომხმარებლის დაწერილი სახელები), სტიკერივით რჩება (.emo)
+const EMO_RE = /\p{Extended_Pictographic}(?:️|‍\p{Extended_Pictographic})*️?/gu;
+const ICONS = { '🎯': 'target', '🔊': 'volume', '💻': 'laptop', '🎓': 'cap', '✅': 'check-circle', '✔': 'check', '📝': 'clipboard',
+  '☁': 'cloud', '▶': 'play', '⏸': 'pause', '📚': 'book', '📘': 'book', '📗': 'book', '📖': 'book-open', '📒': 'notebook', '✍': 'copy',
+  '🧠': 'pencil', '✏': 'pencil', '⚠': 'alert', '🗑': 'trash', '🃏': 'cards', '🎧': 'headphones', '⭐': 'star', '🌟': 'star', '🔥': 'flame',
+  '👤': 'user', '👨‍👩‍👧': 'users', '✨': 'sparkles', '🎉': 'sparkles', '💪': 'zap', '🏆': 'trophy', '🏅': 'award', '📊': 'chart',
+  '📈': 'trend', '⚙': 'sliders', '🛠': 'wrench', '⌨': 'keyboard', '🔐': 'lock', '🔄': 'refresh', '🔁': 'refresh', '⏱': 'timer',
+  '🎨': 'palette', '👋': 'smile', '🙂': 'smile', '👏': 'thumbs', '📧': 'mail', '💾': 'save', '🐢': 'gauge', '⬇': 'download',
+  '⬆': 'upload', '❌': 'x-circle', 'ℹ': 'info', '🤝': 'link', '🌗': 'contrast', '☀': 'sun', '🌙': 'moon', '🧾': 'kraft', '🌊': 'wave',
+  '🌲': 'leaf', '🌿': 'leaf', '🌱': 'leaf', '🌸': 'heart', '🐶': 'paw', '🔢': 'hash', '🧮': 'hash', '🍎': 'apple', '🏃': 'activity',
+  '🚀': 'rocket', '🧩': 'puzzle', '📦': 'package', '➕': 'plus', '🔀': 'shuffle', '🏛': 'building', '🐞': 'bug', '🌐': 'globe',
+  '🗄': 'database', '👁': 'eye', '💡': 'bulb', '🚪': 'logout', '🏠': 'home', '✖': 'x', '⬅': 'arrow-left', '➡': 'arrow-right' };
+function emoNode(e) {
+  const id = ICONS[e.replace(/\uFE0F/g, '')];
+  if (!id) return Object.assign(document.createElement('span'), { className: 'emo', textContent: e });
+  const ns = 'http://www.w3.org/2000/svg', svg = document.createElementNS(ns, 'svg'), use = document.createElementNS(ns, 'use');
+  svg.setAttribute('class', 'i'); svg.setAttribute('aria-hidden', 'true'); use.setAttribute('href', '#i-' + id);
+  svg.append(use);
+  return svg;
+}
 function softenEmoji(root) {
   if (!root || root.nodeType !== 1 || /^(SCRIPT|STYLE|TEXTAREA|OPTION|TITLE)$/.test(root.nodeName)) return;
   const walk = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), found = [];
@@ -419,9 +542,7 @@ function softenEmoji(root) {
     let last = 0;
     EMO_RE.lastIndex = 0; // test()-მა ძებნის პოზიცია გადაწია; თუ არ განვაახლებთ, matchAll პირველ ემოჯოს ვერ იპოვის და ციკლი გაუთავებელი იქნება
     for (const m of s.matchAll(EMO_RE)) {
-      const span = document.createElement('span');
-      span.className = 'emo'; span.textContent = m[0];
-      frag.append(s.slice(last, m.index), span);
+      frag.append(s.slice(last, m.index), emoNode(m[0]));
       last = m.index + m[0].length;
     }
     frag.append(s.slice(last));
@@ -443,8 +564,8 @@ function setHash(h) { try { history.replaceState(null, '', h || location.pathnam
 const SUPABASE_CONFIG = { url: 'https://eonfodcsszzptuwmldpd.supabase.co', anonKey: 'sb_publishable_ILYAA_cXUzE0ekRD6XUxNg_E_Dg2NEm' };
 let cloud = null, cloudTimer = null, googleOn = false;
 const OLD_KEY = 'english-lessons';
-const THEMES = [['paper', '🚉 დაფა'], ['auto', '🌗 ავტო'], ['light', '☀️ დღე'], ['dark', '🌙 ღამე'],
-                ['terminal', '📟 ტერმინალი'], ['ocean', '🌊 ზღვა'], ['forest', '🌲 ტყე'], ['rose', '🌸 ვარდი']];
+const THEMES = [['paper', '📒 რვეული'], ['auto', '🌗 ავტო'], ['light', '☀️ სუფთა'], ['dark', '🌙 შავი'],
+                ['terminal', '🧾 კრაფტი'], ['ocean', '🌊 ცისფერი'], ['forest', '🌿 მწვანე'], ['rose', '🌸 ვარდისფერი']];
 const $ = id => document.getElementById(id);
 const M = $('main');
 const norm = s => String(s).trim().toLowerCase().replace(/\s+/g, ' ');
@@ -734,7 +855,7 @@ function viewCloudLogin() {
       }
       return;
     }
-    if (password !== $('aPass2').value) return msg('✘ პაროლები არ ემთხვევა');
+    if (password !== $('aPass2').value) return msg('✖️ პაროლები არ ემთხვევა');
     const { data, error } = await cloud.auth.signUp({ email, password,
       options: { data: { name: $('aName').value.trim() }, emailRedirectTo: here() } });
     if (error) return msg(authError(error));
@@ -786,7 +907,7 @@ function authError(e) {
     [/failed to fetch|network/i, 'ინტერნეტთან კავშირი არ არის ან SUPABASE_CONFIG-ის url არასწორია'],
     [/for security purposes/i, 'ცოტა დაიცადე და მერე სცადე თავიდან']
   ];
-  return '✘ ' + (m.find(([r]) => r.test(t))?.[1] || 'შეცდომა: ' + t);
+  return '✖️ ' + (m.find(([r]) => r.test(t))?.[1] || 'შეცდომა: ' + t);
 }
 
 async function deleteCloudAccount() {
@@ -867,17 +988,17 @@ function pickProfile(k) {
 async function login() {
   const p = profiles.find(x => norm(x.name) === norm($('lName').value));
   const pass = $('lPass').value;
-  if (!p) return loginMsg('✘ ასეთი მომხმარებელი არ არსებობს');
-  if (p.pin && await hashPin(p.id, pass) !== p.pin) { $('lPass').select(); return loginMsg('✘ პაროლი არასწორია'); }
+  if (!p) return loginMsg('✖️ ასეთი მომხმარებელი არ არსებობს');
+  if (p.pin && await hashPin(p.id, pass) !== p.pin) { $('lPass').select(); return loginMsg('✖️ პაროლი არასწორია'); }
   enter(p);
 }
 
 async function createProfile() {
   const name = $('lName').value.trim(), pass = $('lPass').value;
   if (!name) return loginMsg('✍️ ჩაწერე მომხმარებლის სახელი');
-  if (profiles.some(p => norm(p.name) === norm(name))) return loginMsg('✘ ეს სახელი უკვე დაკავებულია');
-  if (pass.length < 6) return loginMsg('✘ პაროლი მინიმუმ 6 სიმბოლო უნდა იყოს');
-  if (pass !== $('lPass2').value) return loginMsg('✘ პაროლები არ ემთხვევა');
+  if (profiles.some(p => norm(p.name) === norm(name))) return loginMsg('✖️ ეს სახელი უკვე დაკავებულია');
+  if (pass.length < 6) return loginMsg('✖️ პაროლი მინიმუმ 6 სიმბოლო უნდა იყოს');
+  if (pass !== $('lPass2').value) return loginMsg('✖️ პაროლები არ ემთხვევა');
   const p = { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), name };
   p.pin = await hashPin(p.id, pass);
   // პირველი პროფილი იღებს ძველ (პროფილებამდელ) გაკვეთილებს, რომ არაფერი დაიკარგოს
@@ -932,7 +1053,7 @@ function renderTop() {
   $('cXp').textContent = `⭐ ${S.stats.xp}`;
   $('cLvl').textContent = `🎓 ${S.profile.cefr || 'დონე'}`;
 }
-const fig = (v, label) => `<div><dt>${label}</dt><dd>${v}</dd></div>`; // ციფრების დაფის ერთი ხაზი
+const fig = (v, label) => `<div><dt>${label}</dt><dd>${v}</dd></div>`; // ციფრების სიის ერთი ხაზი
 const masteredCount = () => Object.values(S.words).filter(r => r.right >= 3 && r.right > r.wrong * 2).length;
 
 // ---------- ხმა, შეტყობინებები, კონფეტი, თემა ----------
@@ -953,7 +1074,7 @@ function toast(text) {
   setTimeout(() => d.remove(), 1900);
 }
 
-// ფირფიტების რიგი (.flaps): თითო ასო თავის უჯრაში; CSS-ში ასოები 30 მწ-ის დაშორებით ჩამოიშლება
+// ასოების რიგი (.flaps): თითო ასო თავის უჯრაში; CSS-ში ასოები 30 მწ-ის დაშორებით ჩნდება
 function flaps(el, chars, cls = '') {
   el.style.setProperty('--n', chars.length);
   el.innerHTML = chars.map((c, k) => `<b class="f ${cls}${c === ' ' ? ' sp' : ''}" style="--i:${k}">${esc(c)}</b>`).join('');
@@ -963,7 +1084,7 @@ function applyTheme() {
   if (S.settings.theme === 'auto') delete document.documentElement.dataset.theme;
   else document.documentElement.dataset.theme = S.settings.theme;
   // დაყენებული აპის ფანჯრის ზოლი გვერდის ფონის ფერისაა
-  document.querySelector('meta[name="theme-color"]').content = getComputedStyle(document.documentElement).getPropertyValue('--ground').trim();
+  document.querySelector('meta[name="theme-color"]').content = getComputedStyle(document.documentElement).getPropertyValue('--paper').trim();
 }
 
 // ---------- ნავიგაცია ----------
@@ -1016,17 +1137,17 @@ function viewLessons() {
   const hide = up && ['write', 'test', 'dict'].includes(up.mode);
   M.innerHTML = `
     <section class="box board">
-      <div class="cap"><span>${up ? `${esc(up.l.name)} · ${MODES.find(m => m[0] === up.mode)[1]}` : 'დღის დაფა'}</span>
+      <div class="cap"><span>${up ? `${esc(up.l.name)} · ${MODES.find(m => m[0] === up.mode)[1]}` : 'დღის ფურცელი'}</span>
         <span class="n">${up ? (up.l.progress ? up.l.progress.pct + '%' : up.l.words.length + ' სიტყვა') : ''}</span></div>
       <div class="flaps" id="nextFlaps" aria-hidden="true"></div>
       <p class="ka">${up ? esc(up.w.ka || '🔊 მოუსმინე') : 'გამარჯობა! შექმენი გაკვეთილი ან აირჩიე მზა'}</p>
       <div class="goal"><span>🎯 დღის მიზანი</span><span class="n"><b>${S.stats.todayXp}</b> / ${g} XP</span></div>
       <div class="bar thin"><div style="width:${Math.min(100, S.stats.todayXp / g * 100)}%"></div></div>
     </section>
-    <button class="btn pink go" id="go">${up ? (up.l.progress ? '▶ გაგრძელება' : '▶ დაწყება') : '＋ ახალი გაკვეთილი'}</button>
+    <button class="btn pink go" id="go">${up ? (up.l.progress ? '▶ გაგრძელება' : '▶ დაწყება') : '➕ ახალი გაკვეთილი'}</button>
 
     <section class="box ${formOpen ? '' : 'hidden'}" id="form">
-      <h2>${editing === null ? '＋ ახალი გაკვეთილი' : '✏️ გაკვეთილის რედაქტირება'}</h2>
+      <h2>${editing === null ? '➕ ახალი გაკვეთილი' : '✏️ გაკვეთილის რედაქტირება'}</h2>
       <input id="lessonName" placeholder="სახელი (მაგ. ცხოველები)">
       <textarea id="lessonWords" placeholder="თითო ხაზზე ერთი სიტყვა:&#10;apple - ვაშლი&#10;dog - ძაღლი&#10;house - სახლი"></textarea>
       <p class="muted sm" id="wordCount"></p>
@@ -1034,10 +1155,10 @@ function viewLessons() {
       <button class="btn white" onclick="closeForm()">გაუქმება</button>
     </section>
 
-    <section class="box">
+    <section class="box sheet">
       <div class="row-between">
         <h2>📚 ჩემი გაკვეთილები</h2>
-        <button class="btn sm" onclick="openForm(null)">＋ ახალი</button>
+        <button class="btn sm" onclick="openForm(null)">➕ ახალი</button>
       </div>
       ${S.lessons.length > 6 || query ? `<input class="search" id="search" placeholder="ძიება: სახელი ან სიტყვა" aria-label="გაკვეთილების ძიება" value="${esc(query)}">` : ''}
       <div class="dep-head cap"><span>გაკვეთილი</span><span>სიტყვა</span></div>
@@ -1048,7 +1169,7 @@ function viewLessons() {
     <section class="box row-between">
       <div><h2>💪 რთული სიტყვები: ${hard.length}</h2>
         <p class="muted sm">${hard.slice(0, 6).map(r => esc(r.en)).join(' · ')}${hard.length > 6 ? ' …' : ''}</p></div>
-      <button class="btn white" onclick="startHard()">ივარჯიშე →</button>
+      <button class="btn white" onclick="startHard()">ივარჯიშე ➡️</button>
     </section>` : ''}
 
     <section class="box">
@@ -1082,6 +1203,7 @@ function renderGrid() {
     EMO_RE.lastIndex = 0;
     const m = EMO_RE.exec(l.name), ic = m && m.index === 0 ? m[0] : '📘', name = m && m.index === 0 ? l.name.slice(m[0].length).trim() : l.name;
     const done = l.best === l.words.length && !l.progress;
+    const pct = l.progress ? l.progress.pct : l.best ? Math.round(l.best / l.words.length * 100) : 0;
     return `
     <div class="dep${l.progress ? ' on' : ''}${done ? ' done' : ''}">
       <button class="dep-go" onclick="start(${n})" aria-label="${l.progress ? 'გაგრძელება' : 'დაწყება'}: ${esc(l.name)}">
@@ -1089,11 +1211,12 @@ function renderGrid() {
         <span><span class="lname">${esc(name)}</span>
           <span class="meta">${l.progress
             ? `⏸ ${MODES.find(m => m[0] === l.progress.mode)[1]} · ${l.progress.pct}%${l.progress.retry ? ' · შეცდომები' : ''}`
-            : `${done ? '✔ ჩაბარებულია · ' : ''}${l.words.slice(0, 4).map(w => esc(w.en)).join(' · ')}${l.words.length > 4 ? ' …' : ''}`}</span></span>
+            : `${done ? '✔ ჩაბარებულია · ' : ''}${l.words.slice(0, 4).map(w => esc(w.en)).join(' · ')}${l.words.length > 4 ? ' …' : ''}`}</span>
+          ${pct ? `<span class="stroke" aria-hidden="true"><i style="width:${pct}%"></i></span>` : ""}</span>
         <span class="count" title="${l.best != null ? 'საუკეთესო ტესტი / სიტყვა' : 'სიტყვა'}">${l.best != null ? l.best + '/' : ''}${l.words.length}</span>
       </button>
       <button class="btn white sm dep-more" aria-expanded="false" aria-label="მეტი მოქმედება"
-        onclick="const d = this.parentElement; this.setAttribute('aria-expanded', d.classList.toggle('open'))">⋯</button>
+        onclick="const d = this.parentElement; this.setAttribute('aria-expanded', d.classList.toggle('open'))"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg></button>
       <div class="lact">
         ${l.progress ? `<button class="btn white sm" onclick="restart(${n})">↺ თავიდან</button>` : ''}
         <button class="btn white sm" onclick="start(${n}, 'test')">📝 ტესტი</button>
@@ -1174,7 +1297,7 @@ function go(mode, st) {
   M.innerHTML = `
     <section class="box">
       <div class="row-between">
-        <button class="btn white sm" onclick="viewLessons()">← უკან</button>
+        <button class="btn white sm" onclick="viewLessons()">⬅️ უკან</button>
         <b>${esc(cur.name)}${retry ? ' · მხოლოდ შეცდომები' : ''}</b>
         <span class="muted sm">${words.length} სიტყვა</span>
       </div>
@@ -1196,7 +1319,7 @@ function shake(el) { el.classList.remove('shake'); void el.offsetWidth; el.class
 
 function done(title, sub, next) {
   setBody(`<div class="center"><div class="word">${title}</div><p class="muted">${sub}</p>
-    <div class="btns"><button class="btn mint" id="next">${MODES.find(m => m[0] === next)[1]} →</button></div></div>`, 1);
+    <div class="btns"><button class="btn mint" id="next">${MODES.find(m => m[0] === next)[1]} ➡️</button></div></div>`, 1);
   $('next').onclick = () => go(next);
   $('next').focus();
   snapshot = () => [next, null, 0]; // დაბრუნებისას შემდეგი ნაბიჯიდან გაგრძელდება
@@ -1222,7 +1345,7 @@ function cards(st) {
       </div></div>
       <div class="btns">
         <button class="btn white" id="say">🔊</button>
-        <button class="btn red" id="no">✘ არ ვიცი</button>
+        <button class="btn red" id="no">✖️ არ ვიცი</button>
         <button class="btn mint" id="yes">✔ ვიცი</button>
       </div>
       <p class="muted sm center">⌨️ Space — გადაბრუნება · ← არ ვიცი · → ვიცი</p>`, known / total);
@@ -1253,7 +1376,7 @@ function copy(st) {
   persist();
   const t = words[i].en;
   setBody(`
-    <p class="muted center">გადაწერე სიტყვა ფირფიტებიდან <span class="nw">· ${i + 1} / ${words.length}</span></p>
+    <p class="muted center">გადაწერე სიტყვა უჯრებიდან <span class="nw">· ${i + 1} / ${words.length}</span></p>
     <div class="center">
       <div class="word">${esc(words[i].ka)}</div>
       <div class="trace"><div class="flaps" id="letters" aria-hidden="true"></div><input id="ans" ${NOFILL} aria-label="გადაწერე: ${esc(t)}"></div>
@@ -1262,8 +1385,8 @@ function copy(st) {
     </div>`, i / words.length);
   const inp = $('ans'), row = $('letters'), shown = [];
   let finished = false;
-  // ყოველი ასო თავის ფირფიტაზე: ჯერ დასაწერი ჩამქრალია, სწორი თეთრდება, შეცდომა წითლდება, შემდეგი ინვერსიულია.
-  // მხოლოდ შეცვლილი ფირფიტა გადაბრუნდება (პირველად ყველა, რიგრიგობით)
+  // ყოველი ასო თავის უჯრაში: ჯერ დასაწერი ღიაა, სწორს მარკერი გადაესმება, შეცდომა წითლდება, შემდეგს ჩარჩო აქვს.
+  // მხოლოდ შეცვლილი უჯრა ანიმირდება (პირველად ყველა, რიგრიგობით)
   const draw = first => {
     const v = inp.value, n = Math.max(t.length, v.length);
     row.style.setProperty('--n', n);
@@ -1343,7 +1466,7 @@ function write(st) {
       if (!wrong) { wrong = true; mistakes++; record(w, false); queue.push(queue[pos]); persist(); }
       inp.className = 'answer bad';
       shake(inp);
-      msg.innerHTML = `<b class="bad">✘ არასწორია. სწორია: ${esc(w.en)}</b><br><span class="muted sm">დაწერე სწორად და გააგრძელე</span>` +
+      msg.innerHTML = `<b class="bad">✖️ არასწორია. სწორია: ${esc(w.en)}</b><br><span class="muted sm">დაწერე სწორად და გააგრძელე</span>` +
         (isGeo(inp.value) ? `<br><span class="bad sm">${KBD}</span>` : '');
       inp.select();
     };
@@ -1404,7 +1527,7 @@ function test(st) {
       inp.readOnly = true;
       const fix = inp.nextElementSibling;
       fix.className = 'fix ' + (right ? 'ok' : 'bad');
-      fix.innerHTML = right ? '✔ სწორია' : `✘ სწორია: <b>${esc(w.en)}</b>`;
+      fix.innerHTML = right ? '✔ სწორია' : `✖️ სწორია: <b>${esc(w.en)}</b>`;
       if (!right) wrongs.push(w);
     });
     const ok = words.length - wrongs.length, pct = Math.round(ok / words.length * 100);
@@ -1420,7 +1543,7 @@ function test(st) {
         <button class="btn white" id="again">თავიდან</button>
         <button class="btn white" onclick="viewLessons()">გაკვეთილები</button>
       </div>`;
-    flaps($('scoreFlaps'), [...`${ok}/${words.length}`], wrongs.length ? '' : 'on'); // ყველა სწორია: ფირფიტები თეთრდება
+    flaps($('scoreFlaps'), [...`${ok}/${words.length}`], wrongs.length ? '' : 'on'); // ყველა სწორია: უჯრებს მარკერი გადაესმება
     $('result').scrollIntoView({ behavior: 'smooth', block: 'center' });
     if (wrongs.length) $('retryWrong').onclick = () => { words = wrongs; retry = true; go('copy'); };
     $('again').onclick = () => { words = cur.words.slice(); retry = false; go('copy'); };
@@ -1484,10 +1607,10 @@ function dict(st) {
         <div class="btns"><button class="btn blue" id="play">🔊 მოსმენა</button><button class="btn white" id="slow">🐢 ნელა</button></div>
         <input id="ans" class="answer" ${NOFILL} placeholder="დაწერე რაც გაიგე">
         <p id="msg"></p>
-        <div class="btns"><button class="btn" id="check">შემოწმება</button><button class="btn white" id="skip">გამოტოვება →</button></div>
+        <div class="btns"><button class="btn" id="check">შემოწმება</button><button class="btn white" id="skip">გამოტოვება ➡️</button></div>
       </div>`, i / q.length);
     const inp = $('ans'), msg = $('msg');
-    const reveal = () => `<b class="bad">✘ სწორია: ${esc(w.en)}</b>${w.ka ? ` <span class="muted">(${esc(w.ka)})</span>` : ''}`;
+    const reveal = () => `<b class="bad">✖️ სწორია: ${esc(w.en)}</b>${w.ka ? ` <span class="muted">(${esc(w.ka)})</span>` : ''}`;
     const check = () => {
       if (locked) return;
       if (!inp.value.trim()) return inp.focus();
@@ -1708,7 +1831,7 @@ async function renameMe(name) {
     const { error } = await cloud.auth.updateUser({ data: { name } });
     if (error) return authError(error);
   } else {
-    if (profiles.some(p => p.id !== me.id && norm(p.name) === norm(name))) return '✘ ეს სახელი უკვე დაკავებულია';
+    if (profiles.some(p => p.id !== me.id && norm(p.name) === norm(name))) return '✖️ ეს სახელი უკვე დაკავებულია';
     const p = profiles.find(x => x.id === me.id);
     if (p) { p.name = name; saveProfiles(); }
   }
@@ -1761,9 +1884,9 @@ function viewStats() {
     </section>
 
     <section class="box">
-      <div class="row-between"><h2>💪 რთული სიტყვები</h2>${hard.length ? '<button class="btn pink sm" onclick="startHard()">ივარჯიშე →</button>' : ''}</div>
+      <div class="row-between"><h2>💪 რთული სიტყვები</h2>${hard.length ? '<button class="btn pink sm" onclick="startHard()">ივარჯიშე ➡️</button>' : ''}</div>
       ${hard.length ? `<table>${hard.map(r => `<tr><td><b>${esc(r.en)}</b></td><td>${esc(r.ka)}</td>
-        <td class="bad">✘ ${r.wrong}</td><td class="ok">✔ ${r.right}</td></tr>`).join('')}</table>`
+        <td class="bad">✖️ ${r.wrong}</td><td class="ok">✔ ${r.right}</td></tr>`).join('')}</table>`
         : '<p class="muted">რთული სიტყვები არ გაქვს 🎉</p>'}
     </section>
 
@@ -1803,7 +1926,7 @@ function viewSettings() {
 
     <section class="box row-between">
       <div><h2>👤 ანგარიში</h2><p class="muted sm">ავატარი, სახელი, დონე, მიღწევები და ანგარიშის წაშლა</p></div>
-      <button class="btn white" onclick="viewProfile()">პროფილის გახსნა →</button>
+      <button class="btn white" onclick="viewProfile()">პროფილის გახსნა ➡️</button>
     </section>
 
     <section class="box">
