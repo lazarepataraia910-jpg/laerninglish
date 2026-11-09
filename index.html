@@ -266,9 +266,31 @@
   .test .fix { grid-column: 3; font-size: 14px; font-weight: 700; }
   .test .fix:empty { display: none; }
   .timer { flex: none; padding: 6px 12px; font-weight: 800; font-variant-numeric: tabular-nums; background: var(--wash); border: 1px solid var(--line); border-radius: 99px; }
-  .score { margin: 18px 0; padding: 18px 0; text-align: center; border-block: 1.5px dashed var(--line); }
-  .score .flaps { margin-bottom: 12px; }
-  .score .flaps b { max-width: 56px; }
+  /* ჩაბარების შედეგი: მასწავლებლის გასწორებული ფურცელი. ქულა წითლად შემოიხაზება, სწორს მწვანე მარკერი, შეცდომას წითელი ხაზი და სწორი სიტყვა გვერდით */
+  .mark { position: relative; display: grid; grid-template-columns: auto 1fr; gap: 4px 18px; align-items: center; margin: 2px 0 14px; padding-bottom: 16px;
+          border-bottom: 1.5px dashed var(--line); }
+  .mark-score { position: relative; display: grid; place-items: center; width: 118px; height: 80px; color: var(--red-ink); font-size: 22px; font-weight: 800;
+                font-variant-numeric: tabular-nums; transform: rotate(-4deg); }
+  .mark-score b { font-size: 42px; line-height: 1; }
+  .mark-score svg { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke: var(--red); stroke-width: 3; stroke-linecap: round;
+                    stroke-dasharray: 300; animation: ring .7s cubic-bezier(.3, .7, .2, 1) .15s both; }
+  @keyframes ring { from { stroke-dashoffset: 300; } }
+  .mark-note { margin: 0; font-size: 18px; font-weight: 700; line-height: 1.4; color: var(--red-ink); transform: rotate(-1deg); }
+  .mark.perfect .mark-note { color: var(--green); }
+  .mark:focus { outline: none; } /* ფოკუსი მხოლოდ ეკრანის წამკითხველისთვისაა */
+  .mark .btns { grid-column: 1 / -1; justify-content: flex-start; margin-top: 8px; }
+  .sticker { position: absolute; top: -10px; right: 0; display: grid; place-items: center; width: 64px; height: 64px; font-size: 30px; color: var(--ink);
+             border-radius: 50%; background: var(--hl2); border: 3px solid var(--card); box-shadow: 0 8px 16px -8px var(--lift); transform: rotate(12deg);
+             animation: stick .45s cubic-bezier(.2, 1.4, .4, 1) .6s both; }
+  .sticker .i { fill: currentColor; color: var(--red); }
+  .mark.perfect .mark-note { padding-right: 64px; } /* სტიკერს ადგილი */
+  @keyframes stick { from { opacity: 0; transform: rotate(-20deg) scale(.3); } }
+  .test.marked input { border-color: transparent; box-shadow: none; padding-inline: 4px; font-weight: 700; }
+  .test.marked input.good { color: var(--green); background: linear-gradient(transparent 18%, var(--hl3) 0 86%, transparent 0) no-repeat 0 0 / 100% 100%;
+                            animation: swipe .35s ease-out calc(var(--k, 0) * 40ms) both; }
+  .test.marked input.bad { color: var(--red-ink); background: none; text-decoration: line-through 2px var(--red); }
+  .test.marked input.bad::placeholder { color: var(--red-ink); text-decoration: none; opacity: .7; }
+  .test.marked .fix.bad b { font-size: 17px; }
 
   /* ---- სტატისტიკა, პროფილი, პარამეტრები ---- */
   .figs { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; margin: 8px 0 0; }
@@ -373,6 +395,10 @@
     .dep-more { margin-left: 4px; min-width: 36px; padding-inline: 4px; }
     .dep-head { padding-right: 48px; }
     .lact { padding-left: 52px; }
+    .mark { gap: 4px 12px; }
+    .mark-score { width: 100px; height: 70px; }
+    .mark-score b { font-size: 36px; }
+    .mark-note { font-size: 15px; }
   }
   @media (min-width: 641px) {
     .flaps b { max-width: 60px; font-size: min(40px, 100cqi / var(--n) * 1.05); }
@@ -1496,12 +1522,11 @@ function test(st) {
       <div class="row">
         <span class="mono muted">${k + 1}.</span>
         <span>${words[n].ka ? esc(words[n].ka) : `<button class="btn white sm" data-say="${n}">🔊 მოსმენა</button>`}</span>
-        <input data-n="${n}" ${NOFILL}>
+        <input data-n="${n}" style="--k:${k}" ${NOFILL}>
         <span class="fix"></span>
       </div>`).join('')}
     </div>
-    <div class="btns"><button class="btn mint" id="submit">✅ ჩაბარება</button></div>
-    <div id="result"></div>`, 0);
+    <div class="btns"><button class="btn mint" id="submit">✅ ჩაბარება</button></div>`, 0);
   timer = setInterval(() => { secs++; $('timer') && ($('timer').textContent = '⏱ ' + fmt(secs)); }, 1000);
   const inputs = [...document.querySelectorAll('.test input')];
   const filled = () => inputs.filter(x => x.value.trim()).length / inputs.length;
@@ -1525,6 +1550,7 @@ function test(st) {
       record(w, right);
       inp.className = right ? 'good' : 'bad';
       inp.readOnly = true;
+      if (!inp.value.trim()) inp.placeholder = 'ცარიელი';
       const fix = inp.nextElementSibling;
       fix.className = 'fix ' + (right ? 'ok' : 'bad');
       fix.innerHTML = right ? '✔ სწორია' : `✖️ სწორია: <b>${esc(w.en)}</b>`;
@@ -1534,17 +1560,29 @@ function test(st) {
     if (!retry && !cur.virtual && (cur.best == null || ok > cur.best)) cur.best = ok;
     S.stats.history = [...S.stats.history, { d: dayStr(), name: cur.name, ok, total: words.length, secs }].slice(-50);
     addXP(ok * 3 + (wrongs.length ? 0 : 10));
-    const grade = pct === 100 ? '🏆 შესანიშნავია!' : pct >= 80 ? '👏 ძალიან კარგი!' : pct >= 50 ? '🙂 არაუშავს, გაიმეორე' : '📚 კიდევ ივარჯიშე';
+    // შედეგი როგორც მასწავლებლის გასწორებული ფურცელი: წითლად შემოხაზული ქულა და კეთილი შენიშვნა ზემოთ, წამზომი აღარ ჩანს
+    const knew = ok ? `${ok} სიტყვა უკვე იცი. ` : '';
+    const note = pct === 100 ? 'შესანიშნავია! ყველა სიტყვა სწორია.'
+      : pct >= 80 ? `ძალიან კარგი! ${knew}სულ ცოტა დაგრჩა.`
+      : pct >= 50 ? `კარგი ნაბიჯია. ${knew}შეცდომები გაიმეორე და ისევ ჩააბარე.`
+      : `არაუშავს, ასე ვსწავლობთ. ${knew}გაიმეორე შეცდომები და მერე ისევ სცადე.`;
     $('submit').parentElement.remove();
-    $('result').innerHTML = `
-      <div class="score"><div class="flaps" id="scoreFlaps" role="img" aria-label="${ok} / ${words.length}"></div><div>${pct}% · ${grade} · ⏱ ${fmt(secs)}</div></div>
-      <div class="btns">
-        ${wrongs.length ? '<button class="btn pink" id="retryWrong">🔁 გაიმეორე შეცდომები</button>' : ''}
-        <button class="btn white" id="again">თავიდან</button>
-        <button class="btn white" onclick="viewLessons()">გაკვეთილები</button>
-      </div>`;
-    flaps($('scoreFlaps'), [...`${ok}/${words.length}`], wrongs.length ? '' : 'on'); // ყველა სწორია: უჯრებს მარკერი გადაესმება
-    $('result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    $('timer').parentElement.remove();
+    document.querySelector('.test').classList.add('marked');
+    document.querySelector('.test').insertAdjacentHTML('beforebegin', `
+      <section class="mark${wrongs.length ? '' : ' perfect'}" id="result" tabindex="-1">
+        <div class="mark-score" role="img" aria-label="ქულა: ${ok} / ${words.length}"><svg viewBox="0 0 120 80" aria-hidden="true"><path pathLength="300" d="M64 7C94 8 116 21 115 40s-25 34-56 34S5 61 5 40 30 6 70 9"/></svg>
+          <span><b>${ok}</b>/${words.length}</span></div>
+        <p class="mark-note">${note}</p>
+        ${wrongs.length ? '' : '<span class="sticker" aria-hidden="true">⭐</span>'}
+        <div class="btns">
+          ${wrongs.length ? '<button class="btn pink" id="retryWrong">🔁 გაიმეორე შეცდომები</button>' : ''}
+          <button class="btn white" id="again">თავიდან</button>
+          <button class="btn white" onclick="viewLessons()">გაკვეთილები</button>
+        </div>
+      </section>`);
+    $('result').focus({ preventScroll: true });
+    $('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
     if (wrongs.length) $('retryWrong').onclick = () => { words = wrongs; retry = true; go('copy'); };
     $('again').onclick = () => { words = cur.words.slice(); retry = false; go('copy'); };
   };
