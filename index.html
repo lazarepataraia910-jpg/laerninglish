@@ -238,6 +238,9 @@
   .modes::-webkit-scrollbar { display: none; }
   .modes .btn.dark, .seg .btn.dark { background: var(--hl); border-color: color-mix(in srgb, var(--hl) 70%, var(--ink)); color: var(--ink); }
   .modes .btn { flex: none; white-space: nowrap; }
+  .modes { flex-wrap: wrap; }
+  .modes:not(.all) .x { display: none; }
+  .modes.all .more { display: none; }
   .stage { min-height: 300px; padding-top: 8px; }
   .word { margin: 6px 0 12px; font-size: clamp(30px, 8vw, 46px); font-weight: 800; line-height: 1.15; overflow-wrap: anywhere; }
   .trace { position: relative; max-width: 600px; margin: 10px auto 14px; }
@@ -347,6 +350,8 @@
   #intro h1 { margin: 0 0 8px; font-size: 26px; }
   #intro ul { margin: 8px 0; padding-left: 22px; }
   #intro a { font-weight: 700; }
+  .study .foot { display: none; }
+  @media (hover: none) { .keys { display: none; } }
   .foot { margin-top: 28px; text-align: center; font-size: 13px; color: var(--mute); }
   .foot a { color: var(--mute); }
   .foot .install { margin-bottom: 18px; } /* ჩანს მხოლოდ მაშინ, როცა ბრაუზერი აპის დაყენებას გვთავაზობს */
@@ -379,6 +384,7 @@
     .tab.on .i { background: color-mix(in srgb, var(--hl) 60%, transparent); }
     .tab.on::after { position: absolute; top: 6px; right: calc(50% - 26px); }
     body:not(.out) .app { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
+    .send { position: sticky; bottom: calc(76px + env(safe-area-inset-bottom)); z-index: 5; }
     body:not(.out) #toasts { bottom: calc(80px + env(safe-area-inset-bottom)); }
   }
   @media (max-width: 520px) {
@@ -601,7 +607,7 @@ const isGeo = s => /[Ⴀ-ჿ]/.test(s);
 const num = (v, d = 0) => (typeof v === 'number' && isFinite(v) ? v : d);
 const str = v => (typeof v === 'string' ? v : '');
 const fmt = s => Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
-const KBD = '⌨️ კლავიატურა ქართულზეა — გადართე ინგლისურზე (Alt+Shift ან Win+Space)';
+const KBD = '⌨️ კლავიატურა ქართულზეა — გადართე ინგლისურზე ' + (matchMedia('(hover: none)').matches ? '(🌐 ღილაკით)' : '(Alt+Shift ან Win+Space)');
 const NOFILL = 'autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"';
 // " - ", " – ", " = ", " : " ან "-" რომელსაც ქართული ასო მოსდევს (ice-cream - ნაყინი სწორად იყოფა)
 const SEP = /\s+[-–—=:]\s+|\s*[-–—=:]\s*(?=[Ⴀ-ჿ])/;
@@ -1116,6 +1122,7 @@ function applyTheme() {
 // ---------- ნავიგაცია ----------
 let timer = null, keyHandler = null;
 function setNav(v) {
+  document.body.classList.remove('study');
   if (persist() && v) toast('💾 პროგრესი შენახულია');
   if (v !== 'course' && location.hash === '#course') setHash('');
   snapshot = null;
@@ -1318,8 +1325,10 @@ function startHard() {
   words = cur.words.slice(); retry = false; go('write');
 }
 
+const STEPS = ['copy', 'write', 'test'];
 function go(mode, st) {
   setNav(null);
+  document.body.classList.add('study');
   M.innerHTML = `
     <section class="box">
       <div class="row-between">
@@ -1327,7 +1336,9 @@ function go(mode, st) {
         <b>${esc(cur.name)}${retry ? ' · მხოლოდ შეცდომები' : ''}</b>
         <span class="muted sm">${words.length} სიტყვა</span>
       </div>
-      <div class="modes">${MODES.map(([m, l]) => `<button class="btn sm ${m === mode ? 'dark' : 'white'}" onclick="go('${m}')">${l}</button>`).join('')}</div>
+      <div class="modes${STEPS.includes(mode) ? '' : ' all'}">${[...MODES].sort(([a], [b]) => !STEPS.includes(a) - !STEPS.includes(b)).map(([m, l]) =>
+        `<button class="btn sm ${m === mode ? 'dark' : 'white'}${STEPS.includes(m) ? '' : ' x'}" ${m === mode ? 'aria-current="step" ' : ''}onclick="go('${m}')">${l}</button>`).join('')}
+        <button class="btn sm white more" aria-expanded="${!STEPS.includes(mode)}" onclick="this.setAttribute('aria-expanded', this.parentNode.classList.toggle('all'))"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg> სხვა</button></div>
       <div class="bar"><div id="barFill"></div></div>
       <div class="stage" id="stage"></div>
     </section>`;
@@ -1374,7 +1385,7 @@ function cards(st) {
         <button class="btn red" id="no">✖️ არ ვიცი</button>
         <button class="btn mint" id="yes">✔ ვიცი</button>
       </div>
-      <p class="muted sm center">⌨️ Space — გადაბრუნება · ← არ ვიცი · → ვიცი</p>`, known / total);
+      <p class="muted sm center keys">⌨️ Space — გადაბრუნება · ← არ ვიცი · → ვიცი</p>`, known / total);
     const answer = ok => {
       if (ok) { known++; addXP(1, true); }
       else { q.push(q[i]); if (!missed.has(q[i])) { missed.add(q[i]); record(w, false); } }
@@ -1466,7 +1477,7 @@ function write(st) {
       <p class="muted center">დაწერე ინგლისურად <span class="nw">· ${pos + 1} / ${queue.length}</span></p>
       <div class="center">
         <div class="word">${w.ka ? esc(w.ka) : '🔊 მოუსმინე და დაწერე'}</div>
-        <input id="ans" class="answer" ${NOFILL} placeholder="დაწერე და დააჭირე Enter">
+        <input id="ans" class="answer" enterkeyhint="done" ${NOFILL} placeholder="დაწერე ინგლისურად">
         <div class="flaps hint" id="hint" role="img"></div>
         <p id="msg"></p>
         <div class="btns">
@@ -1522,11 +1533,11 @@ function test(st) {
       <div class="row">
         <span class="mono muted">${k + 1}.</span>
         <span>${words[n].ka ? esc(words[n].ka) : `<button class="btn white sm" data-say="${n}">🔊 მოსმენა</button>`}</span>
-        <input data-n="${n}" style="--k:${k}" ${NOFILL}>
+        <input data-n="${n}" style="--k:${k}" enterkeyhint="${k < order.length - 1 ? 'next' : 'done'}" ${NOFILL}>
         <span class="fix"></span>
       </div>`).join('')}
     </div>
-    <div class="btns"><button class="btn mint" id="submit">✅ ჩაბარება</button></div>`, 0);
+    <div class="btns send"><button class="btn mint" id="submit">✅ ჩაბარება</button></div>`, 0);
   timer = setInterval(() => { secs++; $('timer') && ($('timer').textContent = '⏱ ' + fmt(secs)); }, 1000);
   const inputs = [...document.querySelectorAll('.test input')];
   const filled = () => inputs.filter(x => x.value.trim()).length / inputs.length;
@@ -1643,7 +1654,7 @@ function dict(st) {
       <p class="muted center">მოუსმინე და დაწერე <span class="nw">· ${i + 1} / ${q.length}</span></p>
       <div class="center">
         <div class="btns"><button class="btn blue" id="play">🔊 მოსმენა</button><button class="btn white" id="slow">🐢 ნელა</button></div>
-        <input id="ans" class="answer" ${NOFILL} placeholder="დაწერე რაც გაიგე">
+        <input id="ans" class="answer" enterkeyhint="done" ${NOFILL} placeholder="დაწერე რაც გაიგე">
         <p id="msg"></p>
         <div class="btns"><button class="btn" id="check">შემოწმება</button><button class="btn white" id="skip">გამოტოვება ➡️</button></div>
       </div>`, i / q.length);
